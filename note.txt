@@ -1,0 +1,3 @@
+To bundle the library for publication:
+
+https://vitejs.dev/guide/build.html#library-mode
