@@ -1,8 +1,19 @@
-import './style.css'
+import { Access } from "./access"
 
-const app = document.querySelector<HTMLDivElement>('#app')!
+async function main() {
+	const access = new Access();
+	const result = await access.query(
+		`query {
+			kanji {
+				_id
+				frequency
+				jlpt
+				literal
+				radical_names
+			}
+		}`
+	);
+	console.log(result);
+}
 
-app.innerHTML = `
-  <h1>Hello Vite!</h1>
-  <a href="https://vitejs.dev/guide/features.html" target="_blank">Documentation</a>
-`
+main()
