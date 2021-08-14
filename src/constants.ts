@@ -1,2 +1,0 @@
-export const ACCESS_TOKEN_ENDPOINT = "https://us-west-2.aws.realm.mongodb.com/api/client/v2.0/app/kanjidic0-owwgh/auth/providers/anon-user/login"
-export const API_ENDPOINT =          "https://us-west-2.aws.realm.mongodb.com/api/client/v2.0/app/kanjidic0-owwgh/graphql"
