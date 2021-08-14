@@ -1,11 +1,11 @@
-export abstract class KanjidicError<E> extends Error {
-	readonly reason: E
+export abstract class KanjidicError<R> extends Error {
+	readonly reason: R
+	readonly context: Error | undefined
 
-	constructor(reason: E) {
-		super(undefined)
+	constructor(reason: R, message?: string, context?: Error) {
+		super(message)
+		this.context = context
 		this.reason = reason
-		const message = this.reasonToMessage(reason)
-		this.message = message
 		this.name = this.constructor.name
 		switch (typeof (Error as any).captureStackTrace) {
 			case "function": {
@@ -16,6 +16,4 @@ export abstract class KanjidicError<E> extends Error {
 			}
 		}
 	}
-	
-	protected abstract reasonToMessage(reason: E): string;
 }
