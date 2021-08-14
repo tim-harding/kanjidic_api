@@ -1,41 +1,22 @@
-import { KanjidicError } from "./kanjidic_error"
-
-export type Result<T, E extends Error> = Result_Ok<T> | Result_Err<T, E>
-
-type ResultErrorReason = "unwrapNull"
-
-export class ResultError extends KanjidicError<ResultErrorReason> { }
-
-export class Result_Ok<T> {
-	kind: "Ok" = "Ok"
+export interface Result_Ok<T> {
+	kind: "Ok"
 	value: T
-
-	constructor(value: T) {
-		this.value = value
-	}
-
-	unwrap(): T {
-		return this.value
-	}
-	
-	isOk(): boolean {
-		return true
-	}
 }
 
-export class Result_Err<T, E extends Error> {
-	kind: "Err" = "Err"
-	error: E
+export interface Result_Err {
+	kind: "Err"
+	error: Error
+}
 
-	constructor(value: E) {
-		this.error = value
-	}
+export type Result<T> = Result_Ok<T> | Result_Err
 
-	unwrap(): T {
-		throw new ResultError("unwrapNull")
-	}
-	
-	isOk(): boolean {
-		return false
+export function unwrap<T>(result: Result<T>): T {
+	switch (result.kind) {
+		case "Ok": {
+			return result.value
+		}
+		case "Err": {
+			throw new Error("Unwrapped null")
+		}
 	}
 }

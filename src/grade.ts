@@ -5,24 +5,19 @@ export type Grade = Grade_Kyouiku |
 	Grade_Jinmeiyou |
 	Grade_JinmeiyouJouyouVariant
 
-export class Grade_Kyouiku {
-	kind: "Kyouiku" = "Kyouiku"
-	// Todo: Enforce 1-6 range
+export interface Grade_Kyouiku {
+	kind: "Kyouiku"
 	grade: Uint
-
-	constructor(grade: Uint) {
-		this.grade = grade
-	}
 }
 
-export class Grade_Jouyou {
-	kind: "Jouyou" = "Jouyou"
+export interface Grade_Jouyou {
+	kind: "Jouyou"
 }
 
-export class Grade_Jinmeiyou {
-	kind: "Jinmeiyou" = "Jinmeiyou"
+export interface Grade_Jinmeiyou {
+	kind: "Jinmeiyou"
 }
 
-export class Grade_JinmeiyouJouyouVariant {
-	kind: "JinmeiyouJouyouVariant" = "JinmeiyouJouyouVariant"
+export interface Grade_JinmeiyouJouyouVariant {
+	kind: "JinmeiyouJouyouVariant"
 }

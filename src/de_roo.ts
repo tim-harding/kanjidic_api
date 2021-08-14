@@ -1,18 +1,11 @@
-import { KanjidicError } from "./kanjidic_error"
-
-export class DeRoo {
-	readonly top: ExtremeTop
-	readonly bottom: ExtremeBottom
-	
-	constructor(top: ExtremeTop, bottom: ExtremeBottom) {
-		this.top = top
-		this.bottom = bottom
-	}
+export interface DeRoo {
+    readonly top: ExtremeTop
+    readonly bottom: ExtremeBottom
 }
 
-type DeRooErrorReason = "outOfRange" | "uint"
-
-export class DeRooError extends KanjidicError<DeRooErrorReason> { }
+export function stringify(deroo: DeRoo): string {
+    return `${deroo.top}${deroo.bottom}`
+}
 
 const enum ExtremeTop {
     // Dot
