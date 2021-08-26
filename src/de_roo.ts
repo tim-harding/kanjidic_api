@@ -1,9 +1,19 @@
+/**
+ * The classification of a kanji in the De Roo system. See
+ * http://www.edrdg.org/wwwjdic/deroo.html
+ * for more information.
+ */
 export interface DeRoo {
     readonly top: ExtremeTop
     readonly bottom: ExtremeBottom
 }
 
-export function stringify(deroo: DeRoo): string {
+/**
+ * Converts a De Roo code to a string. 
+ * @param deroo The De Roo code
+ * @returns The string
+ */
+export function serialize(deroo: DeRoo): string {
     return `${deroo.top}${deroo.bottom}`
 }
 
