@@ -4,8 +4,15 @@
  * for more information.
  */
 export interface DeRoo {
-    readonly top: ExtremeTop
-    readonly bottom: ExtremeBottom
+    /**
+     * The graphic element at the top left of a kanji.
+     */
+    top: ExtremeTop
+
+    /**
+     * The graphic element at the bottom right of a kanji.
+     */
+    bottom: ExtremeBottom
 }
 
 /**
@@ -17,6 +24,9 @@ export function serialize(deroo: DeRoo): string {
     return `${deroo.top}${deroo.bottom}`
 }
 
+/**
+ * The graphic element at the top left of a kanji.
+ */
 const enum ExtremeTop {
     // Dot
     Dot = 3,
@@ -64,6 +74,9 @@ const enum ExtremeTop {
     EyeTop,
 }
 
+/**
+ * The graphic element at the bottom right of a kanji.
+ */
 const enum ExtremeBottom {
     // Dot
     FourDots = 40,

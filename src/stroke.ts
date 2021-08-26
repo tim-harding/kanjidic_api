@@ -1,22 +1,37 @@
+/**
+ * A stroke in the Four Corner kanji classification system.
+ */
 export const enum Stroke {
-	/// 亠
 	Lid,
-	/// 一
 	LineHorizontal,
-	/// ｜
 	LineVertical,
-	/// 丶
 	Dot,
-	/// 十
 	Cross,
-	/// キ
 	Skewer,
-	/// 口
 	Box,
-	/// 厂
 	Angle,
-	/// 八
 	Hachi,
-	/// 小
 	Chiisai,
 }
+
+/**
+ * Gets a character representing a stroke's shape. 
+ * @param stroke The stroke
+ * @returns The string for the shape
+ */
+export function serialize(stroke: Stroke): string {
+	return MAPPING[stroke as number] as string
+}
+
+const MAPPING = [
+	"亠",
+	"一",
+	"｜",
+	"丶",
+	"十",
+	"キ",
+	"口",
+	"厂",
+	"八",
+	"小",
+]
