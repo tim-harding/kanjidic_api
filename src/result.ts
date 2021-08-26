@@ -34,7 +34,21 @@ export function unwrap<T>(result: Result<T>): T {
 			return result.value
 		}
 		case "Err": {
-			throw new Error("Unwrapped null")
+			throw new Error("Unwrapped Result_Err")
 		}
+	}
+}
+
+export function ok<T>(value: T): Result<T> {
+	return {
+		kind: "Ok",
+		value,
+	}
+}
+
+export function err<T>(message: string): Result<T> {
+	return {
+		kind: "Err",
+		error: new Error(message),
 	}
 }

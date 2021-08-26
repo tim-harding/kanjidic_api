@@ -1,4 +1,4 @@
-import { Result } from "./result";
+import { err, ok, Result } from "./result";
 
 /**
  * A positive integer number. 
@@ -20,20 +20,11 @@ export class Uint {
 	 */
 	static new(value: number): Result<Uint> {
 		if (value < 0) {
-			return {
-				kind: "Err",
-				error: new Error("Value is negative")
-			}
+			return err("Value is negative")
 		}
 		if (!Number.isInteger(value)) {
-			return {
-				kind: "Err",
-				error: new Error("Value is not an integer")
-			}
+			return err("Value is not an integer")
 		}
-		return {
-			kind: "Ok",
-			value: new Uint(value),
-		}
+		return ok(new Uint(value))
 	}
 }
