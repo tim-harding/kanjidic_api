@@ -52,3 +52,7 @@ export function err<T>(message: string): Result<T> {
 		error: new Error(message),
 	}
 }
+
+export function isOk<T>(result: Result<T>): boolean {
+	return result.kind === "Ok"
+}
