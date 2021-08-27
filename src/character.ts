@@ -49,6 +49,7 @@
 
 import { Codepoint } from "./codepoint";
 import { Grade } from "./grade";
+import { QueryCode } from "./query_code";
 import { Radical } from "./radical";
 import { Reference } from "./reference";
 import { StrokeCount } from "./stroke_count";
@@ -66,7 +67,7 @@ export interface Character {
 	radicalNames: Array<string>
 	jlpt: Uint | undefined
 	references: Array<Reference>
-	// queryCodes: Array<QueryCode>
+	queryCodes: Array<QueryCode>
 	// readings: Array<Reading>
 	// translations: Translations
 	nanori: Array<string>
