@@ -28,6 +28,11 @@ export interface Result_Err {
  */
 export type Result<T> = Result_Ok<T> | Result_Err
 
+/**
+ * Gets the value from an Ok variant or throws an error.
+ * @param result The Result
+ * @returns The result value
+ */
 export function unwrap<T>(result: Result<T>): T {
 	switch (result.kind) {
 		case "Ok": {
@@ -39,6 +44,11 @@ export function unwrap<T>(result: Result<T>): T {
 	}
 }
 
+/**
+ * Creates a new Ok variant of a Result.
+ * @param value The Ok variant value
+ * @returns The Result
+ */
 export function ok<T>(value: T): Result<T> {
 	return {
 		kind: "Ok",
@@ -46,6 +56,11 @@ export function ok<T>(value: T): Result<T> {
 	}
 }
 
+/**
+ * Creates a new Err variant of a Result.
+ * @param message The error message
+ * @returns The Result
+ */
 export function err<T>(message: string): Result<T> {
 	return {
 		kind: "Err",
@@ -53,6 +68,11 @@ export function err<T>(message: string): Result<T> {
 	}
 }
 
+/**
+ * Checks whether a Result is the Ok variant.
+ * @param result The Result
+ * @returns Whether the Result is an Ok variant
+ */
 export function isOk<T>(result: Result<T>): boolean {
 	return result.kind === "Ok"
 }
