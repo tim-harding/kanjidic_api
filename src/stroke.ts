@@ -19,7 +19,7 @@ export const enum Stroke {
  * @param stroke The stroke
  * @returns The string for the shape
  */
-export function serialize(stroke: Stroke): string {
+export function shape(stroke: Stroke): string {
 	return MAPPING[stroke as number] as string
 }
 

@@ -1,3 +1,64 @@
+import { Uint } from "./uint"
+
 export function hasProperty<K extends string>(x: object, key: K): x is { [key in K]: unknown } {
 	return key in x
+}
+
+export function isObject(value: unknown): value is object {
+	return (typeof value === "object") && value !== null
+}
+
+export function isNumber(value: unknown): value is number {
+	return typeof value === "number"
+}
+
+export function tryGetOptionalUint(value: object, propertyName: string): Uint | undefined | Error {
+	const property = tryGetProperty(value, propertyName)
+	if (property instanceof Error) {
+		return undefined
+	}
+	if (!isNumber(property)) {
+		return new Error(`Property is not a number: ${propertyName}`)
+	}
+	return Uint.new(property)
+}
+
+export function tryGetUint(value: object, propertyName: string): Uint | Error {
+	const property = tryGetProperty(value, propertyName)
+	if (property instanceof Error) {
+		return property
+	}
+	if (!isNumber(property)) {
+		return new Error(`Property is not a number: ${propertyName}`)
+	}
+	return Uint.new(property)
+}
+
+export function tryGetProperty(value: object, propertyName: string): unknown | Error {
+	if (!hasProperty(value, propertyName)) {
+		return new Error(`Missing property: ${propertyName}`)
+	}
+	return value[propertyName]
+}
+
+export function tryGetUintArray(value: object, propertyName: string): Array<Uint> | Error {
+	const property = tryGetProperty(value, propertyName)
+	if (property instanceof Error) {
+		return property
+	}
+	if (!Array.isArray(property)) {
+		return new Error(`Property is not an array: ${propertyName}`)
+	}
+	const out: Array<Uint> = []
+	for (const element of property) {
+		if (!isNumber(element)) {
+			return new Error(`Property had a non-numeric array element: ${propertyName}`)
+		}
+		const uint = Uint.new(element)
+		if (uint instanceof Error) {
+			return new Error(`Property had a non-unsigned integer array element: ${propertyName}`)
+		}
+		out.push(uint)
+	}
+	return out
 }
