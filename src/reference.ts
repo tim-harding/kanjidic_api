@@ -10,7 +10,7 @@ export interface Reference_BusyPeople {
 	/**
 	 * The reference source
 	 */
-	kind: "BusyPeople"
+	tag: "BusyPeople"
 	
 	/**
 	 * The reference
@@ -25,7 +25,7 @@ export interface Reference_Moro {
 	/**
 	 * The reference source
 	 */
-	kind: "Moro"
+	tag: "Moro"
 	
 	/**
 	 * The reference
@@ -40,7 +40,7 @@ export interface Reference_Oneill {
 	/**
 	 * The reference source
 	 */
-	kind: "Oneill"
+	tag: "Oneill"
 	
 	/**
 	 * The reference
@@ -160,7 +160,7 @@ export interface Reference_Uint {
 	/**
 	 * The reference source
 	 */
-	kind: NelsonClassic | 
+	tag: NelsonClassic | 
 		NelsonNew |
 		Njecd |
 		Kkd |

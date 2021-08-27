@@ -29,7 +29,7 @@ const enum SolidSubpattern {
  * Left and right parts of the kanji.
  */
 export interface Skip_Horizontal {
-	kind: "Horizontal"
+	tag: "Horizontal"
 	
 	/**
 	 * Number of strokes in the left part.
@@ -46,7 +46,7 @@ export interface Skip_Horizontal {
  * Top and bottom parts of the kanji.
  */
 export interface Skip_Vertical {
-	kind: "Vertical"
+	tag: "Vertical"
 
 	/**
 	 * Number of strokes in the top part.
@@ -63,7 +63,7 @@ export interface Skip_Vertical {
  * Interior and exterior parts of the kanji.
  */
 export interface Skip_Enclosure {
-	kind: "Enclosure"
+	tag: "Enclosure"
 	
 	/**
 	 * Number of strokes in the exterior part.
@@ -80,7 +80,7 @@ export interface Skip_Enclosure {
  * Classification for kanji that don't fit another pattern.
  */
 export interface Skip_Solid {
-	kind: "Solid"
+	tag: "Solid"
 	
 	/**
 	 * The total number of strokes in the kanji.

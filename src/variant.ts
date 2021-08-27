@@ -11,7 +11,7 @@ export interface Variant_Kuten {
 	/**
 	 * The kind of encoding
 	 */
-	kind: "Jis208" | "Jis212" | "Jis213"
+	tag: "Jis208" | "Jis212" | "Jis213"
 
 	/**
 	 * The encoding
@@ -29,7 +29,7 @@ export interface Variant_Uint {
 	/**
 	 * The kind of encoding
 	 */
-	kind: "Unicode" | "Halpern" | "Nelson"
+	tag: "Unicode" | "Halpern" | "Nelson"
 
 	/**
 	 * The encoding
@@ -44,7 +44,7 @@ export interface Variant_DeRoo {
 	/**
 	 * The kind of encoding
 	 */
-	kind: "DeRoo"
+	tag: "DeRoo"
 
 	/**
 	 * The encoding
@@ -59,7 +59,7 @@ export interface Variant_ShDesc {
 	/**
 	 * The kind of encoding
 	 */
-	kind: "ShDesc"
+	tag: "ShDesc"
 
 	/**
 	 * The encoding
@@ -74,7 +74,7 @@ export interface Variant_Oneill {
 	/**
 	 * The kind of encoding
 	 */
-	kind: "Oneill"
+	tag: "Oneill"
 
 	/**
 	 * The encoding
@@ -99,7 +99,7 @@ export type Variant = Variant_Kuten |
  * @returns The string
  */
 export function serialize(variant: Variant): string {
-	switch (variant.kind) {
+	switch (variant.tag) {
 		case "Jis208":
 		case "Jis212":
 		case "Jis213": {

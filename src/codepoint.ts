@@ -23,7 +23,7 @@ export interface Codepoint_Kuten {
 	/**
 	 * The JIS encoding standard.
 	 */
-	kind: Jis208 | Jis212 | Jis213
+	tag: Jis208 | Jis212 | Jis213
 
 	/**
 	 * The encoding.
@@ -38,7 +38,7 @@ export interface Codepoint_Unicode {
 	/**
 	 * The codepoint kind.
 	 */
-	kind: "Unicode"
+	tag: "Unicode"
 
 	/**
 	 * The codepoint.
@@ -50,3 +50,4 @@ export interface Codepoint_Unicode {
  * The code of a kanji in a given character set standard.
  */
 export type Codepoint = Codepoint_Kuten | Codepoint_Unicode
+

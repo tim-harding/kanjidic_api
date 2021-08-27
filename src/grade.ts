@@ -9,7 +9,7 @@ export type Grade = Grade_Kyouiku | Grade_Other;
  * A Kyouiku kanji learned in grades 1-6. 
  */
 export interface Grade_Kyouiku {
-	kind: "Kyouiku"
+	tag: "Kyouiku"
 	grade: Uint
 }
 
@@ -20,5 +20,5 @@ export interface Grade_Kyouiku {
  * - `JinmeiyouJouyouVariant`: A Jinmeiyou kanji that is a variant of a Jouyou kanji.
  */
 export interface Grade_Other {
-	kind: "Jouyou" | "Jinmeiyou" | "JinmeiyouJouyouVariant"
+	tag: "Jouyou" | "Jinmeiyou" | "JinmeiyouJouyouVariant"
 }

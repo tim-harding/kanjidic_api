@@ -7,7 +7,7 @@ export interface Radical {
 	/**
 	 * The kind of radical classification
 	 */
-	kind: "Classical" | "Nelson"
+	tag: "Classical" | "Nelson"
 	
 	/**
 	 * The kangxi code for the radical
