@@ -51,6 +51,7 @@ import { Codepoint } from "./codepoint";
 import { Grade } from "./grade";
 import { QueryCode } from "./query_code";
 import { Radical } from "./radical";
+import { Reading } from "./reading";
 import { Reference } from "./reference";
 import { StrokeCount } from "./stroke_count";
 import { Uint } from "./uint";
@@ -68,7 +69,7 @@ export interface Character {
 	jlpt: Uint | undefined
 	references: Array<Reference>
 	queryCodes: Array<QueryCode>
-	// readings: Array<Reading>
+	readings: Array<Reading>
 	// translations: Translations
 	nanori: Array<string>
 	decomposition: Array<string>
