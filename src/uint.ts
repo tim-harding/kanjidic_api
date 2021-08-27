@@ -1,5 +1,3 @@
-import { err, ok, Result } from "./result";
-
 /**
  * A positive integer number. 
  */
@@ -18,13 +16,13 @@ export class Uint {
 	 * @param value The integer literal
 	 * @returns The Uint instance or an error
 	 */
-	static new(value: number): Result<Uint> {
+	static new(value: number): Uint | Error {
 		if (value < 0) {
-			return err("Value is negative")
+			return new Error("Value is negative")
 		}
 		if (!Number.isInteger(value)) {
-			return err("Value is not an integer")
+			return new Error("Value is not an integer")
 		}
-		return ok(new Uint(value))
+		return new Uint(value)
 	}
 }
