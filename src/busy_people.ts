@@ -1,4 +1,4 @@
-import { isObject, tryGetOptionalUint, tryGetUint } from "./shared";
+import { hasOptionalUintProperty, hasUintProperty, isObject } from "./shared";
 import { Uint } from "./uint"
 
 export namespace BusyPeople {
@@ -14,24 +14,12 @@ export namespace BusyPeople {
 		/**
 		 * The chapter
 		 */
-		chapter: Uint | undefined
+		chapter?: Uint
 	}
 
-	export function fromUnknown(value: unknown): BusyPeople | Error {
-		if (!isObject(value)) {
-			return new Error("Value is not an object")
-		}
-		const volume = tryGetUint(value, "volume")
-		if (volume instanceof Error) {
-			return volume
-		}
-		const chapter = tryGetOptionalUint(value, "chapter")
-		if (chapter instanceof Error) {
-			return chapter
-		}
-		return {
-			volume,
-			chapter,
-		}
+	export function isBusyPeople(value: unknown): value is BusyPeople {
+		return isObject(value) &&
+			hasUintProperty(value, "volume") &&
+			hasOptionalUintProperty(value, "chapter")
 	}
 }
