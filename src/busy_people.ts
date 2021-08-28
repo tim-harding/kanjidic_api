@@ -1,25 +1,23 @@
 import { hasOptionalUintProperty, hasUintProperty, isObject } from "./shared";
 import { Uint } from "./uint"
 
-export namespace BusyPeople {
+/**
+ * A location in Japanese for Busy People. 
+ */
+export interface BusyPeople {
 	/**
-	 * A location in Japanese for Busy People. 
+	 * The volume
 	 */
-	export interface BusyPeople {
-		/**
-		 * The volume
-		 */
-		volume: Uint
+	volume: Uint
 
-		/**
-		 * The chapter
-		 */
-		chapter?: Uint
-	}
+	/**
+	 * The chapter
+	 */
+	chapter?: Uint
+}
 
-	export function isBusyPeople(value: unknown): value is BusyPeople {
-		return isObject(value) &&
-			hasUintProperty(value, "volume") &&
-			hasOptionalUintProperty(value, "chapter")
-	}
+export function isBusyPeople(value: unknown): value is BusyPeople {
+	return isObject(value) &&
+		hasUintProperty(value, "volume") &&
+		hasOptionalUintProperty(value, "chapter")
 }

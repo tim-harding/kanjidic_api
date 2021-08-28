@@ -1,7 +1,6 @@
-import { isObject, tryGetUint } from "./shared";
+import { hasUintProperty, isObject } from "./shared";
 import { Uint } from "./uint";
 
-export namespace Kuten {
 	/**
 	 * A kuten representation of a JIS character. For more information, see
 	 * http://unicode-iphone.blogspot.com/2010/05/kuten-code-to-unicode.html
@@ -28,30 +27,13 @@ export namespace Kuten {
 	 * @param kuten The kuten code
 	 * @returns The string
 	 */
-	export function serialize(kuten: Kuten): string {
+	export function serializeKuten(kuten: Kuten): string {
 		return `${kuten.plane}-${kuten.ku}-${kuten.ten}`
 	}
 
-	export function fromUnknown(value: unknown): Kuten | Error {
-		if (!isObject(value)) {
-			return new Error("Value is not an object")
-		}
-		const plane = tryGetUint(value, "plane")
-		if (plane instanceof Error) {
-			return plane
-		}
-		const ku = tryGetUint(value, "ku")
-		if (ku instanceof Error) {
-			return ku
-		}
-		const ten = tryGetUint(value, "ten")
-		if (ten instanceof Error) {
-			return ten
-		}
-		return {
-			plane,
-			ku,
-			ten,
-		}
+	export function isKuten(value: unknown): value is Kuten {
+		return isObject(value) &&
+			hasUintProperty(value, "plane") &&
+			hasUintProperty(value, "ku") &&
+			hasUintProperty(value, "ten")
 	}
-}
