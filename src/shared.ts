@@ -12,6 +12,10 @@ export function isNumber(value: unknown): value is number {
 	return typeof value === "number"
 }
 
+export function isString(value: unknown): value is string {
+	return typeof value === "string"
+}
+
 export function tryGetOptionalUint(value: object, propertyName: string): Uint | undefined | Error {
 	const property = tryGetProperty(value, propertyName)
 	if (property instanceof Error) {
@@ -32,6 +36,17 @@ export function tryGetUint(value: object, propertyName: string): Uint | Error {
 		return new Error(`Property is not a number: ${propertyName}`)
 	}
 	return Uint.new(property)
+}
+
+export function tryGetString(value: object, propertyName: string): string | Error {
+	const property = tryGetProperty(value, propertyName)
+	if (property instanceof Error) {
+		return property
+	}
+	if (!isString(property)) {
+		return new Error(`Property is not a string: ${propertyName}`)
+	}
+	return property
 }
 
 export function tryGetProperty(value: object, propertyName: string): unknown | Error {
