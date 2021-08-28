@@ -1,28 +1,17 @@
 /**
- * A positive integer number. 
+ * Represents an integer.
  */
-export class Uint {
-	/**
-	 * The numeric value
-	 */
-	readonly value: number
+export type Int = number
 
-	private constructor(value: number) {
-		this.value = value
-	}
+export function isInt(value: number): value is Int {
+	return Number.isInteger(value)
+}
 
-	/**
-	 * Creates a new Uint instance.
-	 * @param value The integer literal
-	 * @returns The Uint instance or an error
-	 */
-	static new(value: number): Uint | Error {
-		if (value < 0) {
-			return new Error("Value is negative")
-		}
-		if (!Number.isInteger(value)) {
-			return new Error("Value is not an integer")
-		}
-		return new Uint(value)
-	}
+/**
+ * Represents an unsigned integer.
+ */
+export type Uint = number
+
+export function isUint(value: number): value is Uint {
+	return Number.isInteger(value) && value >= 0	
 }

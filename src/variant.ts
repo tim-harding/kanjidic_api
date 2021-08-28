@@ -108,7 +108,7 @@ export function serialize(variant: Variant): string {
 		case "Unicode":
 		case "Halpern":
 		case "Nelson": {
-			return variant.value.value.toString()
+			return variant.value.toString()
 		}
 		case "DeRoo": {
 			return serializeDeRoo(variant.value)

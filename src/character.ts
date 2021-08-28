@@ -1,5 +1,3 @@
-import { Codepoint } from "./codepoint";
-import { Grade } from "./grade";
 import { QueryCode } from "./query_code";
 import { Radical } from "./radical";
 import { Reading } from "./reading";

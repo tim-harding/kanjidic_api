@@ -72,7 +72,7 @@ export namespace Grade {
 			if (!isNumber(gradeRaw)) {
 				return new Error("Grade property is not a number")
 			}
-			const grade = Uint.new(gradeRaw)
+			const grade = Test.new(gradeRaw)
 			if (grade instanceof Error) {
 				return grade
 			}

@@ -15,7 +15,7 @@ export interface Reference_BusyPeople {
 	/**
 	 * The reference
 	 */
-	value: BusyPeople
+	value: BusyPeople.BusyPeople
 }
 
 /**

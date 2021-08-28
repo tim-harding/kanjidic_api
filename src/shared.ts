@@ -1,4 +1,4 @@
-import { Uint } from "./uint"
+import { isUint, Uint } from "./uint"
 
 export function hasProperty<K extends string>(x: object, key: K): x is { [key in K]: unknown } {
 	return key in x
@@ -24,7 +24,10 @@ export function tryGetOptionalUint(value: object, propertyName: string): Uint | 
 	if (!isNumber(property)) {
 		return new Error(`Property is not a number: ${propertyName}`)
 	}
-	return Uint.new(property)
+	if (!isUint(property)) {
+		return new Error(`Property is not a Uint: ${propertyName}`)
+	}
+	return property
 }
 
 export function tryGetUint(value: object, propertyName: string): Uint | Error {
@@ -35,7 +38,10 @@ export function tryGetUint(value: object, propertyName: string): Uint | Error {
 	if (!isNumber(property)) {
 		return new Error(`Property is not a number: ${propertyName}`)
 	}
-	return Uint.new(property)
+	if (!isUint(property)) {
+		return new Error(`Property is not a Uint: ${propertyName}`)
+	}
+	return property
 }
 
 export function tryGetString(value: object, propertyName: string): string | Error {
@@ -69,11 +75,10 @@ export function tryGetUintArray(value: object, propertyName: string): Array<Uint
 		if (!isNumber(element)) {
 			return new Error(`Property had a non-numeric array element: ${propertyName}`)
 		}
-		const uint = Uint.new(element)
-		if (uint instanceof Error) {
-			return new Error(`Property had a non-unsigned integer array element: ${propertyName}`)
+		if (!isUint(element)) {
+			return new Error(`Property had a non-Uint array element: ${propertyName}`)
 		}
-		out.push(uint)
+		out.push(element)
 	}
 	return out
 }

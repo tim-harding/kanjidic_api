@@ -110,7 +110,7 @@ export namespace Codepoint {
 		if (!isNumber(content)) {
 			return new Error("Codepoint Unicode variant content is not a string")
 		}
-		const uint = Uint.new(content)
+		const uint = Test.new(content)
 		if (uint instanceof Error) {
 			return uint
 		}
