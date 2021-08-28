@@ -1,55 +1,37 @@
-import { ExtremeTop } from "./extreme_top"
-import { ExtremeBottom } from "./extreme_bottom"
-import { isObject, tryGetProperty } from "./shared"
+import { ExtremeTop, isExtremeTop } from "./extreme_top"
+import { ExtremeBottom, isExtremeBottom } from "./extreme_bottom"
+import { hasProperty, isObject } from "./shared"
 
-export namespace DeRoo {
+/**
+ * The classification of a kanji in the De Roo system. See
+ * http://www.edrdg.org/wwwjdic/deroo.html
+ * for more information.
+ */
+export interface DeRoo {
 	/**
-	 * The classification of a kanji in the De Roo system. See
-	 * http://www.edrdg.org/wwwjdic/deroo.html
-	 * for more information.
+	 * The graphic element at the top left of a kanji.
 	 */
-	export interface DeRoo {
-		/**
-		 * The graphic element at the top left of a kanji.
-		 */
-		top: ExtremeTop.ExtremeTop
-
-		/**
-		 * The graphic element at the bottom right of a kanji.
-		 */
-		bottom: ExtremeBottom.ExtremeBottom
-	}
+	top: ExtremeTop
 
 	/**
-	 * Converts a De Roo code to a string. 
-	 * @param deroo The De Roo code
-	 * @returns The string
+	 * The graphic element at the bottom right of a kanji.
 	 */
-	export function serialize(deroo: DeRoo): string {
-		return `${deroo.top}${deroo.bottom}`
-	}
+	bottom: ExtremeBottom
+}
 
-	export function fromUnknown(value: unknown): DeRoo | Error {
-		if (!isObject(value)) {
-			return new Error("Value is not an object")
-		}
-		const top = tryGetProperty(value, "top")
-		if (top instanceof Error) {
-			return top
-		}
-		if (!ExtremeTop.isExtremeTop(top)) {
-			return new Error("Property top is not a valid variant of ExtremeTop")
-		}
-		const bottom = tryGetProperty(value, "bottom")
-		if (bottom instanceof Error) {
-			return bottom
-		}
-		if (!ExtremeBottom.isExtremeBottom(bottom)) {
-			return new Error("Property top is not a valid variant of ExtremeBottom")
-		}
-		return {
-			top,
-			bottom,
-		}
-	}
+/**
+ * Converts a De Roo code to a string. 
+ * @param deroo The De Roo code
+ * @returns The string
+ */
+export function serializeDeRoo(deroo: DeRoo): string {
+	return `${deroo.top}${deroo.bottom}`
+}
+
+export function isDeRoo(value: unknown): value is DeRoo {
+	return isObject(value) &&
+		hasProperty(value, "top") &&
+		isExtremeTop(value.top) &&
+		hasProperty(value, "bottom") &&
+		isExtremeBottom(value.bottom)
 }

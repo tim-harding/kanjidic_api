@@ -1,10 +1,19 @@
 /**
+ * Represents an integer.
+ */
+export type Int = number
+
+export function isInt(value: unknown): value is Int {
+	return (typeof value === "number") &&
+		Number.isInteger(value)
+}
+
+/**
  * Represents an unsigned integer.
  */
-export type Uint = number
+export type Uint = Int
 
 export function isUint(value: unknown): value is Uint {
-	return (typeof value === "number") && 
-		Number.isInteger(value) && 
-		value >= 0	
+	return isInt(value) &&
+		value >= 0
 }
