@@ -27,16 +27,6 @@ export type Unicode = "Unicode"
  */
 export type JisTag = Jis208 | Jis212 | Jis213
 
-const JIS_TAGS: Record<JisTag, boolean> = {
-	"Jis208": true,
-	"Jis212": true,
-	"Jis213": true,
-}
-
-function isJisTag(str: string): str is JisTag {
-	return str in JIS_TAGS
-}
-
 export type CodepointTag = JisTag | Unicode
 
 /**
@@ -74,18 +64,26 @@ export interface Codepoint_Unicode {
  */
 export type Codepoint = Codepoint_Jis | Codepoint_Unicode
 
+const JIS_TAGS: Record<JisTag, boolean> = {
+	"Jis208": true,
+	"Jis212": true,
+	"Jis213": true,
+}
+
 export function isCodepoint(value: unknown): value is Codepoint {
-	if (!isObject(value)) {
-		return false
-	}
-	if (!hasStringProperty(value, "tag") || !hasProperty(value, "content")) {
-		return false
-	}
-	const { tag, content } = value
-	if (isJisTag(tag)) {
-		return isKuten(content)
-	} else if (tag === "Unicode") {
-		return isUint(content)
-	}
-	return false
+	return isObject(value) &&
+		hasStringProperty(value, "tag") &&
+		hasProperty(value, "content") &&
+		(
+			(isJisTag(value.tag) && isKuten(value.content)) ||
+			(isUnicodeTag(value.tag) && isUint(value.content)) 
+		)
+}
+
+function isJisTag(str: string): str is JisTag {
+	return str in JIS_TAGS
+}
+
+function isUnicodeTag(str: string): str is Unicode {
+	return str === "Unicode"
 }
