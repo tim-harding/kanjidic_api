@@ -1,4 +1,4 @@
-import { Uint } from "./uint"
+import { isNumber } from "./shared"
 
 export namespace ExtremeBottom {
 	/**
@@ -64,11 +64,10 @@ export namespace ExtremeBottom {
 		Eye,
 	}
 
-	export function isExtremeBottom(value: number): value is ExtremeBottom {
-		const uint = Uint.new(value)
-		if (uint instanceof Error) {
-			return false
-		}
-		return uint.value >= ExtremeBottom.FourDots && uint.value <= ExtremeBottom.Eye
+	export function isExtremeBottom(value: unknown): value is ExtremeBottom {
+		return isNumber(value) && 
+			Number.isInteger(value) &&
+			value >= ExtremeBottom.FourDots &&
+			value <= ExtremeBottom.Eye
 	}
 }

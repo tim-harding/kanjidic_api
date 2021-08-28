@@ -1,6 +1,6 @@
 import { ExtremeTop } from "./extreme_top"
 import { ExtremeBottom } from "./extreme_bottom"
-import { isObject, tryGetUint } from "./shared"
+import { isObject, tryGetProperty } from "./shared"
 
 export namespace DeRoo {
 	/**
@@ -33,19 +33,17 @@ export namespace DeRoo {
 		if (!isObject(value)) {
 			return new Error("Value is not an object")
 		}
-		const topUint = tryGetUint(value, "top")
-		if (topUint instanceof Error) {
-			return topUint
+		const top = tryGetProperty(value, "top")
+		if (top instanceof Error) {
+			return top
 		}
-		const top = topUint.value
 		if (!ExtremeTop.isExtremeTop(top)) {
 			return new Error("Property top is not a valid variant of ExtremeTop")
 		}
-		const bottomUint = tryGetUint(value, "bottom")
-		if (bottomUint instanceof Error) {
-			return bottomUint
+		const bottom = tryGetProperty(value, "bottom")
+		if (bottom instanceof Error) {
+			return bottom
 		}
-		const bottom = bottomUint.value
 		if (!ExtremeBottom.isExtremeBottom(bottom)) {
 			return new Error("Property top is not a valid variant of ExtremeBottom")
 		}

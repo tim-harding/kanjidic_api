@@ -1,4 +1,4 @@
-import { Uint } from "./uint";
+import { isNumber } from "./shared";
 
 export namespace ExtremeTop {
 	/**
@@ -51,11 +51,10 @@ export namespace ExtremeTop {
 		EyeTop,
 	}
 	
-	export function isExtremeTop(value: number): value is ExtremeTop {
-		const uint = Uint.new(value)
-		if (uint instanceof Error) {
-			return false
-		}
-		return uint.value >= ExtremeTop.Dot && uint.value <= ExtremeTop.EyeTop
+	export function isExtremeTop(value: unknown): value is ExtremeTop {
+		return isNumber(value) && 
+			Number.isInteger(value) &&
+			value >= ExtremeTop.Dot && 
+			value <= ExtremeTop.EyeTop
 	}
 }
