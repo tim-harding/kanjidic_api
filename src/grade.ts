@@ -1,33 +1,33 @@
 import { hasStringProperty, hasUintProperty, isObject } from "./shared";
 import { Uint } from "./uint"
 
-export type Kyouiku = "Kyouiku"
+export type KyouikuTag = "Kyouiku"
 
 /**
  * A remaining Jouyou kanji to be learned in junior hi-school.
  */
-export type Jouyou = "Jouyou"
+export type JouyouTag = "Jouyou"
 
 /**
  * A Jinmeiyou kanji for use in names that is approved for use in 
  * family name registers and other official documents.
  */
-export type Jinmeiyou = "Jinmeiyou"
+export type JinmeiyouTag = "Jinmeiyou"
 
 /**
  * A Jinmeiyou kanji that is a variant of a Jouyou kanji.
  */
-export type JinmeiyouJouyouVariant = "JinmeiyouJouyouVariant"
+export type JinmeiyouJouyouVariantTag = "JinmeiyouJouyouVariant"
 
-export type GradeOtherTags = Jouyou |
-	Jinmeiyou |
-	JinmeiyouJouyouVariant
+export type GradeOtherTag = JouyouTag |
+	JinmeiyouTag |
+	JinmeiyouJouyouVariantTag
 
 /**
  * A Kyouiku kanji learned in grades 1-6. 
  */
 export interface Grade_Kyouiku {
-	tag: Kyouiku
+	tag: KyouikuTag
 	content: Uint
 }
 
@@ -35,7 +35,7 @@ export interface Grade_Kyouiku {
  * Represents a kanji that is learned outside grades 1-6
  */
 export interface Grade_Other {
-	tag: GradeOtherTags
+	tag: GradeOtherTag
 }
 
 /**
@@ -43,17 +43,17 @@ export interface Grade_Other {
  */
 export type Grade = Grade_Kyouiku | Grade_Other;
 
-const GRADE_OTHER_TAGS: Record<GradeOtherTags, boolean> = {
+const GRADE_OTHER_TAGS: Record<GradeOtherTag, boolean> = {
 	"Jouyou": true,
 	"Jinmeiyou": true,
 	"JinmeiyouJouyouVariant": true,
 }
 
-function isGradeOtherTag(tag: string): tag is GradeOtherTags {
+function isGradeOtherTag(tag: string): tag is GradeOtherTag {
 	return tag in GRADE_OTHER_TAGS
 }
 
-function isGradeKyouikuTag(tag: string): tag is Kyouiku {
+function isGradeKyouikuTag(tag: string): tag is KyouikuTag {
 	return tag === "Kyouiku"
 }
 

@@ -5,29 +5,29 @@ import { isUint, Uint } from "./uint";
 /**
  * Encoding in JIS X 0208-1997
  */
-export type Jis208 = "Jis208"
+export type Jis208Tag = "Jis208"
 
 /**
  * Encoding in JIS X 0212-1990
  */
-export type Jis212 = "Jis212"
+export type Jis212Tag = "Jis212"
 
 /**
  * Encoding in JIS X 0213-2000
  */
-export type Jis213 = "Jis213"
+export type Jis213Tag = "Jis213"
 
 /**
  * A unicode codepoint
  */
-export type Unicode = "Unicode"
+export type UnicodeTag = "Unicode"
 
 /**
  * The JIS encoding standard.
  */
-export type JisTag = Jis208 | Jis212 | Jis213
+export type JisTag = Jis208Tag | Jis212Tag | Jis213Tag
 
-export type CodepointTag = JisTag | Unicode
+export type CodepointTag = JisTag | UnicodeTag
 
 /**
  * A codepoint in kuten coding. 
@@ -51,7 +51,7 @@ export interface Codepoint_Unicode {
 	/**
 	 * The codepoint kind.
 	 */
-	tag: Unicode
+	tag: UnicodeTag
 
 	/**
 	 * The codepoint.
@@ -84,6 +84,6 @@ function isJisTag(str: string): str is JisTag {
 	return str in JIS_TAGS
 }
 
-function isUnicodeTag(str: string): str is Unicode {
+function isUnicodeTag(str: string): str is UnicodeTag {
 	return str === "Unicode"
 }
