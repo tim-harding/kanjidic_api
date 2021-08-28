@@ -2,7 +2,7 @@ import { Kuten } from "./kuten";
 import { isNumber, isObject, tryGetProperty, tryGetString } from "./shared";
 import { Uint } from "./uint";
 
-namespace Codepoint {
+export namespace Codepoint {
 	/**
 	 * Encoding in JIS X 0208-1997
 	 */
