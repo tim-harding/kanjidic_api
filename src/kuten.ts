@@ -1,3 +1,4 @@
+import { isObject, tryGetUint } from "./shared";
 import { Uint } from "./uint";
 
 export namespace Kuten {
@@ -32,6 +33,25 @@ export namespace Kuten {
 	}
 
 	export function fromUnknown(value: unknown): Kuten | Error {
-
+		if (!isObject(value)) {
+			return new Error("Value is not an object")
+		}
+		const plane = tryGetUint(value, "plane")
+		if (plane instanceof Error) {
+			return plane
+		}
+		const ku = tryGetUint(value, "ku")
+		if (ku instanceof Error) {
+			return ku
+		}
+		const ten = tryGetUint(value, "ten")
+		if (ten instanceof Error) {
+			return ten
+		}
+		return {
+			plane,
+			ku,
+			ten,
+		}
 	}
 }
