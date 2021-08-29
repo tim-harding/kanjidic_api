@@ -2,11 +2,24 @@ import { Checker, hasProperty, hasStringProperty, hasUintProperty, isObject, isT
 import { isSolidSubpattern, SolidSubpattern } from "./solid_subpattern";
 import { Uint } from "./uint";
 
+type HorizontalTag = "Horizontal"
+
+type VerticalTag = "Vertical"
+
+type EnclosureTag = "Enclosure"
+
+type SolidTag = "Solid"
+
+type SkipTag = HorizontalTag |
+	VerticalTag |
+	EnclosureTag |
+	SolidTag
+
 /**
  * Left and right parts of the kanji.
  */
 export interface Skip_Horizontal {
-	tag: "Horizontal"
+	tag: HorizontalTag
 
 	/**
 	 * Number of strokes in the left part.
@@ -23,7 +36,7 @@ export interface Skip_Horizontal {
  * Top and bottom parts of the kanji.
  */
 export interface Skip_Vertical {
-	tag: "Vertical"
+	tag: VerticalTag
 
 	/**
 	 * Number of strokes in the top part.
@@ -40,7 +53,7 @@ export interface Skip_Vertical {
  * Interior and exterior parts of the kanji.
  */
 export interface Skip_Enclosure {
-	tag: "Enclosure"
+	tag: EnclosureTag
 
 	/**
 	 * Number of strokes in the exterior part.
@@ -57,7 +70,7 @@ export interface Skip_Enclosure {
  * Classification for kanji that don't fit another pattern.
  */
 export interface Skip_Solid {
-	tag: "Solid"
+	tag: SolidTag
 
 	/**
 	 * The total number of strokes in the kanji.
@@ -75,7 +88,10 @@ export interface Skip_Solid {
  * http://www.edrdg.org/wwwjdic/SKIP.html
  * for reference. 
  */
-export type Skip = Skip_Horizontal | Skip_Vertical | Skip_Enclosure | Skip_Solid
+export type Skip = Skip_Horizontal | 
+	Skip_Vertical | 
+	Skip_Enclosure | 
+	Skip_Solid
 
 export function isSkip(value: unknown): value is Skip {
 	return isObject(value) &&
@@ -83,7 +99,7 @@ export function isSkip(value: unknown): value is Skip {
 		isTypeFrom(value, TAG_HANDLERS)
 }
 
-const TAG_HANDLERS: Record<string, Checker<Tagged, Skip>> = {
+const TAG_HANDLERS: Record<SkipTag, Checker<Tagged, Skip>> = {
 	"Horizontal": handleHorizontalTag,
 	"Vertical": handleVerticalTag,
 	"Enclosure": handleEnclosureTag,

@@ -5,6 +5,32 @@ import { Checker, hasProperty, hasStringProperty, isObject, isString, isTypeFrom
 export type PinYinTag = "PinYin"
 
 export type KunyomiTag = "Kunyomi"
+/**
+ * The romanized form of the Korean reading.
+ */
+export type KoreanRomanizedTag = "KoreanRomanized"
+
+/**
+ * The Korean reading of the kanji in Hangul.
+ */
+export type KoreanHangulTag = "KoreanHangul"
+
+/**
+ * The Vietnamese reading supplied by Minh Chau Pham.
+ */
+export type VietnamTag = "Vietnam"
+
+/**
+ * The onyomi reading of the kanji in katakana.
+ */
+export type OnyomiTag = "Onyomi"
+
+export type ReadingStringTag = KoreanRomanizedTag |
+	KoreanHangulTag |
+	VietnamTag |
+	OnyomiTag
+
+export type ReadingTag = PinYinTag | KunyomiTag | ReadingStringTag
 
 /**
  * The modern romanization of the Chinese reading.
@@ -37,33 +63,6 @@ export interface Reading_Kunyomi {
 }
 
 /**
- * The romanized form of the Korean reading.
- */
-export type KoreanRomanizedTag = "KoreanRomanized"
-
-/**
- * The Korean reading of the kanji in Hangul.
- */
-export type KoreanHangulTag = "KoreanHangul"
-
-/**
- * The Vietnamese reading supplied by Minh Chau Pham.
- */
-export type VietnamTag = "Vietnam"
-
-/**
- * The onyomi reading of the kanji in katakana.
- */
-export type OnyomiTag = "Onyomi"
-
-export type ReadingStringTag = KoreanRomanizedTag |
-	KoreanHangulTag |
-	VietnamTag |
-	OnyomiTag
-
-export type ReadingTag = PinYinTag | KunyomiTag | ReadingStringTag
-
-/**
  * A kanji reading that can be expressed as plain text.
  */
 export interface Reading_String {
@@ -92,7 +91,7 @@ export function isReading(value: unknown): value is Reading {
 		isTypeFrom(value, TAG_HANDLERS)
 }
 
-const TAG_HANDLERS: Record<string, Checker<Sum, Reading>> = {
+const TAG_HANDLERS: Record<ReadingTag, Checker<Sum, Reading>> = {
 	"KoreanHangul": tagStringHandler,
 	"KoreanRomanized": tagStringHandler,
 	"Onyomi": tagStringHandler,

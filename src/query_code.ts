@@ -4,11 +4,24 @@ import { Checker, hasProperty, hasStringProperty, isObject, isTypeFrom, Sum } fr
 import { isShDesc, ShDesc } from "./sh_desc"
 import { isSkip, Skip } from "./skip"
 
+type SkipTag = "Skip"
+
+type ShDescTag = "ShDesc"
+
+type FourCornerTag = "FourCorner"
+
+type MisclassificationTag = "Misclassification"
+
+type QueryCodeTag = SkipTag |
+	ShDescTag |
+	FourCornerTag |
+	MisclassificationTag
+
 /**
  * The Halpern SKIP code
  */
 export interface QueryCode_Skip {
-	tag: "Skip"
+	tag: SkipTag
 	content: Skip
 }
 
@@ -16,7 +29,7 @@ export interface QueryCode_Skip {
  * Desrcriptor codes from The Kanji Dictionary
  */
 export interface QueryCode_SpahnHadamitzky {
-	tag: "ShDesc"
+	tag: ShDescTag
 	content: ShDesc
 }
 
@@ -24,7 +37,7 @@ export interface QueryCode_SpahnHadamitzky {
  * The Four Corner code
  */
 export interface QueryCode_FourCorner {
-	tag: "FourCorner"
+	tag: FourCornerTag
 	content: FourCorner
 }
 
@@ -32,7 +45,7 @@ export interface QueryCode_FourCorner {
  * A possible misclassification of the kanji
  */
 export interface QueryCode_Misclassification {
-	tag: "Misclassification"
+	tag: MisclassificationTag
 	content: Misclassification
 }
 
@@ -52,7 +65,7 @@ export function isQueryCode(value: unknown): value is QueryCode {
 		isTypeFrom(value, TAG_HANDLERS)
 }
 
-const TAG_HANDLERS: Record<string, Checker<Sum, QueryCode>> = {
+const TAG_HANDLERS: Record<QueryCodeTag, Checker<Sum, QueryCode>> = {
 	"Skip": handleSkipTag,
 	"ShDesc": handleShDescTag,
 	"FourCorner": handleFourCornerTag,
