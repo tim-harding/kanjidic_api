@@ -1,5 +1,5 @@
-import { MisclassificationKind } from "./query_code"
-import { Skip } from "./skip"
+import { hasProperty, hasStringProperty, isObject } from "./shared"
+import { isSkip, Skip } from "./skip"
 
 /**
  * A possible misclassification of the kanji
@@ -45,7 +45,11 @@ export type MisclassificationKind = MisclassificationKind_Position |
 	MisclassificationKind_Ambiguous
 
 export function isMisclassification(value: unknown): value is Misclassification {
-
+	return isObject(value) &&
+		hasProperty(value, "skip") &&
+		isSkip(value.skip) &&
+		hasStringProperty(value, "kind") &&
+		isMisclassificationKind(value.kind)
 }
 
 function isMisclassificationKind(str: string): str is MisclassificationKind {
