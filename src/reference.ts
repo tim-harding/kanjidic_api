@@ -1,7 +1,8 @@
-import { BusyPeople } from "./busy_people"
-import { Moro } from "./moro"
-import { Oneill } from "./oneill"
-import { Uint } from "./uint"
+import { BusyPeople, isBusyPeople } from "./busy_people"
+import { isMoro, Moro } from "./moro"
+import { isOneill, Oneill } from "./oneill"
+import { Checker, hasProperty, hasStringProperty, isObject, isTypeFrom, Sum } from "./shared"
+import { isUint, Uint } from "./uint"
 
 /**
  * A reference into Japanese for Busy People
@@ -10,12 +11,12 @@ export interface Reference_BusyPeople {
 	/**
 	 * The reference source
 	 */
-	tag: "BusyPeople"
-	
+	tag: BusyPeopleTag
+
 	/**
 	 * The reference
 	 */
-	value: BusyPeople.BusyPeople
+	content: BusyPeople
 }
 
 /**
@@ -25,12 +26,12 @@ export interface Reference_Moro {
 	/**
 	 * The reference source
 	 */
-	tag: "Moro"
-	
+	tag: MoroTag
+
 	/**
 	 * The reference
 	 */
-	value: Moro
+	content: Moro
 }
 
 /**
@@ -40,118 +41,151 @@ export interface Reference_Oneill {
 	/**
 	 * The reference source
 	 */
-	tag: "Oneill"
-	
+	tag: OneillTag
+
 	/**
 	 * The reference
 	 */
-	value: Oneill
+	content: Oneill
 }
+
+type OneillTag = "Oneill"
+
+type MoroTag = "Moro"
+
+type BusyPeopleTag = "BusyPeople"
 
 /**
  * Modern Reader's Japanese-English Dictionary by Andrew Nelson
  */
-type NelsonClassic = "NelsonClassic"
+type NelsonClassicTag = "NelsonClassic"
 
 /**
  * The New Nelson Japanese-English Dictionary by John Haig
  */
-type NelsonNew = "NelsonNew"
+type NelsonNewTag = "NelsonNew"
 
 /**
  * New Japanese-English Character Dictionary by Jack Halpern
  */
-type Njecd = "Njecd"
+type NjecdTag = "Njecd"
 
 /**
  * Kodansha's Japanese-English Dictionary by Jack Halpern
  */
-type Kkd = "Kkd"
+type KkdTag = "Kkd"
 
 /**
  * Kanji Learners Dictionary by Jack Halpern
  */
-type Kkld = "Kkld"
+type KkldTag = "Kkld"
 
 /**
  * Kanji Learners Dictionary Second Edition by Jack Halpern
  */
-type Kkld2ed = "Kkld2ed"
+type Kkld2edTag = "Kkld2ed"
 
 /**
  * Remembering the Kanji by James Heisig
  */
-type Heisig = "Heisig"
+type HeisigTag = "Heisig"
 
 /**
  * Remembering the Kanji Sixth Edition by James Heisig
  */
-type Heisig6 = "Heisig6"
+type Heisig6Tag = "Heisig6"
 
 /**
  * A New Dictionary of Kanji Usage
  */
-type Gakken = "Gakken"
+type GakkenTag = "Gakken"
 
 /**
  * Essential Kanji by P.G. O'Neill
  */
-type OneillKk = "OneillKk"
+type OneillKkTag = "OneillKk"
 
 /**
  * A Guide to Remembering Japanese Characters by Kenneth G. Henshall
  */
-type Henshall = "Henshall"
+type HenshallTag = "Henshall"
 
 /**
  * Kanji and Kana by Spahn and Hadamitzky
  */
-type ShKk = "ShKk"
+type ShKkTag = "ShKk"
 
 /**
  * Kanji and Kana 2011 edition by Spahn and Hadamitzky
  */
-type ShKk2 = "ShKk2"
+type ShKk2Tag = "ShKk2"
 
 /**
  * A Guide to Reading and Writing Japanese by Florence Sakade
  */
-type Sakade = "Sakade"
+type SakadeTag = "Sakade"
 
 /**
  * Japanese Kanji Flashcards by Tomoko Okazaki
  */
-type Jfcards = "Jfcards"
+type JfcardsTag = "Jfcards"
 
 /**
  * A Guide to Reading and Writing Japanese by Henshall
  */
-type Henshall3 = "Henshall3"
+type Henshall3Tag = "Henshall3"
 
 /**
  * Tuttle Kanji Cards by Alexander Kask
  */
-type TuttleCards = "TuttleCards"
+type TuttleCardsTag = "TuttleCards"
 
 /**
  * The Kanji Way to Japanese Language Power by Dale Crowley
  */
-type Crowley = "Crowley"
+type CrowleyTag = "Crowley"
 
 /**
  * Kanji in Context by Nishiguchi and Kono
  */
-type KanjiInContext = "KanjiInContext"
+type KanjiInContextTag = "KanjiInContext"
 
 /**
  * The Kodansha Compact Study Guide
  */
-type KodanshaCompact = "KodanshaCompact"
+type KodanshaCompactTag = "KodanshaCompact"
 
 /**
  * Les Kanjis dans la tete by Yves Maniette
  */
-type Maniette = "Maniette"
+type ManietteTag = "Maniette"
+
+type ReferenceUintTag = NelsonClassicTag |
+	NelsonNewTag |
+	NjecdTag |
+	KkdTag |
+	KkldTag |
+	Kkld2edTag |
+	HeisigTag |
+	Heisig6Tag |
+	GakkenTag |
+	OneillKkTag |
+	HenshallTag |
+	ShKkTag |
+	ShKk2Tag |
+	SakadeTag |
+	JfcardsTag |
+	Henshall3Tag |
+	TuttleCardsTag |
+	CrowleyTag |
+	KanjiInContextTag |
+	KodanshaCompactTag |
+	ManietteTag
+	
+type ReferenceTag = ReferenceUintTag | 
+	OneillTag | 
+	MoroTag | 
+	BusyPeopleTag
 
 /**
  * A numeric index into a dictionary or reference book.
@@ -160,32 +194,12 @@ export interface Reference_Uint {
 	/**
 	 * The reference source
 	 */
-	tag: NelsonClassic | 
-		NelsonNew |
-		Njecd |
-		Kkd |
-		Kkld |
-		Kkld2ed |
-		Heisig |
-		Heisig6 |
-		Gakken |
-		OneillKk |
-		Henshall |
-		ShKk |
-		ShKk2 |
-		Sakade |
-		Jfcards |
-		Henshall3 |
-		TuttleCards |
-		Crowley |
-		KanjiInContext |
-		KodanshaCompact |
-		Maniette
-	
+	tag: ReferenceUintTag
+
 	/**
 	 * The reference
 	 */
-	value: Uint
+	content: Uint
 }
 
 /**
@@ -195,3 +209,53 @@ export type Reference = Reference_BusyPeople |
 	Reference_Moro |
 	Reference_Oneill |
 	Reference_Uint
+	
+export function isReference(value: unknown): value is Reference {
+	return isObject(value) &&
+		hasStringProperty(value, "tag") &&
+		hasProperty(value, "content") &&
+		isTypeFrom(value, TAG_HANDLERS)
+}
+
+const TAG_HANDLERS: Record<ReferenceTag, Checker<Sum, Reference>> = {
+	"NelsonClassic": handleUintTag,
+	"NelsonNew": handleUintTag,
+	"Njecd": handleUintTag,
+	"Kkd": handleUintTag,
+	"Kkld": handleUintTag,
+	"Kkld2ed": handleUintTag,
+	"Heisig": handleUintTag,
+	"Heisig6": handleUintTag,
+	"Gakken": handleUintTag,
+	"OneillKk": handleUintTag,
+	"Henshall": handleUintTag,
+	"ShKk": handleUintTag,
+	"ShKk2": handleUintTag,
+	"Sakade": handleUintTag,
+	"Jfcards": handleUintTag,
+	"Henshall3": handleUintTag,
+	"TuttleCards": handleUintTag,
+	"Crowley": handleUintTag,
+	"KanjiInContext": handleUintTag,
+	"KodanshaCompact": handleUintTag,
+	"Maniette": handleUintTag,
+	"Moro": handleMoroTag,
+	"Oneill": handleOneillTag,
+	"BusyPeople": handleBusyPeopleTag,
+}
+
+function handleUintTag(value: Sum): value is Reference_Uint {
+	return isUint(value.content)
+}
+
+function handleMoroTag(value: Sum): value is Reference_Moro {
+	return isMoro(value.content)
+}
+
+function handleOneillTag(value: Sum): value is Reference_Oneill {
+	return isOneill(value.content)
+}
+
+function handleBusyPeopleTag(value: Sum): value is Reference_BusyPeople {
+	return isBusyPeople(value.content)
+}
