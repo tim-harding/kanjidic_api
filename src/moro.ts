@@ -46,7 +46,7 @@ export function isMoro(value: unknown): value is Moro {
 		hasOptionalUintProperty(value, "page") &&
 		hasUintProperty(value, "index") &&
 		hasOptionalStringProperty(value, "suffix") &&
-		isMoroSuffixKind(value.suffix)
+		(value.suffix === undefined || isMoroSuffixKind(value.suffix))
 }
 
 function isMoroSuffixKind(str: string): str is MoroSuffixKind {

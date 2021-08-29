@@ -1,29 +1,6 @@
+import { hasProperty, hasStringProperty, hasUintProperty, isObject } from "./shared";
+import { isSolidSubpattern, SolidSubpattern } from "./solid_subpattern";
 import { Uint } from "./uint";
-
-/**
- * An identifying characteristic of the kanji.
- */
-const enum SolidSubpattern {
-	/**
-	 * Contains a top line.
-	 */
-	TopLine = 1,
-
-	/**
-	 * Contains a bottom line.
-	 */
-	BottomLine,
-
-	/**
-	 * Contains a through line.
-	 */
-	ThroughLine,
-
-	/**
-	 * Does not contain any of the above.
-	 */
-	Other,
-}
 
 /**
  * Left and right parts of the kanji.
@@ -101,5 +78,29 @@ export interface Skip_Solid {
 export type Skip = Skip_Horizontal | Skip_Vertical | Skip_Enclosure | Skip_Solid
 
 export function isSkip(value: unknown): value is Skip {
-
+	return isObject(value) &&
+		hasStringProperty(value, "tag") &&
+		(
+			(
+				value.tag === "Horizontal" &&
+					hasUintProperty(value, "left") &&
+					hasUintProperty(value, "right")
+			) ||
+			(
+				value.tag === "Vertical" &&
+					hasUintProperty(value, "top") &&
+					hasUintProperty(value, "bottom")
+			) ||
+			(
+				value.tag === "Enclosure" &&
+					hasUintProperty(value, "exterior") &&
+					hasUintProperty(value, "interior")
+			) ||
+			(
+				value.tag === "Solid" &&
+					hasUintProperty(value, "totalStrokeCount") &&
+					hasProperty(value, "solidSubpattern") &&
+					isSolidSubpattern(value.solidSubpattern)
+			)
+		)
 }
