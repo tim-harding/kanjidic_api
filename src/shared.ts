@@ -29,21 +29,20 @@ export function hasOptionalStringProperty<K extends string, T extends object>(va
 		isString(value[key])
 }
 
-export function hasArrayProperty<K extends string, T extends object>(value: T, key: K): value is T & Record<K, Array<Uint>> {
+type ArrayChecker<T> = { (value: unknown): value is T }
+
+export function hasArrayProperty<K extends string, T extends object, E>(value: T, key: K, checker: ArrayChecker<E>): value is T & Record<K, Array<Uint>> {
 	return hasProperty(value, key) &&
-		Array.isArray(value[key])
+		isArrayOf(value[key], checker)
+}
+
+export function hasOptionalArrayProperty<K extends string, T extends object, E>(value: T, key: K, checker: ArrayChecker<E>): value is T & Record<K, Array<Uint>> {
+	return !hasProperty(value, key) ||
+		isArrayOf(value[key], checker)
 }
 
 export function hasUintArrayProperty<K extends string, T extends object>(value: T, key: K): value is T & Record<K, Array<Uint>> {
-	if (!hasArrayProperty(value, key)) {
-		return false
-	}
-	for (const element of value[key]) {
-		if (!isUint(element)) {
-			return false
-		}
-	}
-	return true
+	return hasArrayProperty(value, key, isUint)
 }
 
 export function isObject(value: unknown): value is object {
@@ -57,6 +56,18 @@ export function isNumber(value: unknown): value is number {
 
 export function isString(value: unknown): value is string {
 	return typeof value === "string"
+}
+
+export function isArrayOf<T>(value: unknown, checker: ArrayChecker<T>): value is Array<T> {
+	if (!Array.isArray(value)) {
+		return false
+	}
+	for (const element of value) {
+		if (!checker(element)) {
+			return false
+		}
+	}
+	return true
 }
 
 export interface Tagged {
