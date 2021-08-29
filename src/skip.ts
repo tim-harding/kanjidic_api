@@ -1,4 +1,4 @@
-import { Checker, hasProperty, hasStringProperty, hasUintProperty, isObject, isTypeFrom, Tagged, } from "./shared";
+import { Checker, hasProperty, hasStringProperty, hasUintProperty, isObject, isTypeFromTagged, Tagged, } from "./shared";
 import { isSolidSubpattern, SolidSubpattern } from "./solid_subpattern";
 import { Uint } from "./uint";
 
@@ -96,32 +96,32 @@ export type Skip = Skip_Horizontal |
 export function isSkip(value: unknown): value is Skip {
 	return isObject(value) &&
 		hasStringProperty(value, "tag") &&
-		isTypeFrom(value, TAG_HANDLERS)
+		isTypeFromTagged(value, CHECKERS)
 }
 
-const TAG_HANDLERS: Record<SkipTag, Checker<Tagged, Skip>> = {
-	"Horizontal": handleHorizontalTag,
-	"Vertical": handleVerticalTag,
-	"Enclosure": handleEnclosureTag,
-	"Solid": handleSolidTag,
+const CHECKERS: Record<SkipTag, Checker<Tagged, Skip>> = {
+	"Horizontal": isSkipHorizontal,
+	"Vertical": isSkipVertical,
+	"Enclosure": isSkipEnclosure,
+	"Solid": isSkipSolid,
 }
 
-function handleHorizontalTag(value: Tagged): value is Skip_Horizontal {
+function isSkipHorizontal(value: Tagged): value is Skip_Horizontal {
 	return hasUintProperty(value, "left") &&
 		hasUintProperty(value, "right")
 }
 
-function handleVerticalTag(value: Tagged): value is Skip_Vertical {
+function isSkipVertical(value: Tagged): value is Skip_Vertical {
 	return hasUintProperty(value, "top") &&
 		hasUintProperty(value, "bottom")
 }
 
-function handleEnclosureTag(value: Tagged): value is Skip_Enclosure {
+function isSkipEnclosure(value: Tagged): value is Skip_Enclosure {
 	return hasUintProperty(value, "exterior") &&
 		hasUintProperty(value, "interior")
 }
 
-function handleSolidTag(value: Tagged): value is Skip_Solid {
+function isSkipSolid(value: Tagged): value is Skip_Solid {
 	return hasUintProperty(value, "totalStrokeCount") &&
 		hasProperty(value, "solidSubpattern") &&
 		isSolidSubpattern(value.solidSubpattern)

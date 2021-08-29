@@ -1,7 +1,7 @@
 import { BusyPeople, isBusyPeople } from "./busy_people"
 import { isMoro, Moro } from "./moro"
 import { isOneill, Oneill } from "./oneill"
-import { Checker, hasProperty, hasStringProperty, isObject, isTypeFrom, Sum } from "./shared"
+import { Checker, hasProperty, hasStringProperty, isObject, isTypeFromTagged, Sum } from "./shared"
 import { isUint, Uint } from "./uint"
 
 /**
@@ -214,48 +214,48 @@ export function isReference(value: unknown): value is Reference {
 	return isObject(value) &&
 		hasStringProperty(value, "tag") &&
 		hasProperty(value, "content") &&
-		isTypeFrom(value, TAG_HANDLERS)
+		isTypeFromTagged(value, CHECKERS)
 }
 
-const TAG_HANDLERS: Record<ReferenceTag, Checker<Sum, Reference>> = {
-	"NelsonClassic": handleUintTag,
-	"NelsonNew": handleUintTag,
-	"Njecd": handleUintTag,
-	"Kkd": handleUintTag,
-	"Kkld": handleUintTag,
-	"Kkld2ed": handleUintTag,
-	"Heisig": handleUintTag,
-	"Heisig6": handleUintTag,
-	"Gakken": handleUintTag,
-	"OneillKk": handleUintTag,
-	"Henshall": handleUintTag,
-	"ShKk": handleUintTag,
-	"ShKk2": handleUintTag,
-	"Sakade": handleUintTag,
-	"Jfcards": handleUintTag,
-	"Henshall3": handleUintTag,
-	"TuttleCards": handleUintTag,
-	"Crowley": handleUintTag,
-	"KanjiInContext": handleUintTag,
-	"KodanshaCompact": handleUintTag,
-	"Maniette": handleUintTag,
-	"Moro": handleMoroTag,
-	"Oneill": handleOneillTag,
-	"BusyPeople": handleBusyPeopleTag,
+const CHECKERS: Record<ReferenceTag, Checker<Sum, Reference>> = {
+	"NelsonClassic": isReferenceUint,
+	"NelsonNew": isReferenceUint,
+	"Njecd": isReferenceUint,
+	"Kkd": isReferenceUint,
+	"Kkld": isReferenceUint,
+	"Kkld2ed": isReferenceUint,
+	"Heisig": isReferenceUint,
+	"Heisig6": isReferenceUint,
+	"Gakken": isReferenceUint,
+	"OneillKk": isReferenceUint,
+	"Henshall": isReferenceUint,
+	"ShKk": isReferenceUint,
+	"ShKk2": isReferenceUint,
+	"Sakade": isReferenceUint,
+	"Jfcards": isReferenceUint,
+	"Henshall3": isReferenceUint,
+	"TuttleCards": isReferenceUint,
+	"Crowley": isReferenceUint,
+	"KanjiInContext": isReferenceUint,
+	"KodanshaCompact": isReferenceUint,
+	"Maniette": isReferenceUint,
+	"Moro": isReferenceMoro,
+	"Oneill": isReferenceOneill,
+	"BusyPeople": isReferenceBusyPeople,
 }
 
-function handleUintTag(value: Sum): value is Reference_Uint {
+function isReferenceUint(value: Sum): value is Reference_Uint {
 	return isUint(value.content)
 }
 
-function handleMoroTag(value: Sum): value is Reference_Moro {
+function isReferenceMoro(value: Sum): value is Reference_Moro {
 	return isMoro(value.content)
 }
 
-function handleOneillTag(value: Sum): value is Reference_Oneill {
+function isReferenceOneill(value: Sum): value is Reference_Oneill {
 	return isOneill(value.content)
 }
 
-function handleBusyPeopleTag(value: Sum): value is Reference_BusyPeople {
+function isReferenceBusyPeople(value: Sum): value is Reference_BusyPeople {
 	return isBusyPeople(value.content)
 }
