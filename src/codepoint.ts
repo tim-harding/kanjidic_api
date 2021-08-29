@@ -1,5 +1,5 @@
 import { isKuten, Kuten } from "./kuten";
-import { hasProperty, hasStringProperty, isObject, isTypeFromSum, Sum, SumChecker, Tagged, TaggedChecker } from "./shared";
+import { Checker, hasProperty, hasStringProperty, isObject, isTypeFrom, Sum } from "./shared";
 import { isUint, Uint } from "./uint";
 
 /**
@@ -68,10 +68,10 @@ export function isCodepoint(value: unknown): value is Codepoint {
 	return isObject(value) &&
 		hasStringProperty(value, "tag") &&
 		hasProperty(value, "content") &&
-		isTypeFromSum(value, TAG_HANDLERS)
+		isTypeFrom(value, TAG_HANDLERS)
 }
 
-const TAG_HANDLERS: Record<CodepointTag, SumChecker<Codepoint>> = {
+const TAG_HANDLERS: Record<CodepointTag, Checker<Sum, Codepoint>> = {
 	"Jis208": handleJisTag,
 	"Jis212": handleJisTag,
 	"Jis213": handleJisTag,

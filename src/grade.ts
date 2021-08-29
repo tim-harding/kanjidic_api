@@ -1,4 +1,4 @@
-import { hasStringProperty, hasUintProperty, isObject, isTypeFromTagged, Tagged, TaggedChecker } from "./shared";
+import { Checker, hasStringProperty, hasUintProperty, isObject, isTypeFrom, Tagged } from "./shared";
 import { Uint } from "./uint"
 
 export type KyouikuTag = "Kyouiku"
@@ -48,10 +48,10 @@ export type Grade = Grade_Kyouiku | Grade_Other;
 export function isGrade(value: unknown): value is Grade {
 	return isObject(value) &&
 		hasStringProperty(value, "tag") &&
-		isTypeFromTagged(value, TAG_HANDLERS)
+		isTypeFrom(value, TAG_HANDLERS)
 }
 
-const TAG_HANDLERS: Record<GradeTag, TaggedChecker<Grade>> = {
+const TAG_HANDLERS: Record<GradeTag, Checker<Tagged, Grade>> = {
 	"Kyouiku": handleKyouikuTag,
 	"Jouyou": handleOtherTag,
 	"Jinmeiyou": handleOtherTag,

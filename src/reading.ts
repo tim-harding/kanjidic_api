@@ -1,6 +1,6 @@
 import { isKunyomi, Kunyomi } from "./kunyomi";
 import { isPinYin, PinYin } from "./pinyin";
-import { hasProperty, hasStringProperty, isObject, isString, isTypeFromSum, Sum, SumChecker } from "./shared";
+import { Checker, hasProperty, hasStringProperty, isObject, isString, isTypeFrom, Sum, } from "./shared";
 
 export type PinYinTag = "PinYin"
 
@@ -89,10 +89,10 @@ export function isReading(value: unknown): value is Reading {
 	return isObject(value) &&
 		hasStringProperty(value, "tag") &&
 		hasProperty(value, "content") &&
-		isTypeFromSum(value, TAG_HANDLERS)
+		isTypeFrom(value, TAG_HANDLERS)
 }
 
-const TAG_HANDLERS: Record<string, SumChecker<Reading>> = {
+const TAG_HANDLERS: Record<string, Checker<Sum, Reading>> = {
 	"KoreanHangul": tagStringHandler,
 	"KoreanRomanized": tagStringHandler,
 	"Onyomi": tagStringHandler,

@@ -1,6 +1,6 @@
 import { FourCorner, isFourCorner } from "./four_corner"
 import { isMisclassification, Misclassification } from "./misclassification"
-import { hasProperty, hasStringProperty, isObject, isTypeFromSum, Sum, SumChecker } from "./shared"
+import { Checker, hasProperty, hasStringProperty, isObject, isTypeFrom, Sum } from "./shared"
 import { isShDesc, ShDesc } from "./sh_desc"
 import { isSkip, Skip } from "./skip"
 
@@ -49,10 +49,10 @@ export function isQueryCode(value: unknown): value is QueryCode {
 	return isObject(value) &&
 		hasStringProperty(value, "tag") &&
 		hasProperty(value, "content") &&
-		isTypeFromSum(value, TAG_HANDLERS)
+		isTypeFrom(value, TAG_HANDLERS)
 }
 
-const TAG_HANDLERS: Record<string, SumChecker<QueryCode>> = {
+const TAG_HANDLERS: Record<string, Checker<Sum, QueryCode>> = {
 	"Skip": handleSkipTag,
 	"ShDesc": handleShDescTag,
 	"FourCorner": handleFourCornerTag,

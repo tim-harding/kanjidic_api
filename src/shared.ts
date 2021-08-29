@@ -63,23 +63,13 @@ export interface Tagged {
 	tag: string,
 }
 
-export type TaggedChecker<T extends Tagged> = { (value: Tagged): value is T }
-
-export function isTypeFromTagged<T extends Tagged>(value: Tagged, handlers: Record<string, TaggedChecker<T>>): value is T {
-	const handler = handlers[value.tag]
-	if (handler === undefined) {
-		return false
-	}
-	return handler(value)
-}
-
 export interface Sum extends Tagged {
 	content: unknown,
 }
 
-export type SumChecker<T extends Sum> = { (value: Sum): value is T }
+export type Checker<E extends Tagged, T extends E> = { (value: E): value is T }
 
-export function isTypeFromSum<T extends Sum>(value: Sum, handlers: Record<string, SumChecker<T>>): value is T {
+export function isTypeFrom<E extends Tagged, T extends E>(value: E, handlers: Record<string, Checker<E, T>>): value is T {
 	const handler = handlers[value.tag]
 	if (handler === undefined) {
 		return false
