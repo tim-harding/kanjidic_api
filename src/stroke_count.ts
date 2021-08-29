@@ -1,4 +1,4 @@
-import { isObject, tryGetUint, tryGetUintArray } from "./shared";
+import { hasUintArrayProperty, hasUintProperty, isObject } from "./shared";
 import { Uint } from "./uint";
 
 /**
@@ -16,20 +16,8 @@ export interface StrokeCount {
 	miscounts: Array<Uint>
 }
 
-export function fromUnknown(value: unknown): StrokeCount | Error {
-	if (!isObject(value)) {
-		return new Error("Value is not an object")
-	}
-	const accepted = tryGetUint(value, "accepted")
-	if (accepted instanceof Error) {
-		return accepted
-	}
-	const miscounts = tryGetUintArray(value, "miscounts")
-	if (miscounts instanceof Error) {
-		return miscounts
-	}
-	return {
-		accepted,
-		miscounts,
-	}
+export function isStrokeCount(value: unknown): value is StrokeCount {
+	return isObject(value) &&
+		hasUintProperty(value, "accepted") &&
+		hasUintArrayProperty(value, "miscounts")
 }
