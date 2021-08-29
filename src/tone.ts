@@ -32,3 +32,16 @@ export function isTone(value: unknown): value is Tone {
 		value >= Tone.High &&
 		value <= Tone.Neutral
 }
+
+export function serializeTone(tone: Tone): string {
+	return TONE_MAPPING[tone as number] as string
+}
+
+const TONE_MAPPING = [
+	"", // Dummy
+	"High",
+	"Rising",
+	"Low",
+	"Falling",
+	"Neutral",
+]
