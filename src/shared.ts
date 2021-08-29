@@ -5,29 +5,32 @@ export function hasProperty<K extends string, T extends object>(value: T, key: K
 }
 
 export function hasUintProperty<K extends string, T extends object>(value: T, key: K): value is T & Record<K, Uint> {
-	return hasProperty(value, key) && 
+	return hasProperty(value, key) &&
 		isUint(value[key])
 }
 
 export function hasOptionalUintProperty<K extends string, T extends object>(value: T, key: K): value is T & Record<K, Uint | undefined> {
-	if (!hasProperty(value, key)) {
-		return true
-	}
-	return isUint(value[key])
+	return !hasProperty(value, key) ||
+		isUint(value[key])
 }
 
 export function hasNumberProperty<K extends string, T extends object>(value: T, key: K): value is T & Record<K, number> {
-	return hasProperty(value, key) && 
+	return hasProperty(value, key) &&
 		isNumber(value[key])
 }
 
 export function hasStringProperty<K extends string, T extends object>(value: T, key: K): value is T & Record<K, string> {
-	return hasProperty(value, key) && 
+	return hasProperty(value, key) &&
+		isString(value[key])
+}
+
+export function hasOptionalStringProperty<K extends string, T extends object>(value: T, key: K): value is T & Record<K, string> {
+	return !hasProperty(value, key) ||
 		isString(value[key])
 }
 
 export function hasArrayProperty<K extends string, T extends object>(value: T, key: K): value is T & Record<K, Array<Uint>> {
-	return hasProperty(value, key) && 
+	return hasProperty(value, key) &&
 		Array.isArray(value[key])
 }
 
@@ -44,7 +47,7 @@ export function hasUintArrayProperty<K extends string, T extends object>(value: 
 }
 
 export function isObject(value: unknown): value is object {
-	return (typeof value === "object") && 
+	return (typeof value === "object") &&
 		value !== null
 }
 

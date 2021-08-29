@@ -1,3 +1,7 @@
+import { hasOptionalStringProperty, hasStringProperty, isObject } from "./shared";
+
+export type KunyomiKind = "Normal" | "Prefix" | "Suffix"
+
 /**
  * A kunyomi kanji reading.
  */
@@ -10,10 +14,28 @@ export interface Kunyomi {
 	/**
 	 * The okurigana if relevant
 	 */
-	okurigana: string | undefined
+	okurigana?: string
 
 	/**
 	 * Whether the reading is as a prefix, suffix, or neither.
 	 */
-	kind: "Normal" | "Prefix" | "Suffix"
+	kind: KunyomiKind
+}
+
+export function isKunyomi(value: unknown): value is Kunyomi {
+	return isObject(value) &&
+		hasStringProperty(value, "reading") &&
+		hasOptionalStringProperty(value, "okurigana") &&
+		hasStringProperty(value, "kind") &&
+		isKunyomiKind(value.kind)
+}
+
+function isKunyomiKind(value: string): value is KunyomiKind {
+	return value in KUNYOMI_KINDS	
+}
+
+const KUNYOMI_KINDS: Record<KunyomiKind, boolean> = {
+	"Normal": true,
+	"Prefix": true,
+	"Suffix": true,
 }
