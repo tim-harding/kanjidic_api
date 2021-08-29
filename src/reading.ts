@@ -1,5 +1,10 @@
-import { Kunyomi } from "./kunyomi";
-import { PinYin } from "./pinyin";
+import { isKunyomi, Kunyomi } from "./kunyomi";
+import { isPinYin, PinYin } from "./pinyin";
+import { hasProperty, hasStringProperty, isObject, isString } from "./shared";
+
+export type PinYinTag = "PinYin"
+
+export type KunyomiTag = "Kunyomi"
 
 /**
  * The modern romanization of the Chinese reading.
@@ -8,12 +13,12 @@ export interface Reading_PinYin {
 	/**
 	 * The kind of reading.
 	 */
-	tag: "PinYin"
-	
+	tag: PinYinTag
+
 	/**
 	 * The reading.
 	 */
-	value: PinYin
+	content: PinYin
 }
 
 /**
@@ -23,33 +28,40 @@ export interface Reading_Kunyomi {
 	/**
 	 * The kind of reading.
 	 */
-	tag: "Kunyomi"
-	
+	tag: KunyomiTag
+
 	/**
 	 * The reading.
 	 */
-	value: Kunyomi
+	content: Kunyomi
 }
 
 /**
  * The romanized form of the Korean reading.
  */
-export type KoreanRomanized = "KoreanRomanized"
+export type KoreanRomanizedTag = "KoreanRomanized"
 
 /**
  * The Korean reading of the kanji in Hangul.
  */
-export type KoreanHangul = "KoreanHangul"
+export type KoreanHangulTag = "KoreanHangul"
 
 /**
  * The Vietnamese reading supplied by Minh Chau Pham.
  */
-export type Vietnam = "Vietnam"
+export type VietnamTag = "Vietnam"
 
 /**
  * The onyomi reading of the kanji in katakana.
  */
-export type Onyomi = "Onyomi"
+export type OnyomiTag = "Onyomi"
+
+export type ReadingStringTag = KoreanRomanizedTag |
+	KoreanHangulTag |
+	VietnamTag |
+	OnyomiTag
+
+export type ReadingTag = PinYinTag | KunyomiTag | ReadingStringTag
 
 /**
  * A kanji reading that can be expressed as plain text.
@@ -58,20 +70,60 @@ export interface Reading_String {
 	/**
 	 * The kind of reading.
 	 */
-	tag: KoreanRomanized |
-		KoreanHangul |
-		Vietnam |
-		Onyomi
-		
+	tag: ReadingStringTag
+
 	/**
 	 * The reading.
 	 */
-	value: string
+	content: string
 }
 
 /**
  * A particular reading or pronunciation of a kanji.
  */
-export type Reading = Reading_PinYin | 
-	Reading_Kunyomi | 
+export type Reading = Reading_PinYin |
+	Reading_Kunyomi |
 	Reading_String
+
+export function isReading(value: unknown): value is Reading {
+	return isObject(value) &&
+		hasStringProperty(value, "tag") &&
+		hasProperty(value, "content") &&
+		isReadingForTagged(value)
+}
+
+interface Tagged {
+	tag: string,
+	content: unknown,
+}
+
+type TagHandler = { (value: Tagged): value is Reading }
+
+function isReadingForTagged(value: Tagged): value is Reading {
+	const handler = TAG_HANDLERS[value.tag]
+	if (handler === undefined) {
+		return false
+	}
+	return handler(value)
+}
+
+const TAG_HANDLERS: Record<string, TagHandler> = {
+	"KoreanHangul": tagStringHandler,
+	"KoreanRomanized": tagStringHandler,
+	"Onyomi": tagStringHandler,
+	"Vietnam": tagStringHandler,
+	"Kunyomi": tagKunyomiHandler,
+	"PinYin": tagPinYinHandler,
+}
+
+function tagStringHandler(value: Tagged): value is Reading_String {
+	return isString(value.content)
+}
+
+function tagKunyomiHandler(value: Tagged): value is Reading_Kunyomi {
+	return isKunyomi(value.content)
+}
+
+function tagPinYinHandler(value: Tagged): value is Reading_PinYin {
+	return isPinYin(value.content)
+}
