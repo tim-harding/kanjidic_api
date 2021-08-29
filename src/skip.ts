@@ -99,3 +99,7 @@ export interface Skip_Solid {
  * for reference. 
  */
 export type Skip = Skip_Horizontal | Skip_Vertical | Skip_Enclosure | Skip_Solid
+
+export function isSkip(value: unknown): value is Skip {
+
+}

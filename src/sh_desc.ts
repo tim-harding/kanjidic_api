@@ -33,3 +33,7 @@ export function serialize(desc: ShDesc): string {
 	const radical = serializeShRadical(desc.radical)
 	return `${desc.radicalStrokes}${radical}${desc.otherStrokes}.${desc.sequence}`
 }
+
+export function isShDesc(value: unknown): value is ShDesc {
+
+}
