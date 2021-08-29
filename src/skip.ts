@@ -7,12 +7,12 @@ import { Uint } from "./uint";
  */
 export interface Skip_Horizontal {
 	tag: "Horizontal"
-	
+
 	/**
 	 * Number of strokes in the left part.
 	 */
 	left: Uint
-	
+
 	/**
 	 * Number of strokes in the right part.
 	 */
@@ -41,12 +41,12 @@ export interface Skip_Vertical {
  */
 export interface Skip_Enclosure {
 	tag: "Enclosure"
-	
+
 	/**
 	 * Number of strokes in the exterior part.
 	 */
 	exterior: Uint
-	
+
 	/**
 	 * Number of strokes in the interior part.
 	 */
@@ -58,12 +58,12 @@ export interface Skip_Enclosure {
  */
 export interface Skip_Solid {
 	tag: "Solid"
-	
+
 	/**
 	 * The total number of strokes in the kanji.
 	 */
 	totalStrokeCount: Uint
-	
+
 	/**
 	 * The subpattern that defines the kanji.
 	 */
@@ -80,27 +80,47 @@ export type Skip = Skip_Horizontal | Skip_Vertical | Skip_Enclosure | Skip_Solid
 export function isSkip(value: unknown): value is Skip {
 	return isObject(value) &&
 		hasStringProperty(value, "tag") &&
-		(
-			(
-				value.tag === "Horizontal" &&
-					hasUintProperty(value, "left") &&
-					hasUintProperty(value, "right")
-			) ||
-			(
-				value.tag === "Vertical" &&
-					hasUintProperty(value, "top") &&
-					hasUintProperty(value, "bottom")
-			) ||
-			(
-				value.tag === "Enclosure" &&
-					hasUintProperty(value, "exterior") &&
-					hasUintProperty(value, "interior")
-			) ||
-			(
-				value.tag === "Solid" &&
-					hasUintProperty(value, "totalStrokeCount") &&
-					hasProperty(value, "solidSubpattern") &&
-					isSolidSubpattern(value.solidSubpattern)
-			)
-		)
+		isSkipForTagged(value)
+}
+
+function isSkipForTagged(value: Tagged): value is Skip {
+	const handler = TAG_HANDLER[value.tag]
+	if (handler === undefined) {
+		return false
+	}
+	return handler(value)
+}
+
+interface Tagged {
+	tag: string,
+}
+
+type TagHandler = { (value: Tagged): value is Skip }
+
+const TAG_HANDLER: Record<string, TagHandler> = {
+	"Horizontal": handleHorizontalTag,
+	"Vertical": handleVerticalTag,
+	"Enclosure": handleEnclosureTag,
+	"Solid": handleSolidTag,
+}
+
+function handleHorizontalTag(value: Tagged): value is Skip {
+	return hasUintProperty(value, "left") &&
+		hasUintProperty(value, "right")
+}
+
+function handleVerticalTag(value: Tagged): value is Skip {
+	return hasUintProperty(value, "top") &&
+		hasUintProperty(value, "bottom")
+}
+
+function handleEnclosureTag(value: Tagged): value is Skip {
+	return hasUintProperty(value, "exterior") &&
+		hasUintProperty(value, "interior")
+}
+
+function handleSolidTag(value: Tagged): value is Skip {
+	return hasUintProperty(value, "totalStrokeCount") &&
+		hasProperty(value, "solidSubpattern") &&
+		isSolidSubpattern(value.solidSubpattern)
 }
