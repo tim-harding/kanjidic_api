@@ -4,7 +4,7 @@ import { isQueryCode, QueryCode } from "./query_code";
 import { isRadical, Radical } from "./radical";
 import { isReading, Reading } from "./reading";
 import { isReference, Reference } from "./reference";
-import { hasArrayProperty, hasOptionalArrayProperty, hasOptionalStringProperty, hasOptionalUintProperty, hasProperty, isArrayOf, isObject, isString } from "./shared";
+import { hasOptionalArrayProperty, hasOptionalStringProperty, hasOptionalUintProperty, hasProperty, isArrayOf, isObject, isString } from "./shared";
 import { isStrokeCount, StrokeCount } from "./stroke_count";
 import { isTranslations, Translations } from "./translations";
 import { Uint } from "./uint";

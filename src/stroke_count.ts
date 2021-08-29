@@ -1,5 +1,5 @@
-import { hasUintArrayProperty, hasUintProperty, isObject } from "./shared";
-import { Uint } from "./uint";
+import { hasArrayProperty, hasUintProperty, isObject } from "./shared";
+import { isUint, Uint } from "./uint";
 
 /**
  * The number of strokes in a kanji.
@@ -19,5 +19,5 @@ export interface StrokeCount {
 export function isStrokeCount(value: unknown): value is StrokeCount {
 	return isObject(value) &&
 		hasUintProperty(value, "accepted") &&
-		hasUintArrayProperty(value, "miscounts")
+		hasArrayProperty(value, "miscounts", isUint)
 }
