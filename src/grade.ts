@@ -1,4 +1,4 @@
-import { Checker, hasStringProperty, hasUintProperty, isObject, isTagged, isTypeFromTagged, Tagged } from "./shared";
+import { Checker, hasUintProperty, isTagged, isTypeFromTagged, Tagged } from "./shared";
 import { Uint } from "./uint"
 
 export type KyouikuTag = "Kyouiku"

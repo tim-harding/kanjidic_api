@@ -1,6 +1,6 @@
 import { isKunyomi, Kunyomi } from "./kunyomi";
 import { isPinYin, PinYin } from "./pinyin";
-import { Checker, hasProperty, hasStringProperty, isObject, isString, isSum, isTypeFromTagged, Sum, } from "./shared";
+import { Checker, isString, isSum, isTypeFromTagged, Sum, } from "./shared";
 
 export type PinYinTag = "PinYin"
 

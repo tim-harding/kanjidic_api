@@ -1,7 +1,7 @@
 import { BusyPeople, isBusyPeople } from "./busy_people"
 import { isMoro, Moro } from "./moro"
 import { isOneill, Oneill } from "./oneill"
-import { Checker, hasProperty, hasStringProperty, isObject, isSum, isTypeFromTagged, Sum } from "./shared"
+import { Checker, isSum, isTypeFromTagged, Sum } from "./shared"
 import { isUint, Uint } from "./uint"
 
 /**

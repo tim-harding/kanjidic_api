@@ -1,7 +1,7 @@
 import { DeRoo, isDeRoo, serializeDeRoo } from "./de_roo";
 import { isKuten, Kuten, serializeKuten } from "./kuten";
 import { isOneill, Oneill, serializeOneill } from "./oneill";
-import { Checker, hasProperty, hasStringProperty, isObject, isSum, isTypeFromTagged, Sum } from "./shared";
+import { Checker, isSum, isTypeFromTagged, Sum } from "./shared";
 import { ShDesc, serialize as serializeShDesc, isShDesc } from "./sh_desc";
 import { isUint, Uint } from "./uint";
 
