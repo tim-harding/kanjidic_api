@@ -24,7 +24,7 @@ export function hasStringProperty<K extends string, T extends object>(value: T, 
 		isString(value[key])
 }
 
-export function hasOptionalStringProperty<K extends string, T extends object>(value: T, key: K): value is T & Record<K, string> {
+export function hasOptionalStringProperty<K extends string, T extends object>(value: T, key: K): value is T & Record<K, string | undefined> {
 	return !hasProperty(value, key) ||
 		isString(value[key])
 }
