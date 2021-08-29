@@ -1,5 +1,5 @@
-import { hasProperty, hasUintProperty, isObject } from "./shared";
-import { ShRadical, serialize as serializeShRadical, isShRadical } from "./sh_radical";
+import { hasStringProperty, hasUintProperty, isObject } from "./shared";
+import { ShRadical, isShRadical } from "./sh_radical";
 import { Uint } from "./uint"
 
 /**
@@ -31,8 +31,7 @@ export interface ShDesc {
 }
 
 export function serialize(desc: ShDesc): string {
-	const radical = serializeShRadical(desc.radical)
-	return `${desc.radicalStrokes}${radical}${desc.otherStrokes}.${desc.sequence}`
+	return `${desc.radicalStrokes}${desc.radical}${desc.otherStrokes}.${desc.sequence}`
 }
 
 export function isShDesc(value: unknown): value is ShDesc {
@@ -40,6 +39,6 @@ export function isShDesc(value: unknown): value is ShDesc {
 		hasUintProperty(value, "radicalStrokes") &&
 		hasUintProperty(value, "otherStrokes") &&
 		hasUintProperty(value, "sequence") &&
-		hasProperty(value, "radical") &&
+		hasStringProperty(value, "radical") &&
 		isShRadical(value.radical)
 }

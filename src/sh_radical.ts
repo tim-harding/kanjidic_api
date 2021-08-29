@@ -1,107 +1,62 @@
-import { err, ok, Result } from "./result"
-
 /**
  * An identifying radical in the Spahn and Hadamitzky classification system.
  */
-export enum ShRadical {
-	A,
-	B,
-	C,
-	D,
-	E,
-	F,
-	G,
-	H,
-	I,
-	J,
-	K,
-	L,
-	M,
-	N,
-	O,
-	P,
-	Q,
-	R,
-	S,
-	T,
-	U,
-	V,
-	W,
-	X,
-	Y,
-	Z,
+export type ShRadical = "a" |
+	"b" |
+	"c" |
+	"d" |
+	"e" |
+	"f" |
+	"g" |
+	"h" |
+	"i" |
+	"j" |
+	"k" |
+	"l" |
+	"m" |
+	"n" |
+	"o" |
+	"p" |
+	"q" |
+	"r" |
+	"s" |
+	"t" |
+	"u" |
+	"v" |
+	"w" |
+	"x" |
+	"y" |
+	"z"
+
+export function isShRadical(str: string): str is ShRadical {
+	return str in SH_RADICAL_VARIANTS	
 }
 
-export function serialize(radical: ShRadical): string {
-	return SERIALIZE_MAPPING[radical as number] as string
+const SH_RADICAL_VARIANTS: Record<ShRadical, boolean> = {
+  "a": true,
+	"b": true,
+	"c": true,
+	"d": true,
+	"e": true,
+	"f": true,
+	"g": true,
+	"h": true,
+	"i": true,
+	"j": true,
+	"k": true,
+	"l": true,
+	"m": true,
+	"n": true,
+	"o": true,
+	"p": true,
+	"q": true,
+	"r": true,
+	"s": true,
+	"t": true,
+	"u": true,
+	"v": true,
+	"w": true,
+	"x": true,
+	"y": true,
+	"z": true,
 }
-
-export function deserialize(char: string): Result<ShRadical> {
-	const mapped = DESERIALIZE_MAPPING[char];
-	if (mapped === undefined) {
-		return err("Unrecognized radical character")
-	}
-	return ok(mapped);
-}
-
-export function isShRadical(value: unknown): value is ShRadical {
-
-}
-
-const DESERIALIZE_MAPPING: Record<string, ShRadical> = {
-		"a": ShRadical.A,
-		"b": ShRadical.B,
-		"c": ShRadical.C,
-		"d": ShRadical.D,
-		"e": ShRadical.E,
-		"f": ShRadical.F,
-		"g": ShRadical.G,
-		"h": ShRadical.H,
-		"i": ShRadical.I,
-		"j": ShRadical.J,
-		"k": ShRadical.K,
-		"l": ShRadical.L,
-		"m": ShRadical.M,
-		"n": ShRadical.N,
-		"o": ShRadical.O,
-		"p": ShRadical.P,
-		"q": ShRadical.Q,
-		"r": ShRadical.R,
-		"s": ShRadical.S,
-		"t": ShRadical.T,
-		"u": ShRadical.U,
-		"v": ShRadical.V,
-		"w": ShRadical.W,
-		"x": ShRadical.X,
-		"y": ShRadical.Y,
-		"z": ShRadical.Z,
-}
-
-const SERIALIZE_MAPPING = [
-	"a",
-	"b",
-	"c",
-	"d",
-	"e",
-	"f",
-	"g",
-	"h",
-	"i",
-	"j",
-	"k",
-	"l",
-	"m",
-	"n",
-	"o",
-	"p",
-	"q",
-	"r",
-	"s",
-	"t",
-	"u",
-	"v",
-	"w",
-	"x",
-	"y",
-	"z",
-]
