@@ -1,5 +1,5 @@
 import { isKuten, Kuten } from "./kuten";
-import { Checker, hasProperty, hasStringProperty, isObject, isTypeFromTagged, Sum } from "./shared";
+import { Checker, hasProperty, hasStringProperty, isObject, isSum, isTypeFromTagged, Sum } from "./shared";
 import { isUint, Uint } from "./uint";
 
 /**
@@ -65,9 +65,7 @@ export interface Codepoint_Unicode {
 export type Codepoint = Codepoint_Jis | Codepoint_Unicode
 
 export function isCodepoint(value: unknown): value is Codepoint {
-	return isObject(value) &&
-		hasStringProperty(value, "tag") &&
-		hasProperty(value, "content") &&
+	return isSum(value) &&
 		isTypeFromTagged(value, CHECKERS)
 }
 

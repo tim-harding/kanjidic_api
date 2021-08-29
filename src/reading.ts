@@ -1,6 +1,6 @@
 import { isKunyomi, Kunyomi } from "./kunyomi";
 import { isPinYin, PinYin } from "./pinyin";
-import { Checker, hasProperty, hasStringProperty, isObject, isString, isTypeFromTagged, Sum, } from "./shared";
+import { Checker, hasProperty, hasStringProperty, isObject, isString, isSum, isTypeFromTagged, Sum, } from "./shared";
 
 export type PinYinTag = "PinYin"
 
@@ -85,9 +85,7 @@ export type Reading = Reading_PinYin |
 	Reading_String
 
 export function isReading(value: unknown): value is Reading {
-	return isObject(value) &&
-		hasStringProperty(value, "tag") &&
-		hasProperty(value, "content") &&
+	return isSum(value) &&
 		isTypeFromTagged(value, CHECKERS)
 }
 

@@ -1,6 +1,6 @@
 import { FourCorner, isFourCorner } from "./four_corner"
 import { isMisclassification, Misclassification } from "./misclassification"
-import { Checker, hasProperty, hasStringProperty, isObject, isTypeFromTagged, Sum } from "./shared"
+import { Checker, hasProperty, hasStringProperty, isObject, isSum, isTypeFromTagged, Sum } from "./shared"
 import { isShDesc, ShDesc } from "./sh_desc"
 import { isSkip, Skip } from "./skip"
 
@@ -59,9 +59,7 @@ export type QueryCode = QueryCode_Skip |
 	QueryCode_Misclassification
 
 export function isQueryCode(value: unknown): value is QueryCode {
-	return isObject(value) &&
-		hasStringProperty(value, "tag") &&
-		hasProperty(value, "content") &&
+	return isSum(value) &&
 		isTypeFromTagged(value, CHECKERS)
 }
 

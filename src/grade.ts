@@ -1,4 +1,4 @@
-import { Checker, hasStringProperty, hasUintProperty, isObject, isTypeFromTagged, Tagged } from "./shared";
+import { Checker, hasStringProperty, hasUintProperty, isObject, isTagged, isTypeFromTagged, Tagged } from "./shared";
 import { Uint } from "./uint"
 
 export type KyouikuTag = "Kyouiku"
@@ -46,8 +46,7 @@ export interface Grade_Other {
 export type Grade = Grade_Kyouiku | Grade_Other;
 
 export function isGrade(value: unknown): value is Grade {
-	return isObject(value) &&
-		hasStringProperty(value, "tag") &&
+	return isTagged(value) &&
 		isTypeFromTagged(value, CHECKERS)
 }
 

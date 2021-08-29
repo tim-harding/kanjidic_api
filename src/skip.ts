@@ -1,4 +1,4 @@
-import { Checker, hasProperty, hasStringProperty, hasUintProperty, isObject, isTypeFromTagged, Tagged, } from "./shared";
+import { Checker, hasProperty, hasStringProperty, hasUintProperty, isObject, isTagged, isTypeFromTagged, Tagged, } from "./shared";
 import { isSolidSubpattern, SolidSubpattern } from "./solid_subpattern";
 import { Uint } from "./uint";
 
@@ -94,8 +94,7 @@ export type Skip = Skip_Horizontal |
 	Skip_Solid
 
 export function isSkip(value: unknown): value is Skip {
-	return isObject(value) &&
-		hasStringProperty(value, "tag") &&
+	return isTagged(value) &&
 		isTypeFromTagged(value, CHECKERS)
 }
 

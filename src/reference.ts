@@ -1,7 +1,7 @@
 import { BusyPeople, isBusyPeople } from "./busy_people"
 import { isMoro, Moro } from "./moro"
 import { isOneill, Oneill } from "./oneill"
-import { Checker, hasProperty, hasStringProperty, isObject, isTypeFromTagged, Sum } from "./shared"
+import { Checker, hasProperty, hasStringProperty, isObject, isSum, isTypeFromTagged, Sum } from "./shared"
 import { isUint, Uint } from "./uint"
 
 /**
@@ -211,9 +211,7 @@ export type Reference = Reference_BusyPeople |
 	Reference_Uint
 	
 export function isReference(value: unknown): value is Reference {
-	return isObject(value) &&
-		hasStringProperty(value, "tag") &&
-		hasProperty(value, "content") &&
+	return isSum(value) &&
 		isTypeFromTagged(value, CHECKERS)
 }
 
