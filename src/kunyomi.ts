@@ -30,8 +30,8 @@ export function isKunyomi(value: unknown): value is Kunyomi {
 		isKunyomiKind(value.kind)
 }
 
-function isKunyomiKind(value: string): value is KunyomiKind {
-	return value in KUNYOMI_KINDS	
+function isKunyomiKind(str: string): str is KunyomiKind {
+	return str in KUNYOMI_KINDS	
 }
 
 const KUNYOMI_KINDS: Record<KunyomiKind, boolean> = {

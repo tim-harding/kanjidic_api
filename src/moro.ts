@@ -1,4 +1,7 @@
+import { hasOptionalStringProperty, hasOptionalUintProperty, hasUintProperty, isObject } from "./shared";
 import { Uint } from "./uint";
+
+export type MoroSuffixKind = "P" | "X" | "PX"
 
 /**
  * An entry in the dictionary Daikanwajiten.
@@ -7,13 +10,13 @@ export interface Moro {
 	/**
 	 * The volume, if available
 	 */
-	volume: Uint | undefined
+	volume?: Uint
 
 	/**
 	 * The page number, if available
 	 */
-	page: Uint | undefined
-	
+	page?: Uint
+
 	/**
 	 * The item number
 	 */
@@ -22,7 +25,7 @@ export interface Moro {
 	/**
 	 * A letter that appears after the index, if applicable
 	 */
-	suffix: "P" | "X" | "PX" | undefined
+	suffix?: MoroSuffixKind
 }
 
 /**
@@ -30,9 +33,28 @@ export interface Moro {
  * @param moro The moro reference
  * @returns The string
  */
-export function serializeIndex(moro: Moro): string {
+export function serializeMoroIndex(moro: Moro): string {
 	if (moro.suffix === undefined) {
 		return moro.index.toString()
 	}
 	return `${moro.index}${moro.suffix}`
+}
+
+export function isMoro(value: unknown): value is Moro {
+	return isObject(value) &&
+		hasOptionalUintProperty(value, "volume") &&
+		hasOptionalUintProperty(value, "page") &&
+		hasUintProperty(value, "index") &&
+		hasOptionalStringProperty(value, "suffix") &&
+		isMoroSuffixKind(value.suffix)
+}
+
+function isMoroSuffixKind(str: string): str is MoroSuffixKind {
+	return str in MORO_SUFFIX_KINDS
+}
+
+const MORO_SUFFIX_KINDS: Record<MoroSuffixKind, boolean> = {
+	"P": true,
+	"X": true,
+	"PX": true,
 }
