@@ -76,3 +76,13 @@ export function isTypeFromTagged<E extends Tagged, T extends E>(value: E, handle
 	}
 	return handler(value)
 }
+
+export function isTagged(value: unknown): value is Tagged {
+	return isObject(value) &&
+		hasStringProperty(value, "tag")
+}
+
+export function isSum(value: unknown): value is Sum {
+	return isTagged(value) &&
+		hasProperty(value, "content")
+}

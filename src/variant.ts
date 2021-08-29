@@ -1,8 +1,9 @@
-import { DeRoo, serializeDeRoo } from "./de_roo";
-import { Kuten, serializeKuten } from "./kuten";
-import { Oneill, serializeOneill } from "./oneill";
-import { ShDesc, serialize as serializeShDesc } from "./sh_desc";
-import { Uint } from "./uint";
+import { DeRoo, isDeRoo, serializeDeRoo } from "./de_roo";
+import { isKuten, Kuten, serializeKuten } from "./kuten";
+import { isOneill, Oneill, serializeOneill } from "./oneill";
+import { Checker, hasProperty, hasStringProperty, isObject, isSum, isTypeFromTagged, Sum } from "./shared";
+import { ShDesc, serialize as serializeShDesc, isShDesc } from "./sh_desc";
+import { isUint, Uint } from "./uint";
 
 type KutenTag = "Jis208" | "Jis212" | "Jis213"
 
@@ -32,7 +33,7 @@ export interface Variant_Kuten {
 	/**
 	 * The encoding
 	 */
-	value: Kuten
+	content: Kuten
 }
 
 /**
@@ -50,7 +51,7 @@ export interface Variant_Uint {
 	/**
 	 * The encoding
 	 */
-	value: Uint
+	content: Uint
 }
 
 /**
@@ -65,7 +66,7 @@ export interface Variant_DeRoo {
 	/**
 	 * The encoding
 	 */
-	value: DeRoo
+	content: DeRoo
 }
 
 /**
@@ -80,7 +81,7 @@ export interface Variant_ShDesc {
 	/**
 	 * The encoding
 	 */
-	value: ShDesc
+	content: ShDesc
 }
 
 /**
@@ -95,7 +96,7 @@ export interface Variant_Oneill {
 	/**
 	 * The encoding
 	 */
-	value: Oneill
+	content: Oneill
 }
 
 /**
@@ -116,7 +117,7 @@ export type Variant = Variant_Kuten |
  */
 export function serialize(variant: Variant): string {
 	const serializer = SERIALIZERS[variant.tag]
-	return serializer(variant.value)
+	return serializer(variant.content)
 }
 
 type Serializer = { (content: any): string }
@@ -135,4 +136,41 @@ const SERIALIZERS: Record<VariantTag, Serializer> = {
 
 function serializeUint(uint: Uint): string {
 	return uint.toString()
+}
+
+export function isVariant(value: unknown): value is Variant {
+	return isSum(value) &&
+		isTypeFromTagged(value, CHECKERS)
+}
+
+const CHECKERS: Record<VariantTag, Checker<Sum, Variant>> = {
+		"Jis208": isVariantKuten,
+		"Jis212": isVariantKuten,
+		"Jis213": isVariantKuten,
+		"Unicode": isVariantUint,
+		"Halpern": isVariantUint,
+		"Nelson": isVariantUint,
+		"DeRoo": isVariantDeRoo,
+		"ShDesc": isVariantShDesc,
+		"Oneill": isVariantOneill,
+}
+
+function isVariantKuten(value: Sum): value is Variant_Kuten {
+	return isKuten(value.content)
+}
+
+function isVariantDeRoo(value: Sum): value is Variant_DeRoo {
+	return isDeRoo(value.content)
+}
+
+function isVariantOneill(value: Sum): value is Variant_Oneill {
+	return isOneill(value.content)
+}
+
+function isVariantShDesc(value: Sum): value is Variant_ShDesc {
+	return isShDesc(value.content)
+}
+
+function isVariantUint(value: Sum): value is Variant_Uint {
+	return isUint(value.content)
 }
