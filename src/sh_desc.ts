@@ -1,4 +1,5 @@
-import { ShRadical, serialize as serializeShRadical } from "./sh_radical";
+import { hasProperty, hasUintProperty, isObject } from "./shared";
+import { ShRadical, serialize as serializeShRadical, isShRadical } from "./sh_radical";
 import { Uint } from "./uint"
 
 /**
@@ -8,14 +9,14 @@ import { Uint } from "./uint"
  */
 export interface ShDesc {
 	/**
-	 * Number of strokes in the identifying radical.
-	 */
-	radicalStrokes: Uint
-
-	/**
 	 * The letter for the radical in the identification system.
 	 */
 	radical: ShRadical
+
+	/**
+	 * Number of strokes in the identifying radical.
+	 */
+	radicalStrokes: Uint
 
 	/**
 	 * The number of strokes not included in the radical.
@@ -35,5 +36,10 @@ export function serialize(desc: ShDesc): string {
 }
 
 export function isShDesc(value: unknown): value is ShDesc {
-
+	return isObject(value) &&
+		hasUintProperty(value, "radicalStrokes") &&
+		hasUintProperty(value, "otherStrokes") &&
+		hasUintProperty(value, "sequence") &&
+		hasProperty(value, "radical") &&
+		isShRadical(value.radical)
 }

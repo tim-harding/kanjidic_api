@@ -44,6 +44,10 @@ export function deserialize(char: string): Result<ShRadical> {
 	return ok(mapped);
 }
 
+export function isShRadical(value: unknown): value is ShRadical {
+
+}
+
 const DESERIALIZE_MAPPING: Record<string, ShRadical> = {
 		"a": ShRadical.A,
 		"b": ShRadical.B,
