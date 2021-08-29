@@ -1,5 +1,24 @@
+import { DeRoo, serializeDeRoo } from "./de_roo";
+import { Kuten, serializeKuten } from "./kuten";
+import { Oneill, serializeOneill } from "./oneill";
 import { ShDesc, serialize as serializeShDesc } from "./sh_desc";
 import { Uint } from "./uint";
+
+type KutenTag = "Jis208" | "Jis212" | "Jis213"
+
+type UintTag = "Unicode" | "Halpern" | "Nelson"
+
+type DeRooTag = "DeRoo"
+
+type ShDescTag = "ShDesc"
+
+type OneillTag = "Oneill"
+
+type VariantTag = KutenTag |
+	UintTag |
+	DeRooTag |
+	ShDescTag |
+	OneillTag
 
 /**
  * An encoding in JIS208, JIS212, or JIS213
@@ -8,7 +27,7 @@ export interface Variant_Kuten {
 	/**
 	 * The kind of encoding
 	 */
-	tag: "Jis208" | "Jis212" | "Jis213"
+	tag: KutenTag
 
 	/**
 	 * The encoding
@@ -26,7 +45,7 @@ export interface Variant_Uint {
 	/**
 	 * The kind of encoding
 	 */
-	tag: "Unicode" | "Halpern" | "Nelson"
+	tag: UintTag
 
 	/**
 	 * The encoding
@@ -41,7 +60,7 @@ export interface Variant_DeRoo {
 	/**
 	 * The kind of encoding
 	 */
-	tag: "DeRoo"
+	tag: DeRooTag
 
 	/**
 	 * The encoding
@@ -56,7 +75,7 @@ export interface Variant_ShDesc {
 	/**
 	 * The kind of encoding
 	 */
-	tag: "ShDesc"
+	tag: ShDescTag
 
 	/**
 	 * The encoding
@@ -71,7 +90,7 @@ export interface Variant_Oneill {
 	/**
 	 * The kind of encoding
 	 */
-	tag: "Oneill"
+	tag: OneillTag
 
 	/**
 	 * The encoding
@@ -96,25 +115,24 @@ export type Variant = Variant_Kuten |
  * @returns The string
  */
 export function serialize(variant: Variant): string {
-	switch (variant.tag) {
-		case "Jis208":
-		case "Jis212":
-		case "Jis213": {
-			return serializeKuten(variant.value)
-		}
-		case "Unicode":
-		case "Halpern":
-		case "Nelson": {
-			return variant.value.toString()
-		}
-		case "DeRoo": {
-			return serializeDeRoo(variant.value)
-		}
-		case "ShDesc": {
-			return serializeShDesc(variant.value)
-		}
-		case "Oneill": {
-			return serializeOneill(variant.value)
-		}
-	}
+	const serializer = SERIALIZERS[variant.tag]
+	return serializer(variant.value)
+}
+
+type Serializer = { (content: any): string }
+
+const SERIALIZERS: Record<VariantTag, Serializer> = {
+		"Jis208": serializeKuten,
+		"Jis212": serializeKuten,
+		"Jis213": serializeKuten,
+		"Unicode": serializeUint,
+		"Halpern": serializeUint,
+		"Nelson": serializeUint,
+		"DeRoo": serializeDeRoo,
+		"ShDesc": serializeShDesc,
+		"Oneill": serializeOneill,
+}
+
+function serializeUint(uint: Uint): string {
+	return uint.toString()
 }
