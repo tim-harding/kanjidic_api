@@ -49,10 +49,43 @@ export function isQueryCode(value: unknown): value is QueryCode {
 	return isObject(value) &&
 		hasStringProperty(value, "tag") &&
 		hasProperty(value, "content") &&
-		(
-			(value.tag === "Skip" && isSkip(value.content)) ||
-			(value.tag === "ShDesc" && isShDesc(value.content)) ||
-			(value.tag === "FourCorner" && isFourCorner(value.content)) ||
-			(value.tag === "Misclassification" && isMisclassification(value.content))
-		)
+		isSkipForVariant(value)
+}
+
+interface Variant {
+	tag: string,
+	content: unknown,
+}
+
+function isSkipForVariant(value: Variant): value is QueryCode {
+	const handler = TAG_HANDLERS[value.tag]
+	if (handler === undefined) {
+		return false
+	}
+	return handler(value)
+}
+
+type TagHandler = { (value: Variant): value is QueryCode }
+
+const TAG_HANDLERS: Record<string, TagHandler> = {
+	"Skip": handleSkipTag,
+	"ShDesc": handleShDescTag,
+	"FourCorner": handleFourCornerTag,
+	"Misclassification": handleMisclassificationTag,
+}
+
+function handleSkipTag(value: Variant): value is QueryCode_Skip {
+	return isSkip(value.content)
+}
+
+function handleShDescTag(value: Variant): value is QueryCode_SpahnHadamitzky {
+	return isShDesc(value.content)
+}
+
+function handleFourCornerTag(value: Variant): value is QueryCode_FourCorner {
+	return isFourCorner(value.content)
+}
+
+function handleMisclassificationTag(value: Variant): value is QueryCode_Misclassification {
+	return isMisclassification(value.content)
 }

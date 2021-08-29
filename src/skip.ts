@@ -104,22 +104,22 @@ const TAG_HANDLER: Record<string, TagHandler> = {
 	"Solid": handleSolidTag,
 }
 
-function handleHorizontalTag(value: Tagged): value is Skip {
+function handleHorizontalTag(value: Tagged): value is Skip_Horizontal {
 	return hasUintProperty(value, "left") &&
 		hasUintProperty(value, "right")
 }
 
-function handleVerticalTag(value: Tagged): value is Skip {
+function handleVerticalTag(value: Tagged): value is Skip_Vertical {
 	return hasUintProperty(value, "top") &&
 		hasUintProperty(value, "bottom")
 }
 
-function handleEnclosureTag(value: Tagged): value is Skip {
+function handleEnclosureTag(value: Tagged): value is Skip_Enclosure {
 	return hasUintProperty(value, "exterior") &&
 		hasUintProperty(value, "interior")
 }
 
-function handleSolidTag(value: Tagged): value is Skip {
+function handleSolidTag(value: Tagged): value is Skip_Solid {
 	return hasUintProperty(value, "totalStrokeCount") &&
 		hasProperty(value, "solidSubpattern") &&
 		isSolidSubpattern(value.solidSubpattern)
