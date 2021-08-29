@@ -1,6 +1,6 @@
 import { FourCorner, isFourCorner } from "./four_corner"
 import { isMisclassification, Misclassification } from "./misclassification"
-import { hasProperty, hasStringProperty, isObject } from "./shared"
+import { hasProperty, hasStringProperty, isObject, isTypeFromSum, Sum, SumChecker } from "./shared"
 import { isShDesc, ShDesc } from "./sh_desc"
 import { isSkip, Skip } from "./skip"
 
@@ -49,43 +49,28 @@ export function isQueryCode(value: unknown): value is QueryCode {
 	return isObject(value) &&
 		hasStringProperty(value, "tag") &&
 		hasProperty(value, "content") &&
-		isSkipForVariant(value)
+		isTypeFromSum(value, TAG_HANDLERS)
 }
 
-interface Variant {
-	tag: string,
-	content: unknown,
-}
-
-function isSkipForVariant(value: Variant): value is QueryCode {
-	const handler = TAG_HANDLERS[value.tag]
-	if (handler === undefined) {
-		return false
-	}
-	return handler(value)
-}
-
-type TagHandler = { (value: Variant): value is QueryCode }
-
-const TAG_HANDLERS: Record<string, TagHandler> = {
+const TAG_HANDLERS: Record<string, SumChecker<QueryCode>> = {
 	"Skip": handleSkipTag,
 	"ShDesc": handleShDescTag,
 	"FourCorner": handleFourCornerTag,
 	"Misclassification": handleMisclassificationTag,
 }
 
-function handleSkipTag(value: Variant): value is QueryCode_Skip {
+function handleSkipTag(value: Sum): value is QueryCode_Skip {
 	return isSkip(value.content)
 }
 
-function handleShDescTag(value: Variant): value is QueryCode_SpahnHadamitzky {
+function handleShDescTag(value: Sum): value is QueryCode_SpahnHadamitzky {
 	return isShDesc(value.content)
 }
 
-function handleFourCornerTag(value: Variant): value is QueryCode_FourCorner {
+function handleFourCornerTag(value: Sum): value is QueryCode_FourCorner {
 	return isFourCorner(value.content)
 }
 
-function handleMisclassificationTag(value: Variant): value is QueryCode_Misclassification {
+function handleMisclassificationTag(value: Sum): value is QueryCode_Misclassification {
 	return isMisclassification(value.content)
 }

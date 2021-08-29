@@ -1,4 +1,4 @@
-import { hasProperty, hasStringProperty, hasUintProperty, isObject } from "./shared";
+import { hasProperty, hasStringProperty, hasUintProperty, isObject, isTypeFromTagged, Tagged, TaggedChecker } from "./shared";
 import { isSolidSubpattern, SolidSubpattern } from "./solid_subpattern";
 import { Uint } from "./uint";
 
@@ -80,24 +80,10 @@ export type Skip = Skip_Horizontal | Skip_Vertical | Skip_Enclosure | Skip_Solid
 export function isSkip(value: unknown): value is Skip {
 	return isObject(value) &&
 		hasStringProperty(value, "tag") &&
-		isSkipForTagged(value)
+		isTypeFromTagged(value, TAG_HANDLERS)
 }
 
-function isSkipForTagged(value: Tagged): value is Skip {
-	const handler = TAG_HANDLER[value.tag]
-	if (handler === undefined) {
-		return false
-	}
-	return handler(value)
-}
-
-interface Tagged {
-	tag: string,
-}
-
-type TagHandler = { (value: Tagged): value is Skip }
-
-const TAG_HANDLER: Record<string, TagHandler> = {
+const TAG_HANDLERS: Record<string, TaggedChecker<Skip>> = {
 	"Horizontal": handleHorizontalTag,
 	"Vertical": handleVerticalTag,
 	"Enclosure": handleEnclosureTag,

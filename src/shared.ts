@@ -77,12 +77,12 @@ export interface Sum extends Tagged {
 	content: unknown,
 }
 
-export type SumChecker<T extends Sum> = { (content: unknown): content is T }
+export type SumChecker<T extends Sum> = { (value: Sum): value is T }
 
 export function isTypeFromSum<T extends Sum>(value: Sum, handlers: Record<string, SumChecker<T>>): value is T {
 	const handler = handlers[value.tag]
 	if (handler === undefined) {
 		return false
 	}
-	return handler(value.content)
+	return handler(value)
 }

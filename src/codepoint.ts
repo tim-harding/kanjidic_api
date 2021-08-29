@@ -78,10 +78,10 @@ const TAG_HANDLERS: Record<CodepointTag, SumChecker<Codepoint>> = {
 	"Unicode": handleUnicodeTag,
 }
 
-function handleJisTag(content: unknown): content is Codepoint_Jis {
-	return isKuten(content)
+function handleJisTag(value: Sum): value is Codepoint_Jis {
+	return isKuten(value.content)
 }
 
-function handleUnicodeTag(content: unknown): content is Codepoint_Unicode {
-	return isUint(content)
+function handleUnicodeTag(value: Sum): value is Codepoint_Unicode {
+	return isUint(value.content)
 } 

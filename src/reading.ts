@@ -1,6 +1,6 @@
 import { isKunyomi, Kunyomi } from "./kunyomi";
 import { isPinYin, PinYin } from "./pinyin";
-import { hasProperty, hasStringProperty, isObject, isString } from "./shared";
+import { hasProperty, hasStringProperty, isObject, isString, isTypeFromSum, Sum, SumChecker } from "./shared";
 
 export type PinYinTag = "PinYin"
 
@@ -89,25 +89,10 @@ export function isReading(value: unknown): value is Reading {
 	return isObject(value) &&
 		hasStringProperty(value, "tag") &&
 		hasProperty(value, "content") &&
-		isReadingForTagged(value)
+		isTypeFromSum(value, TAG_HANDLERS)
 }
 
-interface Tagged {
-	tag: string,
-	content: unknown,
-}
-
-type TagHandler = { (value: Tagged): value is Reading }
-
-function isReadingForTagged(value: Tagged): value is Reading {
-	const handler = TAG_HANDLERS[value.tag]
-	if (handler === undefined) {
-		return false
-	}
-	return handler(value)
-}
-
-const TAG_HANDLERS: Record<string, TagHandler> = {
+const TAG_HANDLERS: Record<string, SumChecker<Reading>> = {
 	"KoreanHangul": tagStringHandler,
 	"KoreanRomanized": tagStringHandler,
 	"Onyomi": tagStringHandler,
@@ -116,14 +101,14 @@ const TAG_HANDLERS: Record<string, TagHandler> = {
 	"PinYin": tagPinYinHandler,
 }
 
-function tagStringHandler(value: Tagged): value is Reading_String {
+function tagStringHandler(value: Sum): value is Reading_String {
 	return isString(value.content)
 }
 
-function tagKunyomiHandler(value: Tagged): value is Reading_Kunyomi {
+function tagKunyomiHandler(value: Sum): value is Reading_Kunyomi {
 	return isKunyomi(value.content)
 }
 
-function tagPinYinHandler(value: Tagged): value is Reading_PinYin {
+function tagPinYinHandler(value: Sum): value is Reading_PinYin {
 	return isPinYin(value.content)
 }
