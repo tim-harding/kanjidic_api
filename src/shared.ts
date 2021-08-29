@@ -58,3 +58,31 @@ export function isNumber(value: unknown): value is number {
 export function isString(value: unknown): value is string {
 	return typeof value === "string"
 }
+
+export interface Tagged {
+	tag: string,
+}
+
+export type TaggedChecker<T extends Tagged> = { (value: Tagged): value is T }
+
+export function isTypeFromTagged<T extends Tagged>(value: Tagged, handlers: Record<string, TaggedChecker<T>>): value is T {
+	const handler = handlers[value.tag]
+	if (handler === undefined) {
+		return false
+	}
+	return handler(value)
+}
+
+export interface Sum extends Tagged {
+	content: unknown,
+}
+
+export type SumChecker<T extends Sum> = { (content: unknown): content is T }
+
+export function isTypeFromSum<T extends Sum>(value: Sum, handlers: Record<string, SumChecker<T>>): value is T {
+	const handler = handlers[value.tag]
+	if (handler === undefined) {
+		return false
+	}
+	return handler(value.content)
+}

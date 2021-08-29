@@ -1,5 +1,5 @@
 import { isKuten, Kuten } from "./kuten";
-import { hasProperty, hasStringProperty, isObject } from "./shared";
+import { hasProperty, hasStringProperty, isObject, isTypeFromSum, Sum, SumChecker, Tagged, TaggedChecker } from "./shared";
 import { isUint, Uint } from "./uint";
 
 /**
@@ -64,26 +64,24 @@ export interface Codepoint_Unicode {
  */
 export type Codepoint = Codepoint_Jis | Codepoint_Unicode
 
-const JIS_TAGS: Record<JisTag, boolean> = {
-	"Jis208": true,
-	"Jis212": true,
-	"Jis213": true,
-}
-
 export function isCodepoint(value: unknown): value is Codepoint {
 	return isObject(value) &&
 		hasStringProperty(value, "tag") &&
 		hasProperty(value, "content") &&
-		(
-			(isJisTag(value.tag) && isKuten(value.content)) ||
-			(isUnicodeTag(value.tag) && isUint(value.content)) 
-		)
+		isTypeFromSum(value, TAG_HANDLERS)
 }
 
-function isJisTag(str: string): str is JisTag {
-	return str in JIS_TAGS
+const TAG_HANDLERS: Record<CodepointTag, SumChecker<Codepoint>> = {
+	"Jis208": handleJisTag,
+	"Jis212": handleJisTag,
+	"Jis213": handleJisTag,
+	"Unicode": handleUnicodeTag,
 }
 
-function isUnicodeTag(str: string): str is UnicodeTag {
-	return str === "Unicode"
+function handleJisTag(content: unknown): content is Codepoint_Jis {
+	return isKuten(content)
 }
+
+function handleUnicodeTag(content: unknown): content is Codepoint_Unicode {
+	return isUint(content)
+} 
