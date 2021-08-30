@@ -10,7 +10,7 @@ export interface Radical {
 	/**
 	 * The kind of radical classification
 	 */
-	tag: RadicalTag
+	kind: RadicalTag
 	
 	/**
 	 * The kangxi code for the radical
@@ -20,8 +20,8 @@ export interface Radical {
 
 export function isRadical(value: unknown): value is Radical {
 	return isObject(value) &&
-		hasStringProperty(value, "tag") &&
-		isRadicalTag(value.tag) &&
+		hasStringProperty(value, "kind") &&
+		isRadicalTag(value.kind) &&
 		hasProperty(value, "radical") &&
 		isKangxi(value.radical)
 }

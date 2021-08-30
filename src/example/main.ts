@@ -6,7 +6,22 @@ async function main() {
 	const access: Access = {
 		endpointBase: "http://localhost:8000",
 		desiredFields: {
-			fields: "all",
+			fields: [
+				"codepoints",
+				"radicals",
+				// "grade",
+				// "strokeCounts",
+				// "variants",
+				// "frequency",
+				// "radicalNames",
+				// "jlpt",
+				// "references",
+				// "queryCodes",
+				// "readings",
+				// "translations",
+				// "nanori",
+				// "decompositions",
+			],
 			languages: "all",
 		}
 	}

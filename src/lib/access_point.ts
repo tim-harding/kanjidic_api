@@ -1,10 +1,9 @@
 import { Character, isCharacter } from "./character"
-import { hasArrayProperty, isObject, isString } from "./shared"
+import { hasArrayProperty, hasOptionalArrayProperty, isObject, isString } from "./shared"
 
 export const LOCALHOST_BASE = "http://localhost:8000"
 
-export type CharacterField = "literal" |
-	"codepoints" |
+export type CharacterField = "codepoints" |
 	"radicals" |
 	"grade" |
 	"strokeCounts" |
@@ -74,7 +73,7 @@ export interface LiteralsResponse {
 
 function isLiteralsResponse(value: unknown): value is LiteralsResponse {
 	return isObject(value) &&
-		hasArrayProperty(value, "errors", isString) &&
+		hasOptionalArrayProperty(value, "errors", isString) &&
 		hasArrayProperty(value, "kanji", isCharacter)
 }
 
@@ -84,8 +83,11 @@ export async function queryLiterals(access: Access, literals: Array<string>): Pr
 		url.searchParams.append("literal", literal)
 	}
 	const result = await fetch(url.toString())
-	console.log(result)
+	if (!result.ok) {
+		return new Error(`Bad server response: ${result.statusText}`)
+	}
 	const response = (await result.json()) as unknown
+	console.log(response)
 	if (!isLiteralsResponse(response)) {
 		return new Error("The server response was in an unrecognized form")
 	}
