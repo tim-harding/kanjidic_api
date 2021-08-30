@@ -1,4 +1,4 @@
-import { Checker, hasProperty, hasUintProperty, isTagged, isTypeFromTagged, Tagged, } from "./shared";
+import { Checker, hasProperty, hasUintProperty, isObject, isSum, isTagged, isTypeFromTagged, Sum, Tagged, } from "./shared";
 import { isSolidSubpattern, SolidSubpattern } from "./solid_subpattern";
 import { Uint } from "./uint";
 
@@ -21,15 +21,17 @@ type SkipTag = HorizontalTag |
 export interface Skip_Horizontal {
 	tag: HorizontalTag
 
-	/**
-	 * Number of strokes in the left part.
-	 */
-	left: Uint
+	content: {
+		/**
+		 * Number of strokes in the left part.
+		 */
+		left: Uint
 
-	/**
-	 * Number of strokes in the right part.
-	 */
-	right: Uint
+		/**
+		 * Number of strokes in the right part.
+		 */
+		right: Uint
+	}
 }
 
 /**
@@ -38,15 +40,17 @@ export interface Skip_Horizontal {
 export interface Skip_Vertical {
 	tag: VerticalTag
 
-	/**
-	 * Number of strokes in the top part.
-	 */
-	top: Uint
+	content: {
+		/**
+		 * Number of strokes in the top part.
+		 */
+		top: Uint
 
-	/**
-	 * Number of strokes in the bottom part.
-	 */
-	bottom: Uint
+		/**
+		 * Number of strokes in the bottom part.
+		 */
+		bottom: Uint
+	}
 }
 
 /**
@@ -55,15 +59,17 @@ export interface Skip_Vertical {
 export interface Skip_Enclosure {
 	tag: EnclosureTag
 
-	/**
-	 * Number of strokes in the exterior part.
-	 */
-	exterior: Uint
+	content: {
+		/**
+		 * Number of strokes in the exterior part.
+		 */
+		exterior: Uint
 
-	/**
-	 * Number of strokes in the interior part.
-	 */
-	interior: Uint
+		/**
+		 * Number of strokes in the interior part.
+		 */
+		interior: Uint
+	}
 }
 
 /**
@@ -72,15 +78,17 @@ export interface Skip_Enclosure {
 export interface Skip_Solid {
 	tag: SolidTag
 
-	/**
-	 * The total number of strokes in the kanji.
-	 */
-	totalStrokeCount: Uint
+	content: {
+		/**
+		 * The total number of strokes in the kanji.
+		 */
+		totalStrokeCount: Uint
 
-	/**
-	 * The subpattern that defines the kanji.
-	 */
-	solidSubpattern: SolidSubpattern
+		/**
+		 * The subpattern that defines the kanji.
+		 */
+		solidSubpattern: SolidSubpattern
+	}
 }
 
 /**
@@ -88,40 +96,48 @@ export interface Skip_Solid {
  * http://www.edrdg.org/wwwjdic/SKIP.html
  * for reference. 
  */
-export type Skip = Skip_Horizontal | 
-	Skip_Vertical | 
-	Skip_Enclosure | 
+export type Skip = Skip_Horizontal |
+	Skip_Vertical |
+	Skip_Enclosure |
 	Skip_Solid
 
 export function isSkip(value: unknown): value is Skip {
-	return isTagged(value) &&
+	return isSum(value) &&
 		isTypeFromTagged(value, CHECKERS)
 }
 
-const CHECKERS: Record<SkipTag, Checker<Tagged, Skip>> = {
+const CHECKERS: Record<SkipTag, Checker<Sum, Skip>> = {
 	"Horizontal": isSkipHorizontal,
 	"Vertical": isSkipVertical,
 	"Enclosure": isSkipEnclosure,
 	"Solid": isSkipSolid,
 }
 
-function isSkipHorizontal(value: Tagged): value is Skip_Horizontal {
-	return hasUintProperty(value, "left") &&
-		hasUintProperty(value, "right")
+function isSkipHorizontal(value: Sum): value is Skip_Horizontal {
+	const { content } = value
+	return isObject(content) &&
+		hasUintProperty(content, "left") &&
+		hasUintProperty(content, "right")
 }
 
-function isSkipVertical(value: Tagged): value is Skip_Vertical {
-	return hasUintProperty(value, "top") &&
-		hasUintProperty(value, "bottom")
+function isSkipVertical(value: Sum): value is Skip_Vertical {
+	const { content } = value
+	return isObject(content) &&
+		hasUintProperty(content, "top") &&
+		hasUintProperty(content, "bottom")
 }
 
-function isSkipEnclosure(value: Tagged): value is Skip_Enclosure {
-	return hasUintProperty(value, "exterior") &&
-		hasUintProperty(value, "interior")
+function isSkipEnclosure(value: Sum): value is Skip_Enclosure {
+	const { content } = value
+	return isObject(content) &&
+		hasUintProperty(content, "exterior") &&
+		hasUintProperty(content, "interior")
 }
 
-function isSkipSolid(value: Tagged): value is Skip_Solid {
-	return hasUintProperty(value, "totalStrokeCount") &&
-		hasProperty(value, "solidSubpattern") &&
-		isSolidSubpattern(value.solidSubpattern)
+function isSkipSolid(value: Sum): value is Skip_Solid {
+	const { content } = value
+	return isObject(content) &&
+		hasUintProperty(content, "totalStrokeCount") &&
+		hasProperty(content, "solidSubpattern") &&
+		isSolidSubpattern(content.solidSubpattern)
 }

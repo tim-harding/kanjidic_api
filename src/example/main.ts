@@ -16,7 +16,7 @@ async function main() {
 				"radicalNames",
 				"jlpt",
 				"references",
-				// "queryCodes",
+				"queryCodes",
 				// "readings",
 				// "translations",
 				// "nanori",

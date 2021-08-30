@@ -1,3 +1,4 @@
+import { DeRoo, isDeRoo } from "./de_roo"
 import { FourCorner, isFourCorner } from "./four_corner"
 import { isMisclassification, Misclassification } from "./misclassification"
 import { Checker, isSum, isTypeFromTagged, Sum } from "./shared"
@@ -6,16 +7,19 @@ import { isSkip, Skip } from "./skip"
 
 type SkipTag = "Skip"
 
-type ShDescTag = "ShDesc"
+type SpahnHadamitzkyTag = "SpahnHadamitzky"
 
 type FourCornerTag = "FourCorner"
+
+type DeRooTag = "DeRoo"
 
 type MisclassificationTag = "Misclassification"
 
 type QueryCodeTag = SkipTag |
-	ShDescTag |
+	SpahnHadamitzkyTag |
 	FourCornerTag |
-	MisclassificationTag
+	MisclassificationTag |
+	DeRooTag
 
 /**
  * The Halpern SKIP code
@@ -29,7 +33,7 @@ export interface QueryCode_Skip {
  * Desrcriptor codes from The Kanji Dictionary
  */
 export interface QueryCode_SpahnHadamitzky {
-	tag: ShDescTag
+	tag: SpahnHadamitzkyTag
 	content: ShDesc
 }
 
@@ -49,6 +53,11 @@ export interface QueryCode_Misclassification {
 	content: Misclassification
 }
 
+export interface QueryCode_DeRoo {
+	tag: DeRooTag,
+	content: DeRoo,
+}
+
 /**
  * Information relating to a kanji that can be
  * used for identification and lookup.
@@ -56,7 +65,8 @@ export interface QueryCode_Misclassification {
 export type QueryCode = QueryCode_Skip |
 	QueryCode_SpahnHadamitzky |
 	QueryCode_FourCorner |
-	QueryCode_Misclassification
+	QueryCode_Misclassification |
+	QueryCode_DeRoo
 
 export function isQueryCode(value: unknown): value is QueryCode {
 	return isSum(value) &&
@@ -65,9 +75,10 @@ export function isQueryCode(value: unknown): value is QueryCode {
 
 const CHECKERS: Record<QueryCodeTag, Checker<Sum, QueryCode>> = {
 	"Skip": isQueryCodeSkip,
-	"ShDesc": isQueryCodeShDesc,
+	"SpahnHadamitzky": isQueryCodeShDesc,
 	"FourCorner": isQueryCodeFourCorner,
 	"Misclassification": isQueryCodeMisclassification,
+	"DeRoo": isQueryCodeDeRoo,
 }
 
 function isQueryCodeSkip(value: Sum): value is QueryCode_Skip {
@@ -84,4 +95,8 @@ function isQueryCodeFourCorner(value: Sum): value is QueryCode_FourCorner {
 
 function isQueryCodeMisclassification(value: Sum): value is QueryCode_Misclassification {
 	return isMisclassification(value.content)
+}
+
+function isQueryCodeDeRoo(value: Sum): value is QueryCode_DeRoo {
+	return isDeRoo(value.content)
 }
