@@ -37,11 +37,11 @@ export interface Reference_Moro {
 /**
  * A reference into Japanese Names by P.G. O'Neill
  */
-export interface Reference_Oneill {
+export interface Reference_OneillNames {
 	/**
 	 * The reference source
 	 */
-	tag: OneillTag
+	tag: OneillNamesTag
 
 	/**
 	 * The reference
@@ -49,7 +49,7 @@ export interface Reference_Oneill {
 	content: Oneill
 }
 
-type OneillTag = "Oneill"
+type OneillNamesTag = "OneillNames"
 
 type MoroTag = "Moro"
 
@@ -183,7 +183,7 @@ type ReferenceUintTag = NelsonClassicTag |
 	ManietteTag
 	
 type ReferenceTag = ReferenceUintTag | 
-	OneillTag | 
+	OneillNamesTag | 
 	MoroTag | 
 	BusyPeopleTag
 
@@ -207,7 +207,7 @@ export interface Reference_Uint {
  */
 export type Reference = Reference_BusyPeople |
 	Reference_Moro |
-	Reference_Oneill |
+	Reference_OneillNames |
 	Reference_Uint
 	
 export function isReference(value: unknown): value is Reference {
@@ -238,7 +238,7 @@ const CHECKERS: Record<ReferenceTag, Checker<Sum, Reference>> = {
 	"KodanshaCompact": isReferenceUint,
 	"Maniette": isReferenceUint,
 	"Moro": isReferenceMoro,
-	"Oneill": isReferenceOneill,
+	"OneillNames": isReferenceOneill,
 	"BusyPeople": isReferenceBusyPeople,
 }
 
@@ -250,7 +250,7 @@ function isReferenceMoro(value: Sum): value is Reference_Moro {
 	return isMoro(value.content)
 }
 
-function isReferenceOneill(value: Sum): value is Reference_Oneill {
+function isReferenceOneill(value: Sum): value is Reference_OneillNames {
 	return isOneill(value.content)
 }
 
