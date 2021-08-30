@@ -24,7 +24,7 @@ export type LanguageField = "en" |
 	"pt" |
 	"es"
 
-interface Access {
+export interface Access {
 	endpointBase: string
 	desiredFields: DesiredFields
 }
@@ -62,7 +62,7 @@ function urlFromAccess(access: Access): URL {
 	return url
 }
 
-interface DesiredFields {
+export interface DesiredFields {
 	fields: "all" | Array<CharacterField>
 	languages: "all" | Array<LanguageField>
 }
@@ -84,6 +84,7 @@ export async function queryLiterals(access: Access, literals: Array<string>): Pr
 		url.searchParams.append("literal", literal)
 	}
 	const result = await fetch(url.toString())
+	console.log(result)
 	const response = (await result.json()) as unknown
 	if (!isLiteralsResponse(response)) {
 		return new Error("The server response was in an unrecognized form")
