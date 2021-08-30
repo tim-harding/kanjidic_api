@@ -6,12 +6,12 @@ const { defineConfig } = require("vite")
 // rather than esbuild. This is because esbuild doesn't handle const enums properly
 // and the output is artifically large. 
 
-// Information on why this is set up the way it is:
-// https://vitejs.dev/guide/build.html#library-mode
 module.exports = defineConfig({
+  // Information on why this is set up the way it is:
+  // https://vitejs.dev/guide/build.html#library-mode
   build: {
     lib: {
-      entry: path.resolve(__dirname, "distTs/index.js"),
+      entry: path.resolve(__dirname, "distTs/lib/index.js"),
       name: "kanjidic_api",
       fileName: (format) => `kanjidic_api.${format}.js`
     },
@@ -28,5 +28,6 @@ module.exports = defineConfig({
       }
     }
   },
+
   plugins: [vue()],
 })

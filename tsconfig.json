@@ -1,8 +1,17 @@
 {
   "compilerOptions": {
-    "target": "ES2018",
+    "target": "esnext",
+    "module": "esnext",
+    "lib": [
+      "esnext", 
+      "dom"
+    ],
     "sourceMap": true,
     "outDir": "distTs",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "jsx": "preserve",
     
     "skipLibCheck": true,
 
@@ -22,9 +31,12 @@
     "exactOptionalPropertyTypes": true
   },
   "include": [
-    "src/lib/**/*.ts"
+    "src/**/*.ts", 
+    "src/**/*.d.ts", 
+    "src/**/*.tsx", 
+    "src/**/*.vue"
   ],
   "exclude": [
-    "src/lib/**/*.test.ts"
+    "src/**/*.test.ts"
   ]
 }
