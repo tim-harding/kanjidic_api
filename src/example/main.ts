@@ -1,33 +1,24 @@
 import { createApp } from "vue"
 import { Access, queryLiterals } from "../lib"
 import App from "./App.vue"
+import { key, store } from "./store"
 
-async function main() {
+function main() {
+	createApp(App)
+		.use(store, key)
+		.mount("#app")
+}
+
+async function testAccess() {
 	const access: Access = {
 		endpointBase: "http://localhost:8000",
 		desiredFields: {
-			fields: [
-				"codepoints",
-				"radicals",
-				"grade",
-				"strokeCounts",
-				"variants",
-				"frequency",
-				"radicalNames",
-				"jlpt",
-				"references",
-				"queryCodes",
-				"readings",
-				"translations",
-				"nanori",
-				"decomposition",
-			],
+			fields: "all",
 			languages: "all",
-		}
+		},
 	}
 	const response = await queryLiterals(access, ["亜"])
 	console.log(response)
-	createApp(App).mount("#app")
 }
 
 main()
