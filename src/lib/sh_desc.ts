@@ -30,7 +30,7 @@ export interface ShDesc {
 	sequence: Uint
 }
 
-export function serialize(desc: ShDesc): string {
+export function serializeShDesc(desc: ShDesc): string {
 	return `${desc.radicalStrokes}${desc.radical}${desc.otherStrokes}.${desc.sequence}`
 }
 

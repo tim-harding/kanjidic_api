@@ -62,5 +62,6 @@ function isGradeKyouiku(value: Tagged): value is Grade_Kyouiku {
 }
 
 function isGradeOther(value: Tagged): value is Grade_Other {
+	value // Appease type checker
 	return true
 }

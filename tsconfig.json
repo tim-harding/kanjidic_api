@@ -7,7 +7,9 @@
     "sourceMap": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
-    "noEmit": true,
+    // "noEmit": true,
+    "outDir": "distTs",
+
     "strict": true,
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
@@ -20,8 +22,9 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
+    // "preserveConstEnums": false,
     "useUnknownInCatchVariables": true,
     "exactOptionalPropertyTypes": true
   },
-  "include": ["./src"]
+  "include": ["./src"],
 }

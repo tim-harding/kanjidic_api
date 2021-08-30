@@ -2,7 +2,7 @@ import { DeRoo, isDeRoo, serializeDeRoo } from "./de_roo";
 import { isKuten, Kuten, serializeKuten } from "./kuten";
 import { isOneill, Oneill, serializeOneill } from "./oneill";
 import { Checker, isSum, isTypeFromTagged, Sum } from "./shared";
-import { ShDesc, serialize as serializeShDesc, isShDesc } from "./sh_desc";
+import { ShDesc, serializeShDesc, isShDesc } from "./sh_desc";
 import { isUint, Uint } from "./uint";
 
 type KutenTag = "Jis208" | "Jis212" | "Jis213"
@@ -115,7 +115,7 @@ export type Variant = Variant_Kuten |
  * @param variant The variant
  * @returns The string
  */
-export function serialize(variant: Variant): string {
+export function serializeVariant(variant: Variant): string {
 	const serializer = SERIALIZERS[variant.tag]
 	return serializer(variant.content)
 }
