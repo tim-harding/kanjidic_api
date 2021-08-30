@@ -4,11 +4,16 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "serve": "vite preview",
-    "ts": "tsc"
+    "serve": "vite preview"
   },
   "devDependencies": {
+    "@vitejs/plugin-vue": "^1.6.0",
+    "@vue/compiler-sfc": "^3.0.5",
+    "pug": "^3.0.2",
+    "sass": "^1.38.2",
     "typescript": "^4.3.2",
-    "vite": "^2.4.4"
+    "vite": "^2.4.4",
+    "vue": "^3.2.6",
+    "vue-tsc": "^0.2.2"
   }
 }

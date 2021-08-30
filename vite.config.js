@@ -1,10 +1,13 @@
 const path = require("path")
+const vue = require("@vitejs/plugin-vue")
 const { defineConfig } = require("vite")
 
 // Note to self: I set things up such that Typescript is transpiled with TSC for production
 // rather than esbuild. This is because esbuild doesn't handle const enums properly
 // and the output is artifically large. 
 
+// Information on why this is set up the way it is:
+// https://vitejs.dev/guide/build.html#library-mode
 module.exports = defineConfig({
   build: {
     lib: {
@@ -24,5 +27,6 @@ module.exports = defineConfig({
         }
       }
     }
-  }
+  },
+  plugins: [vue()],
 })
