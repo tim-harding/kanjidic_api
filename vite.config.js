@@ -11,7 +11,7 @@ const { defineConfig } = require("vite")
 module.exports = defineConfig({
   build: {
     lib: {
-      entry: path.resolve(__dirname, "distTs/lib/index.js"),
+      entry: path.resolve(__dirname, "distTs/index.js"),
       name: "kanjidic_api",
       fileName: (format) => `kanjidic_api.${format}.js`
     },

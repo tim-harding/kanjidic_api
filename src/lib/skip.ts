@@ -1,4 +1,4 @@
-import { Checker, hasProperty, hasUintProperty, isObject, isSum, isTagged, isTypeFromTagged, Sum, Tagged, } from "./shared";
+import { Checker, hasProperty, hasUintProperty, isObject, isSum, isTypeFromTagged, Sum } from "./shared";
 import { isSolidSubpattern, SolidSubpattern } from "./solid_subpattern";
 import { Uint } from "./uint";
 

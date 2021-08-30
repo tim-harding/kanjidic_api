@@ -1,13 +1,10 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
-    "module": "ESNext",
-    "lib": ["ESNext", "DOM"],
-    "moduleResolution": "Node",
+    "target": "ES2018",
     "sourceMap": true,
-    "resolveJsonModule": true,
-    "esModuleInterop": true,
     "outDir": "distTs",
+    
+    "skipLibCheck": true,
 
     "strict": true,
     "allowUnreachableCode": false,
@@ -24,5 +21,10 @@
     "useUnknownInCatchVariables": true,
     "exactOptionalPropertyTypes": true
   },
-  "include": "src",
+  "include": [
+    "src/lib/**/*.ts"
+  ],
+  "exclude": [
+    "src/lib/**/*.test.ts"
+  ]
 }
