@@ -9,8 +9,8 @@ async function main() {
 			fields: [
 				"codepoints",
 				"radicals",
-				// "grade",
-				// "strokeCounts",
+				"grade",
+				"strokeCounts",
 				// "variants",
 				// "frequency",
 				// "radicalNames",

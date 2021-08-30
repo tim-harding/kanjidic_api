@@ -1,4 +1,4 @@
-import { hasArrayProperty, hasUintProperty, isObject } from "./shared";
+import { hasOptionalArrayProperty, hasUintProperty, isObject } from "./shared";
 import { isUint, Uint } from "./uint";
 
 /**
@@ -12,12 +12,13 @@ export interface StrokeCount {
 	
 	/**
 	 * Possible miscounts of the stroke count.
+	 * May be absent for an empty array. 
 	 */
-	miscounts: Array<Uint>
+	miscounts?: Array<Uint>
 }
 
 export function isStrokeCount(value: unknown): value is StrokeCount {
 	return isObject(value) &&
 		hasUintProperty(value, "accepted") &&
-		hasArrayProperty(value, "miscounts", isUint)
+		hasOptionalArrayProperty(value, "miscounts", isUint)
 }
