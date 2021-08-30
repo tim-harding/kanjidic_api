@@ -4,7 +4,7 @@ import { isQueryCode, QueryCode } from "./query_code";
 import { isRadical, Radical } from "./radical";
 import { isReading, Reading } from "./reading";
 import { isReference, Reference } from "./reference";
-import { hasOptionalArrayProperty, hasOptionalStringProperty, hasOptionalUintProperty, hasProperty, isObject, isString } from "./shared";
+import { hasOptionalArrayProperty, hasOptionalStringProperty, hasOptionalUintProperty, hasProperty, hasStringProperty, isObject, isString } from "./shared";
 import { isStrokeCount, StrokeCount } from "./stroke_count";
 import { isTranslations, Translations } from "./translations";
 import { Uint } from "./uint";
@@ -17,7 +17,7 @@ export interface Character {
 	/**
 	 * The character itself.
 	 */
-	literal?: string
+	literal: string
 
 	/**
 	 * Alternate encodings for the character.
@@ -93,7 +93,7 @@ export interface Character {
 
 export function isCharacter(value: unknown): value is Character {
 	return isObject(value) &&
-		hasOptionalStringProperty(value, "literal") &&
+		hasStringProperty(value, "literal") &&
 		hasOptionalArrayProperty(value, "codepoints", isCodepoint) &&
 		hasOptionalArrayProperty(value, "radicals", isRadical) &&
 		(!hasProperty(value, "grade") || isGrade(value.grade)) &&

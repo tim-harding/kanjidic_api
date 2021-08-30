@@ -67,7 +67,7 @@ export interface DesiredFields {
 }
 
 export interface LiteralsResponse {
-	errors: Array<string>,
+	errors?: Array<string>,
 	kanji: Array<Character>,
 }
 

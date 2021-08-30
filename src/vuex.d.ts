@@ -1,8 +1,10 @@
 import { Store } from 'vuex'
+import { Character } from "./lib/index"
 
 declare module '@vue/runtime-core' {
   interface State {
-    count: number
+    recentErrors: Error[]
+    kanji: Record<string, Character>
   }
 
   interface ComponentCustomProperties {
