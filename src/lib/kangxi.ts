@@ -538,7 +538,7 @@ const NAME_MAPPING = [
 	"Stop",
 	"Death",
 	"Weapon",
-	"DoNot",
+	"Do Not",
 	"Compare",
 	"Fur",
 	"Clan",
