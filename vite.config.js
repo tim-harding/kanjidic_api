@@ -1,6 +1,10 @@
 const path = require("path")
 const { defineConfig } = require("vite")
 
+// Note to self: I set things up such that Typescript is transpiled with TSC for production
+// rather than esbuild. This is because esbuild doesn't handle const enums properly
+// and the output is artifically large. 
+
 module.exports = defineConfig({
   build: {
     lib: {
