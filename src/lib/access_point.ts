@@ -16,7 +16,7 @@ export type CharacterField = "codepoints" |
 	"readings" |
 	"translations" |
 	"nanori" |
-	"decompositions"
+	"decomposition"
 
 export type LanguageField = "en" |
 	"fr" |
