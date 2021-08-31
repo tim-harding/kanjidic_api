@@ -28,6 +28,4 @@ module.exports = defineConfig({
       }
     }
   },
-
-  plugins: [vue()],
 })
