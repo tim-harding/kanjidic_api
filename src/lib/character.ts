@@ -1,10 +1,10 @@
 import { Codepoint, isCodepoint } from "./codepoint";
 import { Grade, isGrade } from "./grade";
 import { isQueryCode, QueryCode } from "./query_code";
-import { isRadical, Radical } from "./radical";
+import { isKangxiRadical, KangxiRadical } from "./kangxi_radical";
 import { isReading, Reading } from "./reading";
 import { isReference, Reference } from "./reference";
-import { hasOptionalArrayProperty, hasOptionalStringProperty, hasOptionalUintProperty, hasProperty, hasStringProperty, isObject, isString } from "./shared";
+import { hasOptionalArrayProperty, hasOptionalUintProperty, hasProperty, hasStringProperty, isObject, isString } from "./shared";
 import { isStrokeCount, StrokeCount } from "./stroke_count";
 import { isTranslations, Translations } from "./translations";
 import { Uint } from "./uint";
@@ -27,7 +27,7 @@ export interface Character {
 	/**
 	 * Alternate classifications for the character by radical.
 	 */
-	radicals?: Array<Radical>
+	radicals?: Array<KangxiRadical>
 
 	/**
 	 * The kanji grade level.
@@ -95,7 +95,7 @@ export function isCharacter(value: unknown): value is Character {
 	return isObject(value) &&
 		hasStringProperty(value, "literal") &&
 		hasOptionalArrayProperty(value, "codepoints", isCodepoint) &&
-		hasOptionalArrayProperty(value, "radicals", isRadical) &&
+		hasOptionalArrayProperty(value, "radicals", isKangxiRadical) &&
 		(!hasProperty(value, "grade") || isGrade(value.grade)) &&
 		(!hasProperty(value, "strokeCounts") || isStrokeCount(value.strokeCounts)) &&
 		hasOptionalArrayProperty(value, "variants", isVariant) &&

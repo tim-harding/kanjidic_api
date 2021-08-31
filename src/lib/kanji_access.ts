@@ -1,7 +1,8 @@
 import { Character, isCharacter } from "./character"
-import { hasArrayProperty, hasOptionalArrayProperty, isObject, isString } from "./shared"
+import { hasArrayProperty, hasOptionalArrayProperty, isObject, isString, query, rethrowable } from "./shared"
 
-export const LOCALHOST_BASE = "http://localhost:8000"
+// Todo: Expand to information about radicals as well
+// Todo: Search by translations
 
 export type CharacterField = "codepoints" |
 	"radicals" |
@@ -23,12 +24,17 @@ export type LanguageField = "en" |
 	"pt" |
 	"es"
 
-export interface Access {
+export interface KanjiAccess {
 	endpointBase: string
-	desiredFields: DesiredFields
+	desiredFields: {
+		fields: "all" | Array<CharacterField>
+		languages: "all" | Array<LanguageField>
+	}
 }
 
-function urlFromAccess(access: Access): URL {
+type KanjiRoute = "literals" | "decomposition"
+
+function urlFromKanjiAccess(access: KanjiAccess, route: KanjiRoute): URL {
 	const {
 		endpointBase,
 		desiredFields: {
@@ -36,7 +42,7 @@ function urlFromAccess(access: Access): URL {
 			languages,
 		}
 	} = access
-	const url = new URL("/kanji/literals", endpointBase)
+	const url = new URL(`/kanji/${route}`, endpointBase)
 	switch (fields) {
 		case "all": {
 			url.searchParams.append("field", "all")
@@ -61,11 +67,6 @@ function urlFromAccess(access: Access): URL {
 	return url
 }
 
-export interface DesiredFields {
-	fields: "all" | Array<CharacterField>
-	languages: "all" | Array<LanguageField>
-}
-
 export interface LiteralsResponse {
 	errors?: Array<string>,
 	kanji: Array<Character>,
@@ -77,19 +78,11 @@ function isLiteralsResponse(value: unknown): value is LiteralsResponse {
 		hasArrayProperty(value, "kanji", isCharacter)
 }
 
-export async function queryLiterals(access: Access, literals: Array<string>): Promise<LiteralsResponse | Error> {
-	const url = urlFromAccess(access)
+export async function queryLiterals(access: KanjiAccess, literals: Array<string>): Promise<LiteralsResponse | Error> {
+	const url = urlFromKanjiAccess(access, "literals")
 	for (const literal of literals) {
 		url.searchParams.append("literal", literal)
 	}
-	const result = await fetch(url.toString())
-	if (!result.ok) {
-		return new Error(`Bad server response: ${result.statusText}`)
-	}
-	const response = (await result.json()) as unknown
-	console.log(response)
-	if (!isLiteralsResponse(response)) {
-		return new Error("The server response was in an unrecognized form")
-	}
-	return response
+	const json = await query(url, isLiteralsResponse)
+	return json
 }

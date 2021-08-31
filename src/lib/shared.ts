@@ -95,3 +95,29 @@ export function isSum(value: unknown): value is Sum {
 	return isTagged(value) &&
 		hasProperty(value, "content")
 }
+
+export function rethrowable(e: unknown): Error {
+		if (e instanceof Error) {
+			return e
+		}
+		return new Error("Unreachable")
+}
+
+export type ResponseValidator<T> = { (value: unknown): value is T }
+
+export async function query<T>(url: URL, isT: ResponseValidator<T>): Promise<T | Error> {
+	let response;
+	try {
+		response = await fetch(url.toString())
+	} catch (e: unknown) {
+		return rethrowable(e)
+	}
+	if (!response.ok) {
+		return new Error(response.statusText)
+	}
+	const json = (await response.json()) as unknown
+	if (!isT(json)) {
+		return new Error("Response was not in a recognized format")
+	}
+	return json
+}

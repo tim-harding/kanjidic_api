@@ -6,7 +6,7 @@ export type RadicalTag = "Classical" | "Nelson"
 /**
  * A kanji classification based on its radical.
  */
-export interface Radical {
+export interface KangxiRadical {
 	/**
 	 * The kind of radical classification
 	 */
@@ -18,7 +18,7 @@ export interface Radical {
 	radical: Kangxi
 }
 
-export function isRadical(value: unknown): value is Radical {
+export function isKangxiRadical(value: unknown): value is KangxiRadical {
 	return isObject(value) &&
 		hasStringProperty(value, "kind") &&
 		isRadicalTag(value.kind) &&

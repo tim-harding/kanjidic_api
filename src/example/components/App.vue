@@ -1,15 +1,9 @@
 <template lang="pug">
-div Hello!	
+RadicalsSelector
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-	setup() {
-		
-	},
-})
+<script lang="ts" setup>
+import RadicalsSelector from "./RadicalsSelector.vue"
 </script>
 
 <style lang="scss" module>
