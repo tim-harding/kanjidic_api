@@ -1,24 +1,14 @@
 import type { Component } from "solid-js";
+import RadicalSelector from "./RadicalSelector";
 
-import logo from "./logo.svg";
-import styles from "./App.module.css";
+import styles from "./App.module.scss";
 
-const App: Component = (props) => {
+const App: Component = (_props) => {
   return (
-    <div class={styles.App}>
-      <Hello name="Tim"></Hello>
+    <div class={styles["RadicalSelector"]}>
+      <RadicalSelector></RadicalSelector>
     </div>
   );
 };
-
-interface HelloProps {
-  name: string
-}
-
-const Hello: Component<HelloProps> = (props) => {
-  return (
-    <span>Hello, {props.name}</span>
-  )
-}
 
 export default App;

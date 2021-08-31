@@ -1,15 +1,15 @@
-import { hasStringProperty, hasUintProperty, isArrayOf, isObject, query, rethrowable } from "./shared";
+import { hasArrayProperty, hasUintProperty, isArrayOf, isObject, isString, query } from "./shared";
 import { Uint } from "./uint";
 
 export interface RadicalAll {
-	stroke: Uint,
-	literal: string,
+	strokes: Uint,
+	literals: string[],
 }
 
 export function isRadicalAll(value: unknown): value is RadicalAll {
 	return isObject(value) &&
-		hasUintProperty(value, "stroke") &&
-		hasStringProperty(value, "literal")
+		hasUintProperty(value, "strokes") &&
+		hasArrayProperty(value, "literals", isString)
 }
 
 export type AllRadicalsResponse = RadicalAll[]
