@@ -1,27 +1,33 @@
 import { Component, For } from "solid-js"
-import { RadicalAll } from "../lib/radical_all_access"
 
 import styles from "./RadicalGroup.module.scss"
+import { RadicalsInfo } from "./RadicalSelector"
 
 interface Props {
-	radical: RadicalAll
+	radical: RadicalsInfo
 }
 
 export const RadicalGroup: Component<Props> = (props) => {
 	return (
-		<div class={styles["root"]}>
+		<>
 			<div class={styles["strokes"]}>
 				{props.radical.strokes}
 			</div>
 			<ul class={styles["list"]}>
-				<For each={props.radical.literals}>{(literal, _i) => (
-					<li class={styles["item"]}>
-						<button class={styles["button"]}>
-							{literal}
-						</button>
+				<For each={props.radical.radicals}>{(radical, _i) => (
+					<li>
+						<input type="text" 
+							name="radical-selector" 
+							value={radical.literal} 
+							id={radical.id} 
+							class="hidden" 
+							checked={radical.checked} />
+						<label htmlFor={radical.id} class={styles["checkbox"]}>
+							{radical.literal}
+						</label>
 					</li>
 				)}</For>
 			</ul>
-		</div>
+		</>
 	)
 }

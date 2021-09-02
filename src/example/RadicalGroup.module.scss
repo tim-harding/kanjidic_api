@@ -6,10 +6,7 @@
     grid-template-columns: repeat(auto-fill, 2rem);
     grid-auto-rows: 2rem;
     padding: 0.5rem;
-}
-
-.item {
-
+    display: contents;
 }
 
 .strokes {
@@ -21,16 +18,21 @@
     font-weight: 700;
 }
 
-.button {
+.checkbox {
     align-items: center;
     justify-items: center;
     border-radius: 0.25rem;
+    cursor: pointer;
 
     &:hover {
-        background-color: var(--gray-300);
+        background-color: var(--gray-200);
     }
     
     &:active {
-        background-color: var(--gray-400);
+        background-color: var(--gray-300);
     }
+}
+
+input:checked + .checkbox {
+    background-color: var(--gray-200);
 }
