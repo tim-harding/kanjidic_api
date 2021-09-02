@@ -1,6 +1,6 @@
 const path = require("path")
 const { defineConfig } = require("vite")
-const solidPlugin = require("vite-plugin-solid")
+const { svelte } = require("@sveltejs/vite-plugin-svelte")
 
 // Note to self: I set things up such that Typescript is transpiled with TSC for production
 // rather than esbuild. This is because esbuild doesn't handle const enums properly
@@ -15,8 +15,10 @@ module.exports = defineConfig({
     lib: {
       entry: path.resolve(__dirname, "distTs/lib/index.js"),
       name: "kanjidic_api",
-      fileName: (format) => `kanjidic_api.${format}.js`
+      fileName: (format) => `kanjidic_api.${format}.js`,
     },
   },
-  plugins: [solidPlugin()],
+  plugins: [
+    svelte(),
+  ],
 })

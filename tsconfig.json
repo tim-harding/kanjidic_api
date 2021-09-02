@@ -1,4 +1,5 @@
 {
+  "extends": "@tsconfig/svelte/tsconfig.json",
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",
@@ -11,12 +12,7 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "esModuleInterop": true,
-    "jsx": "preserve",
     "allowSyntheticDefaultImports": true,
-    "jsxImportSource": "solid-js",
-    "types": [
-      "vite/client"
-    ],
     "strict": true,
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
@@ -33,8 +29,9 @@
     "exactOptionalPropertyTypes": true
   },
   "include": [
-    "src/**/*.ts",
-    "src/**/*.d.ts",
-    "src/**/*.tsx"
+    "src/**/*",
+  ],
+  "exclude": [
+    "node_modules/*",
   ]
 }
