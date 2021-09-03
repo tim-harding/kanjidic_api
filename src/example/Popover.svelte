@@ -21,7 +21,6 @@
 	.summary {
 		cursor: pointer;
 		user-select: none;
-		z-index: 1;
 	}
 
 	.summary:not(:hover) + .popover {
@@ -54,14 +53,14 @@
 		width: 1.25rem;
 		height: 1.25rem;
 		box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.1);
-		z-index: 2;
+		z-index: 1;
 	}
 
 	.left-triangle-top {
 		background-color: var(--snow-storm-0);
 		width: calc(1.25rem - 2px);
 		height: calc(1.25rem - 2px);
-		z-index: 4;
+		z-index: 3;
 	}
 
 	.content {
@@ -74,6 +73,6 @@
 		border-width: 1px;
 		border-style: solid;
 		box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.1);
-		z-index: 3;
+		z-index: 2;
 	}
 </style>

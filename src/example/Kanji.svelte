@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { Character } from "../lib";
 	import Codepoint from "./Codepoint.svelte";
+import KanjiDropdown from "./KanjiDropdown.svelte";
 
 	export let character: Character;
 </script>
@@ -13,24 +14,13 @@
 		</span>
 	</div>
 	{#if character.codepoints !== undefined}
-		<details open={true} class="details">
-			<summary class="summary">
-				<div class="disclosure-triangle">
-					<span class="material-icons-outlined open-disclosure"
-						>arrow_right</span
-					>
-					<span class="material-icons-outlined close-disclosure"
-						>arrow_drop_down</span
-					>
-				</div>
-				<span class="summary-label"> Codepoints </span>
-			</summary>
+		<KanjiDropdown summary="Codepoints">
 			<ul class="details-body">
 				{#each character.codepoints as codepoint}
 					<Codepoint {codepoint} />
 				{/each}
 			</ul>
-		</details>
+		</KanjiDropdown>
 	{/if}
 </div>
 
@@ -48,39 +38,8 @@
 		margin-left: 1.4rem;
 	}
 
-	.summary {
-		grid-template-columns: 1.4rem 1fr;
-		cursor: pointer;
-		margin-bottom: 0.25rem;
-	}
-
-	.summary-label {
-	}
-
-	.disclosure-triangle {
-		transform: translateY(-0.2rem);
-		grid-template-areas: "center";
-	}
-
-	.open-disclosure,
-	.close-disclosure {
-		grid-area: center;
-	}
-
 	.details-body {
 		margin-left: 2rem;
 		gap: 0.5rem;
-	}
-
-	.close-disclosure {
-		visibility: hidden;
-	}
-
-	.details[open] .close-disclosure {
-		visibility: initial;
-	}
-
-	.details[open] .open-disclosure {
-		visibility: hidden;
 	}
 </style>
