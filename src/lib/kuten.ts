@@ -1,5 +1,5 @@
 import { hasUintProperty, isObject } from "./shared";
-import { Uint } from "./uint";
+import type { Uint } from "./uint";
 
 	/**
 	 * A kuten representation of a JIS character. For more information, see

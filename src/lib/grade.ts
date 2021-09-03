@@ -1,5 +1,6 @@
-import { Checker, hasUintProperty, isTagged, isTypeFromTagged, Tagged } from "./shared";
-import { Uint } from "./uint"
+import { hasUintProperty, isTagged, isTypeFromTagged } from "./shared";
+import type { Checker, Tagged } from "./shared";
+import type { Uint } from "./uint"
 
 export type KyouikuTag = "Kyouiku"
 
@@ -22,7 +23,7 @@ export type JinmeiyouJouyouVariantTag = "JinmeiyouJouyouVariant"
 export type GradeOtherTag = JouyouTag |
 	JinmeiyouTag |
 	JinmeiyouJouyouVariantTag
-	
+
 export type GradeTag = GradeOtherTag | KyouikuTag
 
 /**

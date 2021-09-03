@@ -1,6 +1,8 @@
-import { Checker, hasProperty, hasUintProperty, isObject, isSum, isTypeFromTagged, Sum } from "./shared";
-import { isSolidSubpattern, SolidSubpattern } from "./solid_subpattern";
-import { Uint } from "./uint";
+import { hasProperty, hasUintProperty, isObject, isSum, isTypeFromTagged } from "./shared";
+import type { Checker, Sum } from "./shared";
+import { isSolidSubpattern } from "./solid_subpattern";
+import type { SolidSubpattern } from "./solid_subpattern";
+import type { Uint } from "./uint";
 
 type HorizontalTag = "Horizontal"
 

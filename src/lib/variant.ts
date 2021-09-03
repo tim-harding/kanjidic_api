@@ -1,9 +1,15 @@
-import { DeRoo, isDeRoo, serializeDeRoo } from "./de_roo";
-import { isKuten, Kuten, serializeKuten } from "./kuten";
-import { isOneill, Oneill, serializeOneill } from "./oneill";
-import { Checker, isSum, isTypeFromTagged, Sum } from "./shared";
-import { ShDesc, serializeShDesc, isShDesc } from "./sh_desc";
-import { isUint, Uint } from "./uint";
+import { isDeRoo, serializeDeRoo } from "./de_roo";
+import type { DeRoo, } from "./de_roo";
+import { isKuten, serializeKuten } from "./kuten";
+import type { Kuten } from "./kuten";
+import { isOneill, serializeOneill } from "./oneill";
+import type { Oneill } from "./oneill";
+import { isSum, isTypeFromTagged } from "./shared";
+import type { Checker, Sum } from "./shared";
+import { serializeShDesc, isShDesc } from "./sh_desc";
+import type { ShDesc } from "./sh_desc";
+import { isUint } from "./uint";
+import type { Uint } from "./uint";
 
 type KutenTag = "Jis208" | "Jis212" | "Jis213"
 
@@ -123,15 +129,15 @@ export function serializeVariant(variant: Variant): string {
 type Serializer = { (content: any): string }
 
 const SERIALIZERS: Record<VariantTag, Serializer> = {
-		"Jis208": serializeKuten,
-		"Jis212": serializeKuten,
-		"Jis213": serializeKuten,
-		"Unicode": serializeUint,
-		"Halpern": serializeUint,
-		"Nelson": serializeUint,
-		"DeRoo": serializeDeRoo,
-		"ShDesc": serializeShDesc,
-		"Oneill": serializeOneill,
+	"Jis208": serializeKuten,
+	"Jis212": serializeKuten,
+	"Jis213": serializeKuten,
+	"Unicode": serializeUint,
+	"Halpern": serializeUint,
+	"Nelson": serializeUint,
+	"DeRoo": serializeDeRoo,
+	"ShDesc": serializeShDesc,
+	"Oneill": serializeOneill,
 }
 
 function serializeUint(uint: Uint): string {
@@ -144,15 +150,15 @@ export function isVariant(value: unknown): value is Variant {
 }
 
 const CHECKERS: Record<VariantTag, Checker<Sum, Variant>> = {
-		"Jis208": isVariantKuten,
-		"Jis212": isVariantKuten,
-		"Jis213": isVariantKuten,
-		"Unicode": isVariantUint,
-		"Halpern": isVariantUint,
-		"Nelson": isVariantUint,
-		"DeRoo": isVariantDeRoo,
-		"ShDesc": isVariantShDesc,
-		"Oneill": isVariantOneill,
+	"Jis208": isVariantKuten,
+	"Jis212": isVariantKuten,
+	"Jis213": isVariantKuten,
+	"Unicode": isVariantUint,
+	"Halpern": isVariantUint,
+	"Nelson": isVariantUint,
+	"DeRoo": isVariantDeRoo,
+	"ShDesc": isVariantShDesc,
+	"Oneill": isVariantOneill,
 }
 
 function isVariantKuten(value: Sum): value is Variant_Kuten {

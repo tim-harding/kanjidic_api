@@ -1,6 +1,9 @@
-import { isKuten, Kuten } from "./kuten";
-import { Checker, isSum, isTypeFromTagged, Sum } from "./shared";
-import { isUint, Uint } from "./uint";
+import { isKuten, serializeKuten } from "./kuten";
+import type { Kuten } from "./kuten"
+import { isSum, isTypeFromTagged, } from "./shared";
+import type { Checker, Sum } from "./shared"
+import { isUint } from "./uint";
+import type { Uint } from "./uint"
 
 /**
  * Encoding in JIS X 0208-1997
@@ -82,4 +85,16 @@ function isCodepointJis(value: Sum): value is Codepoint_Jis {
 
 function isCodepointUnicode(value: Sum): value is Codepoint_Unicode {
 	return isUint(value.content)
-} 
+}
+
+export function serializeCodepoint(codepoint: Codepoint): string {
+	const serializer = SERIALIZERS[codepoint.tag]
+	return serializer(codepoint.content)
+}
+
+const SERIALIZERS: Record<CodepointTag, { (value: any): string }> = {
+	"Jis208": serializeKuten,
+	"Jis212": serializeKuten,
+	"Jis213": serializeKuten,
+	"Unicode": v => v.toString(),
+}

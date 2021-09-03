@@ -1,5 +1,5 @@
 import { hasOptionalUintProperty, hasUintProperty, isObject } from "./shared";
-import { Uint } from "./uint"
+import type { Uint } from "./uint"
 
 /**
  * A location in Japanese for Busy People. 

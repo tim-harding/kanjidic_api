@@ -1,5 +1,6 @@
 import { hasProperty, hasStringProperty, isObject } from "./shared"
-import { isSkip, Skip } from "./skip"
+import { isSkip} from "./skip"
+import type { Skip } from "./skip"
 
 /**
  * A possible misclassification of the kanji

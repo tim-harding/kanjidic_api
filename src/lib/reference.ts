@@ -1,8 +1,13 @@
-import { BusyPeople, isBusyPeople } from "./busy_people"
-import { isMoro, Moro } from "./moro"
-import { isOneill, Oneill } from "./oneill"
-import { Checker, isSum, isTypeFromTagged, Sum } from "./shared"
-import { isUint, Uint } from "./uint"
+import { isBusyPeople } from "./busy_people"
+import type { BusyPeople } from "./busy_people"
+import { isMoro } from "./moro"
+import type { Moro } from "./moro"
+import { isOneill } from "./oneill"
+import type { Oneill } from "./oneill"
+import { isSum, isTypeFromTagged } from "./shared"
+import type { Checker, Sum } from "./shared"
+import { isUint } from "./uint"
+import type { Uint } from "./uint"
 
 /**
  * A reference into Japanese for Busy People
@@ -181,10 +186,10 @@ type ReferenceUintTag = NelsonClassicTag |
 	KanjiInContextTag |
 	KodanshaCompactTag |
 	ManietteTag
-	
-type ReferenceTag = ReferenceUintTag | 
-	OneillNamesTag | 
-	MoroTag | 
+
+type ReferenceTag = ReferenceUintTag |
+	OneillNamesTag |
+	MoroTag |
 	BusyPeopleTag
 
 /**
@@ -209,7 +214,7 @@ export type Reference = Reference_BusyPeople |
 	Reference_Moro |
 	Reference_OneillNames |
 	Reference_Uint
-	
+
 export function isReference(value: unknown): value is Reference {
 	return isSum(value) &&
 		isTypeFromTagged(value, CHECKERS)

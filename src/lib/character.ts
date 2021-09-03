@@ -1,14 +1,23 @@
-import { Codepoint, isCodepoint } from "./codepoint";
-import { Grade, isGrade } from "./grade";
-import { isQueryCode, QueryCode } from "./query_code";
-import { isKangxiRadical, KangxiRadical } from "./kangxi_radical";
-import { isReading, Reading } from "./reading";
-import { isReference, Reference } from "./reference";
+import { isCodepoint } from "./codepoint";
+import type { Codepoint } from "./codepoint";
+import { isGrade } from "./grade";
+import type { Grade } from "./grade";
+import { isQueryCode } from "./query_code";
+import type { QueryCode } from "./query_code";
+import { isKangxiRadical } from "./kangxi_radical";
+import type { KangxiRadical } from "./kangxi_radical";
+import { isReading } from "./reading";
+import type { Reading } from "./reading";
+import { isReference } from "./reference";
+import type { Reference } from "./reference";
 import { hasOptionalArrayProperty, hasOptionalUintProperty, hasProperty, hasStringProperty, isObject, isString } from "./shared";
-import { isStrokeCount, StrokeCount } from "./stroke_count";
-import { isTranslations, Translations } from "./translations";
-import { Uint } from "./uint";
-import { isVariant, Variant } from "./variant";
+import { isStrokeCount } from "./stroke_count";
+import type { StrokeCount } from "./stroke_count";
+import { isTranslations } from "./translations";
+import type { Translations } from "./translations";
+import type { Uint } from "./uint";
+import { isVariant } from "./variant";
+import type { Variant } from "./variant";
 
 /**
  * Information about a kanji.
@@ -79,12 +88,12 @@ export interface Character {
 	 * Translations of the kanji into different languages.
 	 */
 	translations?: Translations
-	
+
 	/**
 	 * Japanese readings associated with names.
 	 */
 	nanori?: Array<string>
-	
+
 	/**
 	 * The constituent radicals in the kanji.
 	 */

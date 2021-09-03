@@ -1,5 +1,6 @@
-import { Character, isCharacter } from "./character"
-import { hasArrayProperty, hasOptionalArrayProperty, isObject, isString, query, rethrowable } from "./shared"
+import { isCharacter } from "./character"
+import type { Character } from "./character"
+import { hasArrayProperty, hasOptionalArrayProperty, isObject, isString, query } from "./shared"
 
 // Todo: Expand to information about radicals as well
 // Todo: Search by translations

@@ -1,6 +1,7 @@
 import { hasStringProperty, hasUintProperty, isObject } from "./shared";
-import { ShRadical, isShRadical } from "./sh_radical";
-import { Uint } from "./uint"
+import { isShRadical } from "./sh_radical";
+import type { ShRadical} from "./sh_radical";
+import type { Uint } from "./uint"
 
 /**
  * Descriptor code for The Kanji Dictionary.
