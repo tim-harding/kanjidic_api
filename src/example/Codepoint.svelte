@@ -2,6 +2,7 @@
 	import { serializeCodepoint } from "../lib";
 	import type { CodepointTag } from "../lib";
 	import type { Codepoint } from "../lib";
+import Popover from "./Popover.svelte";
 
 	export let codepoint: Codepoint;
 
@@ -25,17 +26,7 @@
 	<span class="serialized">
 		{serialized}&nbsp;
 	</span>
-	<span class="popover-root">
-		<input type="checkbox" {id} class="hidden" checked={true} />
-		<label for={id} class="info-button">
-			<span class="material-icons-outlined md-18"> info </span>
-		</label>
-		<div class="popover">
-			<div class="left-triangle" />
-			<div class="left-triangle-2" />
-			<div class="popover-content">Things and stuff</div>
-		</div>
-	</span>
+	<Popover>Things and stuff<br>More things</Popover>
 </p>
 
 <style lang="scss">
