@@ -1,6 +1,7 @@
 const path = require("path")
 const { defineConfig } = require("vite")
 const { svelte } = require("@sveltejs/vite-plugin-svelte")
+const { sveltePreprocess } = require("svelte-preprocess/dist/autoProcess")
 
 // Note to self: I set things up such that Typescript is transpiled with TSC for production
 // rather than esbuild. This is because esbuild doesn't handle const enums properly
@@ -19,6 +20,12 @@ module.exports = defineConfig({
     },
   },
   plugins: [
-    svelte(),
+    svelte({
+      preprocess: [
+        sveltePreprocess({
+          typescript: true,
+        }),
+      ],
+    }),
   ],
 })

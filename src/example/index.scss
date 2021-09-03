@@ -1,0 +1,95 @@
+*:not(svg *) {
+  all: unset;
+  box-sizing: border-box;
+  color: inherit;
+  display: grid;
+  grid-auto-rows: 1fr;
+  grid-auto-columns: 1fr;
+}
+
+head,
+link,
+meta,
+style,
+title,
+script {
+  display: none;
+}
+
+// Fix performance regression for `display: grid` input elements
+input {
+  display: block;
+}
+
+// https://tailwindcss.com/docs/customizing-colors#color-palette-reference
+:root {
+  font-family: "Roboto", sans-serif;
+
+  // Cool gray
+  --gray-50: #f9fafb;
+  --gray-100: #f3f4f6;
+  --gray-200: #e5e7eb;
+  --gray-300: #d1d5db;
+  --gray-400: #9ca3af;
+  --gray-500: #6b7280;
+  --gray-600: #4b5563;
+  --gray-700: #374151;
+  --gray-800: #1f2937;
+  --gray-900: #111827;
+
+  // Red 600
+  --error: #dc2626;
+
+  // Emerald 600
+  --confirm: #059669;
+  
+  --polar-night-0: #2e3440;
+  --polar-night-1: #3b4252;
+  --polar-night-2: #434c5e;
+  --polar-night-3: #4c566a;
+
+  --snow-storm-2: #d8dee9;
+  --snow-storm-1: #e5e9f0;
+  --snow-storm-0: #ECEFF4;
+
+  --frost-0: #8fbcbb;
+  --frost-1: #88c0d0;
+  --frost-2: #81a1c1;
+  --frost-3: #5e81ac;
+
+  --aurora-0: #bf616a;
+  --aurora-1: #d08770;
+  --aurora-2: #ebcb8b;
+  --aurora-3: #a3be8c;
+  --aurora-4: #b48ead;
+
+  color: var(--polar-night-3);
+  
+  background-color: var(--snow-storm-0);
+}
+
+.hidden {
+  opacity: 0;
+  position: absolute;
+  left: -100vw;
+}
+
+.md-18 {
+  font-size: 18px;
+}
+
+.md-24 {
+  font-size: 24px;
+}
+
+.md-36 {
+  font-size: 36px;
+}
+
+.md-48 {
+  font-size: 48px;
+}
+
+.noto {
+  font-family: "Noto Sans JP", sans-serif;
+}

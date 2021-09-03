@@ -1,39 +1,19 @@
 <script lang="ts">
-import SayHello from "./SayHello.svelte";
-
+	import RadicalsSelector from "./RadicalsSelector.svelte";
 </script>
 
-<!-- <main>
-	<h1>Hello {name}!</h1>
-	<p>
-		Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn
-		how to build Svelte apps.
-	</p>
+<main class="root">
+	<RadicalsSelector />
 </main>
- -->
- 
-<div>
-	<SayHello name="Tim"></SayHello>
-</div>
 
-<style>
-	main {
-		text-align: center;
-		padding: 1em;
-		max-width: 240px;
-		margin: 0 auto;
-	}
-
-	h1 {
-		color: #ff3e00;
-		text-transform: uppercase;
-		font-size: 4em;
-		font-weight: 100;
-	}
-
-	@media (min-width: 640px) {
-		main {
-			max-width: none;
-		}
-	}
+<style lang="scss">
+.root {
+	justify-self: center;
+	margin: 2rem;
+	background-color: var(--snow-storm-1);
+	border-radius: 0.25rem;
+	border-color: var(--snow-storm-2);
+	border-style: solid;
+	border-width: 2px;
+}
 </style>

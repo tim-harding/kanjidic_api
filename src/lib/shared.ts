@@ -1,4 +1,5 @@
-import { isUint, Uint } from "./uint"
+import { isUint} from "./uint"
+import type { Uint } from "./uint"
 
 export function hasProperty<K extends string, T extends Object>(value: T, key: K): value is T & Record<K, unknown> {
 	return value.hasOwnProperty(key)
