@@ -79,11 +79,11 @@ const CHECKERS: Record<CodepointTag, Checker<Sum, Codepoint>> = {
 	"Unicode": isCodepointUnicode,
 }
 
-function isCodepointJis(value: Sum): value is Codepoint_Jis {
+export function isCodepointJis(value: Sum): value is Codepoint_Jis {
 	return isKuten(value.content)
 }
 
-function isCodepointUnicode(value: Sum): value is Codepoint_Unicode {
+export function isCodepointUnicode(value: Sum): value is Codepoint_Unicode {
 	return isUint(value.content)
 }
 
@@ -96,5 +96,9 @@ const SERIALIZERS: Record<CodepointTag, { (value: any): string }> = {
 	"Jis208": serializeKuten,
 	"Jis212": serializeKuten,
 	"Jis213": serializeKuten,
-	"Unicode": v => v.toString(),
+	"Unicode": serializeUnicode,
+}
+
+function serializeUnicode(unicode: number): string {
+	return `#${unicode.toString(16).toUpperCase()}`
 }
