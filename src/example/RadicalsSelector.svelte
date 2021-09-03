@@ -30,7 +30,7 @@
 {:then radicalGroups}
   <form on:submit|preventDefault={handleSubmit} class="form">
     <fieldset class="fieldset">
-      <legend>Select radicals to find a matching kanji</legend>
+      <legend>Select radicals to find a matching kanji.</legend>
       <ol class="list">
         {#each radicalGroups as group}
           <li class="item">

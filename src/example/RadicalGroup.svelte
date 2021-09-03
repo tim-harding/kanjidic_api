@@ -46,6 +46,14 @@
   .strokes {
     font-weight: 700;
     cursor: none;
+    border-style: solid;
+    border-radius: 0.25rem;
+    border-width: 1px;
+    border-color: var(--gray-400);
+    width: 1.5rem;
+    height: 1.5rem;
+    justify-self: center;
+    align-self: center;
   }
 
   .radical-checkbox {
