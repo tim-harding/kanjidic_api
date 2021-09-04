@@ -21,8 +21,8 @@
 		Halpern: "Halpern",
 		Nelson: "Nelson",
 		DeRoo: "De Roo",
-		ShDesc: "Spahn-Hadamitzky",
-		Oneill: "O'Neill",
+		SpahnHadamitzky: "Spahn-Hadamitzky",
+		ONeill: "O'Neill",
 	};
 
 	const key = KEYS[variant.tag];

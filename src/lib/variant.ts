@@ -14,8 +14,8 @@ import type { Uint } from "./uint";
 export type KutenTag = "Jis208" | "Jis212" | "Jis213"
 export type UintTag = "Unicode" | "Halpern" | "Nelson"
 export type DeRooTag = "DeRoo"
-export type ShDescTag = "ShDesc"
-export type OneillTag = "Oneill"
+export type SpahnHadamitzkyTag = "SpahnHadamitzky"
+export type OneillTag = "ONeill"
 
 export function isKutenTag(tag: VariantTag): tag is KutenTag {
 	return tag in KUTEN_TAGS
@@ -40,7 +40,7 @@ const UINT_TAGS: Record<UintTag, boolean> = {
 export type VariantTag = KutenTag |
 	UintTag |
 	DeRooTag |
-	ShDescTag |
+	SpahnHadamitzkyTag |
 	OneillTag
 
 /**
@@ -71,11 +71,11 @@ export function isVariantDeRooFromTag(variant: Variant): variant is Variant_DeRo
 }
 
 export function isVariantShDescFromTag(variant: Variant): variant is Variant_ShDesc {
-	return variant.tag === "ShDesc"
+	return variant.tag === "SpahnHadamitzky"
 }
 
 export function isVariantOneillFromTag(variant: Variant): variant is Variant_Oneill {
-	return variant.tag === "Oneill"
+	return variant.tag === "ONeill"
 }
 
 /**
@@ -118,7 +118,7 @@ export interface Variant_ShDesc {
 	/**
 	 * The kind of encoding
 	 */
-	tag: ShDescTag
+	tag: SpahnHadamitzkyTag
 
 	/**
 	 * The encoding
@@ -172,8 +172,8 @@ const SERIALIZERS: Record<VariantTag, Serializer> = {
 	"Halpern": serializeUint,
 	"Nelson": serializeUint,
 	"DeRoo": serializeDeRoo,
-	"ShDesc": serializeShDesc,
-	"Oneill": serializeOneill,
+	"SpahnHadamitzky": serializeShDesc,
+	"ONeill": serializeOneill,
 }
 
 function serializeUint(uint: Uint): string {
