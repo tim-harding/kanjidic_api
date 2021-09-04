@@ -11,6 +11,7 @@
 		color: var(--frost-0);
 		text-decoration: underline;
 		cursor: pointer;
+		display: inline;
 		
 		&:visited {
 			color: var(--frost-3);

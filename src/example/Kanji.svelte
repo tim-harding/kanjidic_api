@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { Character } from "../lib";
 	import Codepoint from "./Codepoint.svelte";
+import KangxiRadical from "./KangxiRadical.svelte";
 import KanjiDropdown from "./KanjiDropdown.svelte";
 
 	export let character: Character;
@@ -13,11 +14,22 @@ import KanjiDropdown from "./KanjiDropdown.svelte";
 			{character.literal}
 		</span>
 	</div>
+
 	{#if character.codepoints !== undefined}
 		<KanjiDropdown summary="Codepoints">
 			<ul class="details-body">
 				{#each character.codepoints as codepoint}
 					<Codepoint {codepoint} />
+				{/each}
+			</ul>
+		</KanjiDropdown>
+	{/if}
+
+	{#if character.radicals !== undefined}
+		<KanjiDropdown summary="Radicals">
+			<ul class="details-body">
+				{#each character.radicals as radical}	
+					<KangxiRadical radical={radical}></KangxiRadical>
 				{/each}
 			</ul>
 		</KanjiDropdown>
