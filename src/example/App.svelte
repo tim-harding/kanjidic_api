@@ -4,6 +4,7 @@ import type { Character } from "../lib";
 	import Kanji from "./Kanji.svelte";
 	import RadicalsSelector from "./RadicalsSelector.svelte";
 	
+  // Todo: pick something that tests all possible paths
 	const testKanji: Character = {
     "literal": "亜",
     "codepoints": [
@@ -35,7 +36,6 @@ import type { Character } from "../lib";
     },
     "strokeCounts": {
       "accepted": 7,
-      "miscounts": []
     },
     "variants": [
       {
