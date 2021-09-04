@@ -4,9 +4,9 @@
 
 <div class="root">
 	Literal:&nbsp;
-	<span class="noto">
+	<strong class="noto">
 		{literal}
-	</span>
+	</strong>
 </div>
 
 <style lang="scss">

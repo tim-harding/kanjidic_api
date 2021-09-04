@@ -14,8 +14,7 @@
 
 <p class="root">
 	{radical.kind}:&nbsp;
-	<span class="noto">{symbol}</span>
-	&nbsp;
+	<strong class="noto">{symbol}</strong>&nbsp;
 	<Popover>
 		<div class="details">
 			<p>
