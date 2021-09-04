@@ -24,9 +24,9 @@
 	<span>
 		{key}:&nbsp;
 	</span>
-	<span class="serialized">
+	<strong>
 		{serialized}&nbsp;
-	</span>
+	</strong>
 	<Popover>
 		{#if codepoint.tag === "Unicode"}
 			<UnicodePopoverContent codepoint={codepoint.content} />
@@ -38,11 +38,7 @@
 
 <style lang="scss">
 	.root {
-		grid-template-columns: max-content max-content 1fr;
-	}
-
-	.serialized {
-		font-weight: 700;
+		display: block;
 	}
 
 	.kuten-details {

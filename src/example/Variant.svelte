@@ -11,7 +11,8 @@
 	import type { Variant as VariantType, VariantTag } from "../lib/variant";
 	import KutenPopoverContent from "./KutenPopoverContent.svelte";
 	import Popover from "./Popover.svelte";
-import UnicodePopoverContent from "./UnicodePopoverContent.svelte";
+	import UnicodePopoverContent from "./UnicodePopoverContent.svelte";
+	import Citation from "./Citation.svelte";
 
 	export let variant: VariantType;
 
@@ -36,8 +37,22 @@ import UnicodePopoverContent from "./UnicodePopoverContent.svelte";
 		{#if isVariantKutenFromTag(variant)}
 			<KutenPopoverContent kuten={variant.content} />
 		{:else if isVariantUintFromTag(variant)}
+			<p>An index into the following dictionary:</p>
+			{#if variant.tag === "Halpern"}
+				<Citation>
+					Halpern, J. 1990. <em>
+						New Japanese-English Character Dictionary
+					</em>, Kenkyusha/NTC.
+				</Citation>
+			{:else}
+				<Citation>
+					Nelson, A.N. 1974. <em>
+						The Modern Reader's Japanese-English Character Dictionary
+					</em>, (second revised edition), Tuttle.
+				</Citation>
+			{/if}
 		{:else if isVariantUnicodeFromTag(variant)}
-			<UnicodePopoverContent codepoint={variant.content}></UnicodePopoverContent>
+			<UnicodePopoverContent codepoint={variant.content} />
 		{:else if isVariantDeRooFromTag(variant)}
 			DeRoo
 		{:else if isVariantShDescFromTag(variant)}

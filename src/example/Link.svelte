@@ -14,7 +14,7 @@
 		display: inline;
 		
 		&:visited {
-			color: var(--aurora-red);
+			color: var(--aurora-purple);
 		}
 	}
 </style>

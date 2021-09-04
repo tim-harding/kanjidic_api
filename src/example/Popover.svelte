@@ -2,25 +2,37 @@
 	import { uniqueId } from "./shared";
 
 	const id = uniqueId();
+	let checked = false;
 </script>
 
 <span class="root">
-	<label class="material-icons-outlined md-18 summary" for={id}> info </label>
-	<input type="checkbox" {id} class="hidden input" />
-	<div class="popover">
-		<div class="left-triangle-base" />
-		<div class="left-triangle-top" />
-		<div class="content">
-			<slot />
-		</div>
-	</div>
+	<label class="summary" for={id}>
+		<span class="material-icons-outlined md-18 icon">
+			info
+		</span>
+		{#if checked}
+			<div class="popover">
+				<div class="left-triangle-base" />
+				<div class="content">
+					<slot />
+				</div>
+				<div class="left-triangle-top" />
+			</div>
+		{/if}
+	</label>
+	<input type="checkbox" {id} class="hidden input" bind:checked />
 </span>
 
 <style lang="scss">
 	.root {
 		grid-template-columns: max-content 1fr;
+		display: inline-grid;
 	}
 
+	.icon {
+		transform: translateY(0.175rem);
+	}
+	
 	.serialized {
 		font-weight: 700;
 	}
@@ -30,17 +42,12 @@
 		user-select: none;
 	}
 
-	.input:not(:checked) + .popover {
-		opacity: 0;
-		position: absolute;
-		left: -100vw;
-	}
-
 	.popover {
 		position: absolute;
 		left: 1.65rem;
-		grid-template-columns: min-content 1fr;
+		grid-template-columns: 1fr max-content;
 		grid-template-areas: "arrow content";
+		z-index: 1;
 	}
 
 	.root {
@@ -60,14 +67,12 @@
 		width: 1.25rem;
 		height: 1.25rem;
 		box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.1);
-		z-index: 1;
 	}
 
 	.left-triangle-top {
 		background-color: var(--snow-storm-0);
 		width: calc(1.25rem - 2px);
 		height: calc(1.25rem - 2px);
-		z-index: 3;
 	}
 
 	.content {
@@ -80,6 +85,5 @@
 		border-width: 1px;
 		border-style: solid;
 		box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.1);
-		z-index: 2;
 	}
 </style>

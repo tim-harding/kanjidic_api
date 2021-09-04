@@ -16,17 +16,13 @@
       })),
     }));
   });
-  
-  $: {
-    console.log(radicalGroups)
-  }
 
   // Todo
   function handleSubmit() {}
 </script>
 
 {#await radicalGroups}
-  <div class="loading">Loading radicals &#8230;</div>
+  <div>Loading radicals &#8230;</div>
 {:then radicalGroups}
   <form on:submit|preventDefault={handleSubmit} class="form">
     <fieldset class="fieldset">
@@ -34,7 +30,7 @@
       <ol class="list">
         {#each radicalGroups as group}
           <li class="item">
-            <RadicalGroup bind:group={group} />
+            <RadicalGroup bind:group />
           </li>
         {/each}
       </ol>
@@ -48,13 +44,10 @@
 {/await}
 
 <style lang="scss">
-  .loading {
+  .error {
+    color: var(--aurora-red);
   }
 
-  .error {
-    color: var(--error);
-  }
-  
   $button-size: 1.75rem;
 
   .list {
@@ -62,11 +55,11 @@
     grid-template-columns: repeat(auto-fill, $button-size);
     grid-auto-rows: $button-size;
   }
-  
+
   .form {
     margin: 1rem;
   }
-  
+
   .fieldset {
     grid-template-rows: 0.75rem 1fr;
   }

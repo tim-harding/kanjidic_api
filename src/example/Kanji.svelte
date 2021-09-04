@@ -3,9 +3,9 @@
 	import Grade from "./Grade.svelte";
 	import Codepoints from "./Codepoints.svelte";
 	import Literal from "./Literal.svelte";
-	import Radicals from "./Radicals.svelte";
-import StrokeCount from "./StrokeCount.svelte";
-import Variants from "./Variants.svelte";
+	import Radicals from "./KangxiRadicals.svelte";
+	import StrokeCount from "./StrokeCount.svelte";
+	import Variants from "./Variants.svelte";
 
 	export let character: Character;
 </script>
@@ -22,10 +22,10 @@ import Variants from "./Variants.svelte";
 		<Grade grade={character.grade} />
 	{/if}
 	{#if character.strokeCounts !== undefined}
-		<StrokeCount strokeCounts={character.strokeCounts}></StrokeCount>	
+		<StrokeCount strokeCounts={character.strokeCounts} />
 	{/if}
 	{#if character.variants !== undefined}
-		<Variants variants={character.variants}></Variants>	
+		<Variants variants={character.variants} />
 	{/if}
 </div>
 
@@ -33,7 +33,7 @@ import Variants from "./Variants.svelte";
 	.root {
 		margin: 1rem;
 		margin-left: 0rem;
-		grid-auto-rows: min-content;
+		grid-auto-rows: max-content;
 		gap: 0.75rem;
 	}
 </style>

@@ -10,7 +10,7 @@
 
 <KanjiDropdown>
 	<slot slot="summary">
-		<div class="radical-popover">
+		<span class="radical-popover">
 			Radicals
 			<Popover>
 				<p>
@@ -20,7 +20,7 @@
 				</p>
 				<p>A classification of the kanji based on the Kangxi Zidian.</p>
 			</Popover>
-		</div>
+		</span>
 	</slot>
 	<ul slot="content" class="details-body">
 		{#each radicals as radical}

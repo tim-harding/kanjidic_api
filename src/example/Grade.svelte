@@ -17,31 +17,25 @@
 </script>
 
 {#if grade}
-	<div class="no-dropdown">
-		Grade:&nbsp;
-		<span class="root">
-			{grade.tag}
-			{#if grade.tag === "Kyouiku"}
-				grade {grade.content}
-			{/if}
-			<Popover>
-				<p>
-					{info}
-				</p>
-			</Popover>
-		</span>
-	</div>
+	<p class="root">
+		Grade:&nbsp;{grade.tag}&nbsp;
+		{#if grade.tag === "Kyouiku"}
+			grade&nbsp;{grade.content}&nbsp;
+		{/if}
+		<Popover>
+			<p>
+				{info}
+			</p>
+		</Popover>
+	</p>
 {/if}
 
 <style>
 	.root {
-		grid-template-columns: min-content 1fr;
-		gap: 0.5rem;
-	}
-
-	.no-dropdown {
-		grid-template-columns: min-content 1fr;
+		display: block;
+		grid-template-columns: max-content 1fr;
 		align-items: flex-end;
 		margin-left: 1.4rem;
+		gap: 0.5rem;
 	}
 </style>
