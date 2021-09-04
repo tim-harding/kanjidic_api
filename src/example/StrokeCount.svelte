@@ -24,6 +24,7 @@
 .root {
 	margin-left: 1.4rem;
 	gap: 0.5rem;
+	grid-auto-rows: min-content;
 }
 
 .list {

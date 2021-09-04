@@ -4,6 +4,7 @@
 	import type { Codepoint } from "../lib";
 	import Popover from "./Popover.svelte";
 	import Link from "./Link.svelte";
+import KutenPopoverContent from "./KutenPopoverContent.svelte";
 
 	export let codepoint: Codepoint;
 
@@ -32,24 +33,7 @@
 				More info
 			</Link>
 		{:else}
-			<div class="kuten-details">
-				<p>
-					<Link
-						href="http://unicode-iphone.blogspot.com/2010/05/kuten-code-to-unicode.html"
-					>
-						Kuten code info
-					</Link>
-				</p>
-				<p>
-					Plane: {codepoint.content.plane}
-				</p>
-				<p>
-					Ku: {codepoint.content.ku}
-				</p>
-				<p>
-					Ten: {codepoint.content.ten}
-				</p>
-			</div>
+		<KutenPopoverContent kuten={codepoint.content}></KutenPopoverContent>
 		{/if}
 	</Popover>
 </p>

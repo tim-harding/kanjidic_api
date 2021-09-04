@@ -36,6 +36,10 @@ import type { Character } from "../lib";
     },
     "strokeCounts": {
       "accepted": 7,
+      "miscounts": [
+        9,
+        11
+      ]
     },
     "variants": [
       {

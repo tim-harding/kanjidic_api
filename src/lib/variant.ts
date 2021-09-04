@@ -11,17 +11,33 @@ import type { ShDesc } from "./sh_desc";
 import { isUint } from "./uint";
 import type { Uint } from "./uint";
 
-type KutenTag = "Jis208" | "Jis212" | "Jis213"
+export type KutenTag = "Jis208" | "Jis212" | "Jis213"
+export type UintTag = "Unicode" | "Halpern" | "Nelson"
+export type DeRooTag = "DeRoo"
+export type ShDescTag = "ShDesc"
+export type OneillTag = "Oneill"
 
-type UintTag = "Unicode" | "Halpern" | "Nelson"
+export function isKutenTag(tag: VariantTag): tag is KutenTag {
+	return tag in KUTEN_TAGS
+}
 
-type DeRooTag = "DeRoo"
+const KUTEN_TAGS: Record<KutenTag, boolean> = {
+	"Jis208": true,
+	"Jis212": true,
+	"Jis213": true,
+}
 
-type ShDescTag = "ShDesc"
+export function isUintTag(tag: VariantTag): tag is UintTag {
+	return tag in UINT_TAGS
+}
 
-type OneillTag = "Oneill"
+const UINT_TAGS: Record<UintTag, boolean> = {
+	"Unicode": true,
+	"Halpern": true,
+	"Nelson": true,
+}
 
-type VariantTag = KutenTag |
+export type VariantTag = KutenTag |
 	UintTag |
 	DeRooTag |
 	ShDescTag |
@@ -40,6 +56,26 @@ export interface Variant_Kuten {
 	 * The encoding
 	 */
 	content: Kuten
+}
+
+export function isVariantKutenFromTag(variant: Variant): variant is Variant_Kuten {
+	return isKutenTag(variant.tag)
+}
+
+export function isVariantUintFromTag(variant: Variant): variant is Variant_Uint {
+	return isUintTag(variant.tag)
+}
+
+export function isVariantDeRooFromTag(variant: Variant): variant is Variant_DeRoo {
+	return variant.tag === "DeRoo"
+}
+
+export function isVariantShDescFromTag(variant: Variant): variant is Variant_ShDesc {
+	return variant.tag === "ShDesc"
+}
+
+export function isVariantOneillFromTag(variant: Variant): variant is Variant_Oneill {
+	return variant.tag === "Oneill"
 }
 
 /**

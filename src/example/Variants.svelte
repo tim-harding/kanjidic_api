@@ -7,7 +7,7 @@
 </script>
 
 <KanjiDropdown>
-	<span slot="Summary"> Variants </span>
+	<span slot="summary"> Variants </span>
 	<div slot="content">
 		<ul>
 			{#each variants as variant}
