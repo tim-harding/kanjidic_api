@@ -1,7 +1,3 @@
-<script lang="ts">
-	export let summary: string;
-</script>
-
 <details open={true} class="details">
 	<summary class="summary">
 		<div class="disclosure-triangle">
@@ -13,10 +9,14 @@
 			>
 		</div>
 		<span>
-			{summary}
+			<slot name="summary">
+				Summary
+			</slot>
 		</span>
 	</summary>
-	<slot></slot>
+	<slot name="content">
+		Content
+	</slot>
 </details>
 
 <style>
@@ -27,7 +27,6 @@
 	}
 
 	.disclosure-triangle {
-		transform: translateY(-0.2rem);
 		grid-template-areas: "center";
 	}
 
@@ -46,5 +45,9 @@
 
 	.details[open] .open-disclosure {
 		visibility: hidden;
+	}
+	
+	.summary {
+		align-items: center;
 	}
 </style>

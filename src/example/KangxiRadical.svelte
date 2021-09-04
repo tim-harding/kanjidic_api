@@ -1,8 +1,6 @@
 <script lang="ts">
 	import { kangxiName, kangxiSymbol } from "../lib";
-
 	import type { KangxiRadical as KangxiRadicalType } from "../lib/kangxi_radical";
-	import Link from "./Link.svelte";
 	import Popover from "./Popover.svelte";
 
 	export let radical: KangxiRadicalType;
@@ -16,33 +14,20 @@
 	<Popover>
 		<div class="details">
 			<p>
-				<Link href="https://en.wikipedia.org/wiki/Kangxi_radical"
-					>Kangxi radicals info</Link
-				>
-			</p>
-			<p>A classification of the kanji based on the Kangxi Zidian.</p>
-			<p>
 				Radical number: {radical.radical}
 			</p>
 			<p>
 				Radical name: {kangxiName(radical.radical)}
 			</p>
-			<p>Source:</p>
 			{#if radical.kind === "Classical"}
-			<p class="hanging-indent">
-					<!-- <span class="hanging-indent"> -->
-						Shibano, K. et al. 1997, 2002. <em>JIS Kanji Dictionary</em>, (first and second editions), Japan Standards Association.
-					<!-- </span> -->
-			</p>
+				<p class="hanging-indent">
+					Shibano, K. et al. 1997, 2002. <em>JIS Kanji Dictionary</em>, (first
+					and second editions), Japan Standards Association.
+				</p>
 			{:else}
-			<p>
-					Nelson: A reclassification sourced from the
-					<Link
-						href="https://www.amazon.com/Original-Readers-Japanese-English-Character-Dictionary/dp/0804819653"
-					>
-						Modern Japanese-English Character Dictionary
-					</Link>.
-			</p>
+				<p class="hanging-indent">
+					Nelson, A.N. 1974. <em>The Modern Reader's Japanese-English Character Dictionary</em>, (second revised edition), Tuttle. 
+				</p>
 			{/if}
 		</div>
 	</Popover>
