@@ -62,7 +62,7 @@
 	.serialized {
 		font-weight: 700;
 	}
-	
+
 	.kuten-details {
 		gap: 0.25rem;
 	}

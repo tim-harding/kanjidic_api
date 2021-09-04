@@ -14,9 +14,11 @@
 			</slot>
 		</span>
 	</summary>
-	<slot name="content">
-		Content
-	</slot>
+	<div class="content-container">
+		<slot name="content">
+			Content
+		</slot>
+	</div>
 </details>
 
 <style>
@@ -49,5 +51,9 @@
 	
 	.summary {
 		align-items: center;
+	}
+
+	.content-container {
+		margin-left: 2.5rem;
 	}
 </style>
