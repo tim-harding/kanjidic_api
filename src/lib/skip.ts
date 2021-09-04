@@ -143,3 +143,57 @@ function isSkipSolid(value: Sum): value is Skip_Solid {
 		hasProperty(content, "solidSubpattern") &&
 		isSolidSubpattern(content.solidSubpattern)
 }
+
+export function serializeSkip(skip: Skip): string {
+	const parts = PARTS[skip.tag](skip)
+	return `${parts.pattern}-${parts.first}-${parts.second}`
+}
+
+interface Parts {
+	pattern: number,
+	first: number,
+	second: number,
+}
+
+const PARTS: Record<SkipTag, { (skip: any): Parts }> = {
+	"Horizontal": skipHorizontalParts,
+	"Vertical": skipVerticalParts,
+	"Enclosure": skipEnclosureParts,
+	"Solid": skipSolidParts,
+}
+
+function skipHorizontalParts(skip: Skip_Horizontal): Parts {
+	const { left, right } = skip.content
+	return {
+		pattern: 1,
+		first: left,
+		second: right,
+	}
+}
+
+function skipVerticalParts(skip: Skip_Vertical): Parts {
+	const { top, bottom } = skip.content
+	return {
+		pattern: 2,
+		first: top,
+		second: bottom,
+	}
+}
+
+function skipEnclosureParts(skip: Skip_Enclosure): Parts {
+	const { exterior, interior } = skip.content
+	return {
+		pattern: 3,
+		first: exterior,
+		second: interior,
+	}
+}
+
+function skipSolidParts(skip: Skip_Solid): Parts {
+	const { totalStrokeCount, solidSubpattern } = skip.content
+	return {
+		pattern: 4,
+		first: totalStrokeCount,
+		second: solidSubpattern,
+	}
+}
