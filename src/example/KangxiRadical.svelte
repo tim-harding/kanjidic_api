@@ -8,6 +8,9 @@
 	const symbol = kangxiSymbol(radical.radical);
 </script>
 
+<!-- Sources info -->
+<!-- https://dl.acm.org/doi/pdf/10.5555/1610042.1610044 -->
+
 <span class="root">
 	<span>{radical.kind}:</span>
 	<span class="noto">{symbol}</span>

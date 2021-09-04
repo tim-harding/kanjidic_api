@@ -5,12 +5,13 @@
 	import KanjiDropdown from "./KanjiDropdown.svelte";
 	import Popover from "./Popover.svelte";
 	import Link from "./Link.svelte";
+	import Grade from "./Grade.svelte";
 
 	export let character: Character;
 </script>
 
 <div class="root">
-	<div class="literal">
+	<div class="no-dropdown">
 		Literal:&nbsp;
 		<span class="noto">
 			{character.literal}
@@ -50,6 +51,12 @@
 			</ul>
 		</KanjiDropdown>
 	{/if}
+
+	{#if character.grade}
+		<div class="no-dropdown">
+			Grade:&nbsp;<Grade grade={character.grade} />
+		</div>
+	{/if}
 </div>
 
 <style>
@@ -57,17 +64,17 @@
 		margin: 1rem;
 		margin-left: 0rem;
 		grid-auto-rows: min-content;
+		gap: 0.75rem;
 	}
 
-	.literal {
+	.no-dropdown {
 		grid-template-columns: min-content 1fr;
 		align-items: flex-end;
 		margin-left: 1.4rem;
-		margin-bottom: 0.5rem;
 	}
 
 	.details-body {
-		margin-left: 2rem;
+		margin-left: 2.5rem;
 		gap: 0.5rem;
 	}
 
