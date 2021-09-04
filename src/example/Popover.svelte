@@ -1,5 +1,12 @@
+<script>
+	import { uniqueId } from "./shared";
+
+	const id = uniqueId();
+</script>
+
 <span class="root">
-	<span class="material-icons-outlined md-18 summary"> info </span>
+	<label class="material-icons-outlined md-18 summary" for={id}> info </label>
+	<input type="checkbox" {id} class="hidden input" />
 	<div class="popover">
 		<div class="left-triangle-base" />
 		<div class="left-triangle-top" />
@@ -23,7 +30,7 @@
 		user-select: none;
 	}
 
-	.summary:not(:hover) + .popover {
+	.input:not(:checked) + .popover {
 		opacity: 0;
 		position: absolute;
 		left: -100vw;

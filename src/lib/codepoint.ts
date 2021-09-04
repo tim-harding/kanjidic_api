@@ -100,5 +100,5 @@ const SERIALIZERS: Record<CodepointTag, { (value: any): string }> = {
 }
 
 function serializeUnicode(unicode: number): string {
-	return `#${unicode.toString(16).toUpperCase()}`
+	return `U+${unicode.toString(16).toUpperCase()}`
 }
