@@ -10,11 +10,16 @@ import { serializeShDesc, isShDesc } from "./sh_desc";
 import type { ShDesc } from "./sh_desc";
 import { isUint } from "./uint";
 import type { Uint } from "./uint";
+import { isUnicode, serializeUnicode } from "./unicode";
+import type { Unicode } from "./unicode";
+
+// Todo: Document tag meanings
 
 export type KutenTag = "Jis208" | "Jis212" | "Jis213"
-export type UintTag = "Unicode" | "Halpern" | "Nelson"
+export type UintTag = "Halpern" | "Nelson"
 export type DeRooTag = "DeRoo"
 export type SpahnHadamitzkyTag = "SpahnHadamitzky"
+export type UnicodeTag = "Unicode"
 export type OneillTag = "ONeill"
 
 export function isKutenTag(tag: VariantTag): tag is KutenTag {
@@ -32,7 +37,6 @@ export function isUintTag(tag: VariantTag): tag is UintTag {
 }
 
 const UINT_TAGS: Record<UintTag, boolean> = {
-	"Unicode": true,
 	"Halpern": true,
 	"Nelson": true,
 }
@@ -41,7 +45,8 @@ export type VariantTag = KutenTag |
 	UintTag |
 	DeRooTag |
 	SpahnHadamitzkyTag |
-	OneillTag
+	OneillTag |
+	UnicodeTag
 
 /**
  * An encoding in JIS208, JIS212, or JIS213
@@ -78,6 +83,10 @@ export function isVariantOneillFromTag(variant: Variant): variant is Variant_One
 	return variant.tag === "ONeill"
 }
 
+export function isVariantUnicodeFromTag(variant: Variant): variant is Variant_Unicode {
+	return variant.tag === "Unicode"
+}
+
 /**
  * A code for a kanji in one of the following forms:
  * - `Unicode`: A unicode codepoint
@@ -94,6 +103,18 @@ export interface Variant_Uint {
 	 * The encoding
 	 */
 	content: Uint
+}
+
+export interface Variant_Unicode {
+	/**
+	 * The kind of encoding
+	 */
+	tag: UnicodeTag
+
+	/**
+	 * The encoding
+	 */
+	content: Unicode
 }
 
 /**
@@ -150,7 +171,8 @@ export type Variant = Variant_Kuten |
 	Variant_Uint |
 	Variant_DeRoo |
 	Variant_ShDesc |
-	Variant_Oneill
+	Variant_Oneill |
+	Variant_Unicode
 
 /**
  * Gets the string representation of a Variant.
@@ -168,7 +190,7 @@ const SERIALIZERS: Record<VariantTag, Serializer> = {
 	"Jis208": serializeKuten,
 	"Jis212": serializeKuten,
 	"Jis213": serializeKuten,
-	"Unicode": serializeUint,
+	"Unicode": serializeUnicode,
 	"Halpern": serializeUint,
 	"Nelson": serializeUint,
 	"DeRoo": serializeDeRoo,
@@ -189,12 +211,12 @@ const CHECKERS: Record<VariantTag, Checker<Sum, Variant>> = {
 	"Jis208": isVariantKuten,
 	"Jis212": isVariantKuten,
 	"Jis213": isVariantKuten,
-	"Unicode": isVariantUint,
+	"Unicode": isVariantUnicode,
 	"Halpern": isVariantUint,
 	"Nelson": isVariantUint,
 	"DeRoo": isVariantDeRoo,
-	"ShDesc": isVariantShDesc,
-	"Oneill": isVariantOneill,
+	"SpahnHadamitzky": isVariantShDesc,
+	"ONeill": isVariantOneill,
 }
 
 function isVariantKuten(value: Sum): value is Variant_Kuten {
@@ -215,4 +237,8 @@ function isVariantShDesc(value: Sum): value is Variant_ShDesc {
 
 function isVariantUint(value: Sum): value is Variant_Uint {
 	return isUint(value.content)
+}
+
+function isVariantUnicode(value: Sum): value is Variant_Unicode {
+	return isUnicode(value.content)
 }

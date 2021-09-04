@@ -3,8 +3,8 @@
 	import type { CodepointTag } from "../lib";
 	import type { Codepoint } from "../lib";
 	import Popover from "./Popover.svelte";
-	import Link from "./Link.svelte";
-import KutenPopoverContent from "./KutenPopoverContent.svelte";
+	import KutenPopoverContent from "./KutenPopoverContent.svelte";
+	import UnicodePopoverContent from "./UnicodePopoverContent.svelte";
 
 	export let codepoint: Codepoint;
 
@@ -29,11 +29,9 @@ import KutenPopoverContent from "./KutenPopoverContent.svelte";
 	</span>
 	<Popover>
 		{#if codepoint.tag === "Unicode"}
-			<Link href={`https://www.compart.com/en/unicode/${serialized}`}>
-				More info
-			</Link>
+			<UnicodePopoverContent codepoint={codepoint.content} />
 		{:else}
-		<KutenPopoverContent kuten={codepoint.content}></KutenPopoverContent>
+			<KutenPopoverContent kuten={codepoint.content} />
 		{/if}
 	</Popover>
 </p>

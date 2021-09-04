@@ -8,13 +8,13 @@
 
 <style lang="scss">
 	.link {
-		color: var(--frost-0);
+		color: var(--frost-3);
 		text-decoration: underline;
 		cursor: pointer;
 		display: inline;
 		
 		&:visited {
-			color: var(--frost-3);
+			color: var(--aurora-red);
 		}
 	}
 </style>

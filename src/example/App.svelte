@@ -74,6 +74,10 @@
           suffix: "A",
         },
       },
+      {
+        tag: "Unicode",
+        content: 21531,
+      },
     ],
     frequency: 1509,
     jlpt: 1,

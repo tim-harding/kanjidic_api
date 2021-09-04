@@ -3,7 +3,8 @@ import type { Kuten } from "./kuten"
 import { isSum, isTypeFromTagged, } from "./shared";
 import type { Checker, Sum } from "./shared"
 import { isUint } from "./uint";
-import type { Uint } from "./uint"
+import { serializeUnicode} from "./unicode";
+import type { Unicode } from "./unicode";
 
 /**
  * Encoding in JIS X 0208-1997
@@ -59,7 +60,7 @@ export interface Codepoint_Unicode {
 	/**
 	 * The codepoint.
 	 */
-	content: Uint
+	content: Unicode
 }
 
 /**
@@ -97,8 +98,4 @@ const SERIALIZERS: Record<CodepointTag, { (value: any): string }> = {
 	"Jis212": serializeKuten,
 	"Jis213": serializeKuten,
 	"Unicode": serializeUnicode,
-}
-
-function serializeUnicode(unicode: number): string {
-	return `U+${unicode.toString(16).toUpperCase()}`
 }

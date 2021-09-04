@@ -5,11 +5,13 @@
 		isVariantOneillFromTag,
 		isVariantShDescFromTag,
 		isVariantUintFromTag,
+		isVariantUnicodeFromTag,
 		serializeVariant,
 	} from "../lib/variant";
 	import type { Variant as VariantType, VariantTag } from "../lib/variant";
 	import KutenPopoverContent from "./KutenPopoverContent.svelte";
 	import Popover from "./Popover.svelte";
+import UnicodePopoverContent from "./UnicodePopoverContent.svelte";
 
 	export let variant: VariantType;
 
@@ -34,7 +36,8 @@
 		{#if isVariantKutenFromTag(variant)}
 			<KutenPopoverContent kuten={variant.content} />
 		{:else if isVariantUintFromTag(variant)}
-			Uint
+		{:else if isVariantUnicodeFromTag(variant)}
+			<UnicodePopoverContent codepoint={variant.content}></UnicodePopoverContent>
 		{:else if isVariantDeRooFromTag(variant)}
 			DeRoo
 		{:else if isVariantShDescFromTag(variant)}
