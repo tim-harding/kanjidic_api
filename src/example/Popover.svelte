@@ -1,15 +1,21 @@
 <script>
-	import { uniqueId } from "./shared";
+	import { currentPopoverIndex } from "./popover_store";
+	import { uniqueIndex } from "./shared";
 
-	const id = uniqueId();
-	let checked = false;
+	const index = uniqueIndex();
+	const id = `unique-id-${index}`;
+
+	$: checked = index === $currentPopoverIndex;
+
+	function handleClick() {
+		const dst = index === $currentPopoverIndex ? -1 : index;
+		currentPopoverIndex.set(dst);
+	}
 </script>
 
 <span class="root">
 	<label class="summary" for={id}>
-		<span class="material-icons-outlined md-18 icon">
-			info
-		</span>
+		<span class="material-icons-outlined md-18 icon"> info </span>
 		{#if checked}
 			<div class="popover">
 				<div class="left-triangle-base" />
@@ -20,7 +26,13 @@
 			</div>
 		{/if}
 	</label>
-	<input type="checkbox" {id} class="hidden input" bind:checked />
+	<input
+		type="checkbox"
+		{id}
+		class="hidden input"
+		{checked}
+		on:click={handleClick}
+	/>
 </span>
 
 <style lang="scss">
@@ -32,7 +44,7 @@
 	.icon {
 		transform: translateY(0.175rem);
 	}
-	
+
 	.serialized {
 		font-weight: 700;
 	}
