@@ -1,5 +1,5 @@
 import { hasProperty, hasStringProperty, isObject } from "./shared"
-import { isSkip} from "./skip"
+import { isSkip, serializeSkip} from "./skip"
 import type { Skip } from "./skip"
 
 /**
@@ -44,6 +44,10 @@ export type MisclassificationKind = MisclassificationKind_Position |
 	MisclassificationKind_StrokeCount |
 	MisclassificationKind_StrokeAndPosition |
 	MisclassificationKind_Ambiguous
+	
+export function serializeMisclassification(misclassification: Misclassification): string {
+	return serializeSkip(misclassification.skip)
+}
 
 export function isMisclassification(value: unknown): value is Misclassification {
 	return isObject(value) &&

@@ -10,6 +10,7 @@
 	import RadicalNames from "./RadicalNames.svelte";
 	import Jlpt from "./Jlpt.svelte";
 	import References from "./References.svelte";
+	import QueryCodes from "./QueryCodes.svelte";
 
 	export let character: Character;
 </script>
@@ -42,6 +43,9 @@
 	{/if}
 	{#if character.references !== undefined}
 		<References references={character.references} />
+	{/if}
+	{#if character.queryCodes !== undefined}
+		<QueryCodes codes={character.queryCodes} />
 	{/if}
 </div>
 

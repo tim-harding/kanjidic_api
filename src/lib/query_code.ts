@@ -1,27 +1,22 @@
-import { isDeRoo } from "./de_roo"
+import { isDeRoo, serializeDeRoo } from "./de_roo"
 import type { DeRoo } from "./de_roo"
-import { isFourCorner } from "./four_corner"
+import { isFourCorner, serializeFourCorner } from "./four_corner"
 import type { FourCorner } from "./four_corner"
-import { isMisclassification } from "./misclassification"
+import { isMisclassification, serializeMisclassification } from "./misclassification"
 import type { Misclassification } from "./misclassification"
 import { isSum, isTypeFromTagged } from "./shared"
 import type { Checker, Sum } from "./shared"
-import { isShDesc } from "./sh_desc"
+import { isShDesc, serializeShDesc } from "./sh_desc"
 import type { ShDesc } from "./sh_desc"
-import { isSkip } from "./skip"
+import { isSkip, serializeSkip } from "./skip"
 import type { Skip } from "./skip"
 
-type SkipTag = "Skip"
-
-type SpahnHadamitzkyTag = "SpahnHadamitzky"
-
-type FourCornerTag = "FourCorner"
-
-type DeRooTag = "DeRoo"
-
-type MisclassificationTag = "Misclassification"
-
-type QueryCodeTag = SkipTag |
+export type SkipTag = "Skip"
+export type SpahnHadamitzkyTag = "SpahnHadamitzky"
+export type FourCornerTag = "FourCorner"
+export type DeRooTag = "DeRoo"
+export type MisclassificationTag = "Misclassification"
+export type QueryCodeTag = SkipTag |
 	SpahnHadamitzkyTag |
 	FourCornerTag |
 	MisclassificationTag |
@@ -105,4 +100,24 @@ function isQueryCodeMisclassification(value: Sum): value is QueryCode_Misclassif
 
 function isQueryCodeDeRoo(value: Sum): value is QueryCode_DeRoo {
 	return isDeRoo(value.content)
+}
+
+export function serializeQueryCode(code: QueryCode): string {
+	switch (code.tag) {
+		case "DeRoo": {
+			return serializeDeRoo(code.content)
+		}
+		case "FourCorner": {
+			return serializeFourCorner(code.content)
+		}
+		case "Misclassification": {
+			return serializeMisclassification(code.content)
+		}
+		case "Skip": {
+			return serializeSkip(code.content)
+		}
+		case "SpahnHadamitzky": {
+			return serializeShDesc(code.content)
+		}
+	}
 }
