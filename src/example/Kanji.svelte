@@ -6,6 +6,7 @@
 	import Radicals from "./KangxiRadicals.svelte";
 	import StrokeCounts from "./StrokeCounts.svelte";
 	import Variants from "./Variants.svelte";
+import Frequency from "./Frequency.svelte";
 
 	export let character: Character;
 </script>
@@ -26,6 +27,9 @@
 	{/if}
 	{#if character.variants !== undefined}
 		<Variants variants={character.variants} />
+	{/if}
+	{#if character.frequency !== undefined}
+		<Frequency frequency={character.frequency}></Frequency>	
 	{/if}
 </div>
 
