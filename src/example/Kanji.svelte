@@ -7,6 +7,7 @@
 	import StrokeCounts from "./StrokeCounts.svelte";
 	import Variants from "./Variants.svelte";
 import Frequency from "./Frequency.svelte";
+import RadicalNames from "./RadicalNames.svelte";
 
 	export let character: Character;
 </script>
@@ -30,6 +31,9 @@ import Frequency from "./Frequency.svelte";
 	{/if}
 	{#if character.frequency !== undefined}
 		<Frequency frequency={character.frequency}></Frequency>	
+	{/if}
+	{#if character.radicalNames !== undefined}
+		<RadicalNames names={character.radicalNames}></RadicalNames>
 	{/if}
 </div>
 

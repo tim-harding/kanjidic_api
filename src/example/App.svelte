@@ -81,6 +81,7 @@
     ],
     frequency: 1509,
     jlpt: 1,
+    radicalNames: ["しんよう", "じゅうまた"],
     references: [
       {
         tag: "NelsonClassic",
