@@ -1,46 +1,46 @@
 <script>
 	import { currentPopoverIndex } from "./popover_store";
 	import { uniqueIndex } from "./shared";
-
+	
 	const index = uniqueIndex();
-	const id = `unique-id-${index}`;
 
-	$: checked = index === $currentPopoverIndex;
+	let open = false
 
 	function handleClick() {
 		const dst = index === $currentPopoverIndex ? -1 : index;
-		currentPopoverIndex.set(dst);
+		$currentPopoverIndex = dst
+	}
+	
+	$: {
+		// Details element doesn't respond properly to the binding
+		// unless we wait a frame. Might be a bug worth reporting.
+		requestAnimationFrame(() => {
+			open = $currentPopoverIndex === index
+		})
 	}
 </script>
 
-<span class="root">
-	<label class="summary" for={id}>
+<details class="root" on:click={handleClick} open={open}>
+	<summary class="summary">
 		<span class="material-icons-outlined md-18 icon"> info </span>
-		{#if checked}
-			<div class="popover">
-				<div class="left-triangle-base" />
-				<div class="content">
-					<slot />
-				</div>
-				<div class="left-triangle-top" />
+	</summary>
+		<div class="popover">
+			<div class="left-triangle-base" />
+			<div class="content">
+				<slot />
 			</div>
-		{/if}
-	</label>
-	<input
-		type="checkbox"
-		{id}
-		class="hidden input"
-		{checked}
-		on:click={handleClick}
-	/>
-</span>
+			<div class="left-triangle-top" />
+		</div>
+</details>
 
 <style lang="scss">
 	.root {
 		grid-template-columns: max-content 1fr;
 		display: inline-grid;
+		position: relative;
+		align-items: center;
 	}
-	
+
 	.icon {
 		transform: translateY(-1px);
 	}
@@ -52,40 +52,37 @@
 
 	.popover {
 		position: absolute;
-		left: 1.65rem;
-		grid-template-columns: 1fr max-content;
-		grid-template-areas: "arrow content";
+		left: 2.25rem;
+		transform: translateY(calc(-50% - 0.5rem - 2px));
+		grid-template-columns: max-content;
+		grid-template-areas: "content";
 		z-index: 1;
-	}
-
-	.root {
-		position: relative;
-		align-items: center;
 	}
 
 	.left-triangle-base,
 	.left-triangle-top {
 		align-self: center;
-		transform: rotate(45deg);
-		grid-area: arrow;
+		transform: translateX(calc(-1.25rem * 1/2 + 1px)) rotate(45deg) ;
+		grid-area: content;
+		width: 1.25rem;
+		height: 1.25rem;
 	}
 
 	.left-triangle-base {
 		background-color: var(--snow-storm-2);
-		width: 1.25rem;
-		height: 1.25rem;
 		box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.1);
+		z-index: 2;
 	}
 
 	.left-triangle-top {
 		background-color: var(--snow-storm-0);
-		width: calc(1.25rem - 2px);
-		height: calc(1.25rem - 2px);
+		left: 1.414px;
+		position: relative;
+		z-index: 4;
 	}
 
 	.content {
 		grid-area: content;
-		transform: translateX(-1.25rem * (1/1.414));
 		background-color: var(--snow-storm-0);
 		padding: 1rem;
 		border-radius: 0.5rem;
@@ -96,5 +93,6 @@
 		grid-auto-rows: max-content;
 		gap: 0.25rem;
 		max-width: 25vw;
+		z-index: 3;
 	}
 </style>
