@@ -18,10 +18,13 @@
 
 {#if grade}
 	<p class="root">
-		Grade:&nbsp;{grade.tag}&nbsp;
-		{#if grade.tag === "Kyouiku"}
-			grade&nbsp;{grade.content}&nbsp;
-		{/if}
+		Grade:&nbsp;
+		<strong>
+			{grade.tag}&nbsp;
+			{#if grade.tag === "Kyouiku"}
+				grade&nbsp;{grade.content}&nbsp;
+			{/if}
+		</strong>
 		<Popover>
 			<p>
 				{info}

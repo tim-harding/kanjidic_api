@@ -10,17 +10,15 @@
 
 <KanjiDropdown>
 	<slot slot="summary">
-		<span class="radical-popover">
-			Radicals
-			<Popover>
-				<p>
-					<Link href="https://en.wikipedia.org/wiki/Kangxi_radical"
-						>Kangxi radicals info</Link
-					>
-				</p>
-				<p>A classification of the kanji based on the Kangxi Zidian.</p>
-			</Popover>
-		</span>
+		Radicals
+		<Popover>
+			<p>
+				<Link href="https://en.wikipedia.org/wiki/Kangxi_radical"
+					>Kangxi radicals info</Link
+				>
+			</p>
+			<p>A classification of the kanji based on the Kangxi Zidian.</p>
+		</Popover>
 	</slot>
 	<ul slot="content" class="details-body">
 		{#each radicals as radical}
@@ -28,12 +26,3 @@
 		{/each}
 	</ul>
 </KanjiDropdown>
-
-
-<style>
-	.radical-popover {
-		grid-template-columns: max-content 1fr;
-		align-items: center;
-		gap: 0.5rem;
-	}
-</style>
