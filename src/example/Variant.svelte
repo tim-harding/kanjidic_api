@@ -15,6 +15,7 @@
 	import Citation from "./Citation.svelte";
 	import DeRooPopoverContent from "./DeRooPopoverContent.svelte";
 	import SpahnHadamitzkyPopoverContent from "./SpahnHadamitzkyPopoverContent.svelte";
+import OneillPopoverContent from "./OneillPopoverContent.svelte";
 
 	export let variant: VariantType;
 
@@ -64,7 +65,7 @@
 		{:else if isVariantShDescFromTag(variant)}
 			<SpahnHadamitzkyPopoverContent shDesc={variant.content} />
 		{:else if isVariantOneillFromTag(variant)}
-			Oneill
+		<OneillPopoverContent></OneillPopoverContent>
 		{/if}
 	</Popover>
 </span>
