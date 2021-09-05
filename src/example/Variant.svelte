@@ -34,7 +34,14 @@
 </script>
 
 <span class="text-line">
-	{key}:&nbsp;<strong>{serializeVariant(variant)}&nbsp;</strong>
+	<dl class="passthrough">
+		<dt>
+			{key}
+		</dt>
+		<dd>
+			{serializeVariant(variant)}
+		</dd>
+	</dl>
 	<Popover>
 		{#if isVariantKutenFromTag(variant)}
 			<KutenPopoverContent kuten={variant.content} />

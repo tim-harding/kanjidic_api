@@ -66,6 +66,29 @@ strong, dd {
   font-weight: 700;
 }
 
+/*
+dt {
+  display: block;
+
+  &::after {
+    content: ": ";
+    white-space: pre;
+  }
+}
+*/
+
+dd {
+  display: inline-grid;
+  grid-template-columns: max-content max-content;
+  align-items: flex-end;
+  
+  &::before {
+    font-weight: 400;
+    content: ": ";
+    white-space: pre;
+  }
+}
+
 :root {
   font-family: "Roboto", sans-serif;
 
@@ -145,8 +168,4 @@ strong, dd {
 
 .passthrough {
   display: contents;
-}
-
-dt::after {
-  // content: ":";
 }

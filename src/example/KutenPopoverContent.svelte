@@ -15,7 +15,6 @@
 <dl class="passthrough">
 	<div class="text-line">
 		<dt>Plane</dt>
-		:&nbsp;
 		<dd>
 			{kuten.plane}
 		</dd>
@@ -23,7 +22,6 @@
 
 	<div class="text-line">
 		<dt>Ku</dt>
-		:&nbsp;
 		<dd>
 			{kuten.ku}
 		</dd>
@@ -31,7 +29,6 @@
 
 	<div class="text-line">
 		<dt>Ten</dt>
-		:&nbsp;
 		<dd>
 			{kuten.ten}
 		</dd>

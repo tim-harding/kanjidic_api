@@ -23,7 +23,6 @@
 <div class="text-line">
 	<dl class="passthrough">
 		<dt>{key}</dt>
-		:&nbsp;
 		<dd>{serialized}</dd>
 	</dl>
 	&nbsp;

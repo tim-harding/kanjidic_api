@@ -9,7 +9,6 @@
 	<dl class="list">
 		<div class="text-line">
 			<dt>Accepted</dt>
-			:&nbsp;
 			<dd>
 				{strokeCounts.accepted}
 			</dd>
@@ -18,7 +17,6 @@
 		{#if strokeCounts.miscounts !== undefined}
 			<div class="text-line">
 				<dt>Miscounts</dt>
-				:
 				<dd class="text">
 					<ul class="transparent">
 						{#each strokeCounts.miscounts as miscount}
