@@ -10,7 +10,9 @@
 	<span slot="summary"> Codepoints </span>
 	<ul slot="content" class="list">
 		{#each codepoints as codepoint}
-			<Codepoint {codepoint} />
+			<li>
+				<Codepoint {codepoint} />
+			</li>
 		{/each}
 	</ul>
 </KanjiDropdown>
