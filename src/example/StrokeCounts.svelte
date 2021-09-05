@@ -1,26 +1,31 @@
 <script lang="ts">
 	import type { StrokeCount } from "../lib";
+	import KanjiDropdown from "./KanjiDropdown.svelte";
+	import Popover from "./Popover.svelte";
 
 	export let strokeCounts: StrokeCount;
 </script>
 
-<div class="root">
-	Stroke counts
-	<dl class="list">
-		<div class="text-line">
-			<dt>Accepted</dt>
-			:&nbsp;
-			<dd>
-				{strokeCounts.accepted}
-			</dd>
-		</div>
+{#if strokeCounts.miscounts !== undefined}
+	<KanjiDropdown>
+		<span slot="summary" class="text-line">
+			Stroke counts&nbsp;
+			<Popover>The number of strokes it takes to draw the kanji.</Popover>
+		</span>
+		<dl slot="content">
+			<div class="text-line">
+				<dt>Accepted</dt>
+				:&nbsp;
+				<dd>
+					{strokeCounts.accepted}
+				</dd>
+			</div>
 
-		{#if strokeCounts.miscounts !== undefined}
 			<div class="text-line">
 				<dt>Miscounts</dt>
 				:
-				<dd class="text">
-					<ul class="transparent">
+				<dd class="transparent">
+					<ul class="text-line">
 						{#each strokeCounts.miscounts as miscount}
 							<li class="miscount">
 								&nbsp;{miscount}
@@ -29,28 +34,26 @@
 					</ul>
 				</dd>
 			</div>
-		{/if}
+		</dl>
+	</KanjiDropdown>
+
+{:else}
+<div class="root text-line">
+	<dl class="passthrough">
+		<dt>Stroke counts</dt>
+		:&nbsp;
+		<dd>
+			{strokeCounts.accepted}
+		</dd>
 	</dl>
+	&nbsp;
+	<Popover>The number of strokes it takes to draw the kanji.</Popover>
 </div>
 
+{/if}
 <style lang="scss">
 	.root {
 		margin-left: 1.4rem;
-		gap: 0.25rem;
-		grid-auto-rows: min-content;
-	}
-
-	.list {
-		margin-left: 1rem;
-		gap: 0.25rem;
-	}
-
-	.block {
-		display: block;
-	}
-
-	.transparent {
-		display: contents;
 	}
 
 	.miscount {
