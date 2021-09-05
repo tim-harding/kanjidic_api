@@ -12,7 +12,7 @@
 		References&nbsp;
 		<Popover>Indexes into dictionaries and other instructional books.</Popover>
 	</span>
-	<ul slot="content">
+	<ul slot="content" class="list">
 		{#each references as reference}
 			<li>
 				<Reference {reference} />
@@ -20,3 +20,10 @@
 		{/each}
 	</ul>
 </KanjiDropdown>
+
+<style>
+	.list {
+		gap: 0.5rem;
+		grid-auto-rows: max-content;
+	}
+</style>
