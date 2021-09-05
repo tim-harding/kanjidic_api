@@ -2,17 +2,19 @@
 	export let literal: string;
 </script>
 
-<div class="root">
-	Literal:&nbsp;
-	<strong class="noto">
+	<strong class="noto root">
 		{literal}
 	</strong>
-</div>
 
 <style lang="scss">
 	.root {
-		grid-template-columns: min-content 1fr;
-		align-items: flex-end;
+		font-size: 2rem;
 		margin-left: 1.4rem;
+		background-color: var(--snow-storm-2);
+		width: 3rem;
+		height: 3rem;
+		border-radius: 0.25rem;
+		text-align: center;
+		line-height: 3rem;
 	}
 </style>
