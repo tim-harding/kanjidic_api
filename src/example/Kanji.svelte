@@ -9,6 +9,7 @@
 	import Frequency from "./Frequency.svelte";
 	import RadicalNames from "./RadicalNames.svelte";
 	import Jlpt from "./Jlpt.svelte";
+	import References from "./References.svelte";
 
 	export let character: Character;
 </script>
@@ -38,6 +39,9 @@
 	{/if}
 	{#if character.jlpt !== undefined}
 		<Jlpt jlpt={character.jlpt} />
+	{/if}
+	{#if character.references !== undefined}
+		<References references={character.references} />
 	{/if}
 </div>
 

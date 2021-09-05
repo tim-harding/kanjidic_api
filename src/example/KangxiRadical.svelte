@@ -50,7 +50,7 @@
 			</Citation>
 		{:else}
 			<Citation
-				amazon="https://www.amazon.com/Original-Readers-Japanese-English-Character-Dictionary/dp/0804819653/ref=sr_1_1?dchild=1&keywords=The+Modern+Reader%27s+Japanese-English+Character+Dictionary&qid=1630793965&sr=8-1"
+				amazonAsin="0804819653"
 			>
 				Nelson, A.N. 1974. <em
 					>The Modern Reader's Japanese-English Character Dictionary</em

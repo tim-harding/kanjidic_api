@@ -54,118 +54,118 @@ export interface Reference_OneillNames {
 	content: Oneill
 }
 
-type OneillNamesTag = "OneillNames"
+export type OneillNamesTag = "OneillNames"
 
-type MoroTag = "Moro"
+export type MoroTag = "Moro"
 
-type BusyPeopleTag = "BusyPeople"
+export type BusyPeopleTag = "BusyPeople"
 
 /**
  * Modern Reader's Japanese-English Dictionary by Andrew Nelson
  */
-type NelsonClassicTag = "NelsonClassic"
+export type NelsonClassicTag = "NelsonClassic"
 
 /**
  * The New Nelson Japanese-English Dictionary by John Haig
  */
-type NelsonNewTag = "NelsonNew"
+export type NelsonNewTag = "NelsonNew"
 
 /**
  * New Japanese-English Character Dictionary by Jack Halpern
  */
-type NjecdTag = "Njecd"
+export type NjecdTag = "Njecd"
 
 /**
  * Kodansha's Japanese-English Dictionary by Jack Halpern
  */
-type KkdTag = "Kkd"
+export type KkdTag = "Kkd"
 
 /**
  * Kanji Learners Dictionary by Jack Halpern
  */
-type KkldTag = "Kkld"
+export type KkldTag = "Kkld"
 
 /**
  * Kanji Learners Dictionary Second Edition by Jack Halpern
  */
-type Kkld2edTag = "Kkld2ed"
+export type Kkld2edTag = "Kkld2ed"
 
 /**
  * Remembering the Kanji by James Heisig
  */
-type HeisigTag = "Heisig"
+export type HeisigTag = "Heisig"
 
 /**
  * Remembering the Kanji Sixth Edition by James Heisig
  */
-type Heisig6Tag = "Heisig6"
+export type Heisig6Tag = "Heisig6"
 
 /**
  * A New Dictionary of Kanji Usage
  */
-type GakkenTag = "Gakken"
+export type GakkenTag = "Gakken"
 
 /**
  * Essential Kanji by P.G. O'Neill
  */
-type OneillKkTag = "OneillKk"
+export type OneillKkTag = "OneillKk"
 
 /**
  * A Guide to Remembering Japanese Characters by Kenneth G. Henshall
  */
-type HenshallTag = "Henshall"
+export type HenshallTag = "Henshall"
 
 /**
  * Kanji and Kana by Spahn and Hadamitzky
  */
-type ShKkTag = "ShKk"
+export type ShKkTag = "ShKk"
 
 /**
  * Kanji and Kana 2011 edition by Spahn and Hadamitzky
  */
-type ShKk2Tag = "ShKk2"
+export type ShKk2Tag = "ShKk2"
 
 /**
  * A Guide to Reading and Writing Japanese by Florence Sakade
  */
-type SakadeTag = "Sakade"
+export type SakadeTag = "Sakade"
 
 /**
  * Japanese Kanji Flashcards by Tomoko Okazaki
  */
-type JfcardsTag = "Jfcards"
+export type JfcardsTag = "Jfcards"
 
 /**
  * A Guide to Reading and Writing Japanese by Henshall
  */
-type Henshall3Tag = "Henshall3"
+export type Henshall3Tag = "Henshall3"
 
 /**
  * Tuttle Kanji Cards by Alexander Kask
  */
-type TuttleCardsTag = "TuttleCards"
+export type TuttleCardsTag = "TuttleCards"
 
 /**
  * The Kanji Way to Japanese Language Power by Dale Crowley
  */
-type CrowleyTag = "Crowley"
+export type CrowleyTag = "Crowley"
 
 /**
  * Kanji in Context by Nishiguchi and Kono
  */
-type KanjiInContextTag = "KanjiInContext"
+export type KanjiInContextTag = "KanjiInContext"
 
 /**
  * The Kodansha Compact Study Guide
  */
-type KodanshaCompactTag = "KodanshaCompact"
+export type KodanshaCompactTag = "KodanshaCompact"
 
 /**
  * Les Kanjis dans la tete by Yves Maniette
  */
-type ManietteTag = "Maniette"
+export type ManietteTag = "Maniette"
 
-type ReferenceUintTag = NelsonClassicTag |
+export type ReferenceUintTag = NelsonClassicTag |
 	NelsonNewTag |
 	NjecdTag |
 	KkdTag |
@@ -187,7 +187,7 @@ type ReferenceUintTag = NelsonClassicTag |
 	KodanshaCompactTag |
 	ManietteTag
 
-type ReferenceTag = ReferenceUintTag |
+export type ReferenceTag = ReferenceUintTag |
 	OneillNamesTag |
 	MoroTag |
 	BusyPeopleTag
@@ -218,6 +218,34 @@ export type Reference = Reference_BusyPeople |
 export function isReference(value: unknown): value is Reference {
 	return isSum(value) &&
 		isTypeFromTagged(value, CHECKERS)
+}
+
+export function isReferenceUintByTag(value: Reference): value is Reference_Uint {
+	return value.tag in UINT_TAGS
+}
+
+const UINT_TAGS: Record<ReferenceUintTag, boolean> = {
+	"NelsonClassic": true,
+	"NelsonNew": true,
+	"Njecd": true,
+	"Kkd": true,
+	"Kkld": true,
+	"Kkld2ed": true,
+	"Heisig": true,
+	"Heisig6": true,
+	"Gakken": true,
+	"OneillKk": true,
+	"Henshall": true,
+	"ShKk": true,
+	"ShKk2": true,
+	"Sakade": true,
+	"Jfcards": true,
+	"Henshall3": true,
+	"TuttleCards": true,
+	"Crowley": true,
+	"KanjiInContext": true,
+	"KodanshaCompact": true,
+	"Maniette": true,
 }
 
 const CHECKERS: Record<ReferenceTag, Checker<Sum, Reference>> = {

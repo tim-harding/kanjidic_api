@@ -1,16 +1,16 @@
 <script lang="ts">
 	import Url from "./Url.svelte";
 
-	export let amazon: string | undefined = undefined;
+	export let amazonAsin: string | undefined = undefined;
 </script>
 
 <div class="root">
 	<p class="hanging-indent">
 		<slot />
 	</p>
-	{#if amazon !== undefined}
+	{#if amazonAsin !== undefined}
 		<p>
-			<Url href={amazon}>Amazon product page</Url>
+			<Url href={`https://amzn.com/${amazonAsin}`}>Amazon product page</Url>
 		</p>
 	{/if}
 </div>

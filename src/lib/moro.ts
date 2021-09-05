@@ -1,7 +1,19 @@
 import { hasOptionalStringProperty, hasOptionalUintProperty, hasUintProperty, isObject } from "./shared";
 import type { Uint } from "./uint";
 
-export type MoroSuffixKind = "P" | "X" | "PX"
+export type MoroSuffixKind = 
+	/**
+	 * Indicates an index in the original
+	 */
+	"P" | 
+	/**
+	 * Indicates that the kanji has a close, but not identical, glyph in the JIS X 0208 standard
+	 */
+	"X" | 
+	/**
+	 * Indicates both P and X
+	 */
+	"PX"
 
 /**
  * An entry in the dictionary Daikanwajiten.

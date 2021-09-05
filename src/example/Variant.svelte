@@ -43,7 +43,7 @@ import OneillPopoverContent from "./OneillPopoverContent.svelte";
 			<p>An index into the following dictionary:</p>
 			{#if variant.tag === "Halpern"}
 				<Citation
-					amazon="https://www.amazon.com/Japanese-English-character-dictionary-Jack-Halpern/dp/4767490405/ref=sr_1_4?dchild=1&keywords=new+japanese+english+character+dictionary&qid=1630803914&sr=8-4"
+					amazonAsin="4767490405"
 				>
 					Halpern, J. 1990. <em>
 						New Japanese-English Character Dictionary
@@ -51,7 +51,7 @@ import OneillPopoverContent from "./OneillPopoverContent.svelte";
 				</Citation>
 			{:else}
 				<Citation
-					amazon="https://www.amazon.com/Readers-Japanese-English-Character-Dictionary-Revised/dp/B000KWN4BK/ref=sr_1_6?dchild=1&keywords=The+Modern+Reader%27s+Japanese-English+Character+Dictionary&qid=1630803980&sr=8-6"
+					amazonAsin="0804819653"
 				>
 					Nelson, A.N. 1974. <em>
 						The Modern Reader's Japanese-English Character Dictionary
