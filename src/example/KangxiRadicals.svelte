@@ -22,9 +22,7 @@
 	</span>
 	<ul slot="content">
 		{#each radicals as radical}
-			<li>
-				<KangxiRadical {radical} />
-			</li>
+			<KangxiRadical {radical} />
 		{/each}
 	</ul>
 </KanjiDropdown>

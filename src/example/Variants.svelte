@@ -15,13 +15,15 @@
 			variant, or an alternative indexing code for the current kanji.
 		</Popover>
 	</span>
-	<ul slot="content" class="list">
-		{#each variants as variant}
-			<li>
-				<Variant {variant} />
-			</li>
-		{/each}
-	</ul>
+	<div slot="content">
+		<ul class="list">
+			{#each variants as variant}
+				<li>
+					<Variant {variant} />
+				</li>
+			{/each}
+		</ul>
+	</div>
 </KanjiDropdown>
 
 <style>

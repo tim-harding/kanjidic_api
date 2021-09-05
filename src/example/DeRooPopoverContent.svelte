@@ -14,6 +14,7 @@
 <dl class="passthrough">
 	<div class="text-line">
 		<dt>Extreme top</dt>
+		:&nbsp;
 		<dd>
 			{deRoo.top}
 		</dd>
@@ -21,6 +22,7 @@
 
 	<div class="text-line">
 		<dt>Extreme bottom</dt>
+		:&nbsp;
 		<dd>
 			{deRoo.bottom}
 		</dd>

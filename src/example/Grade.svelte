@@ -20,6 +20,7 @@
 	<div class="text-line root">
 		<dl class="passthrough">
 			<dt>Grade</dt>
+			:&nbsp;
 			<dd>
 				{grade.tag}
 				{#if grade.tag === "Kyouiku"}
