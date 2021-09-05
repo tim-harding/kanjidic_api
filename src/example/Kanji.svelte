@@ -4,7 +4,7 @@
 	import Codepoints from "./Codepoints.svelte";
 	import Literal from "./Literal.svelte";
 	import Radicals from "./KangxiRadicals.svelte";
-	import StrokeCount from "./StrokeCount.svelte";
+	import StrokeCounts from "./StrokeCounts.svelte";
 	import Variants from "./Variants.svelte";
 
 	export let character: Character;
@@ -22,7 +22,7 @@
 		<Grade grade={character.grade} />
 	{/if}
 	{#if character.strokeCounts !== undefined}
-		<StrokeCount strokeCounts={character.strokeCounts} />
+		<StrokeCounts strokeCounts={character.strokeCounts} />
 	{/if}
 	{#if character.variants !== undefined}
 		<Variants variants={character.variants} />

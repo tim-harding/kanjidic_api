@@ -14,6 +14,7 @@
 	import UnicodePopoverContent from "./UnicodePopoverContent.svelte";
 	import Citation from "./Citation.svelte";
 	import DeRooPopoverContent from "./DeRooPopoverContent.svelte";
+	import SpahnHadamitzkyPopoverContent from "./SpahnHadamitzkyPopoverContent.svelte";
 
 	export let variant: VariantType;
 
@@ -32,50 +33,38 @@
 	const key = KEYS[variant.tag];
 </script>
 
-<span class="root">
+<span class="text-line">
 	{key}:&nbsp;<strong>{serializeVariant(variant)}&nbsp;</strong>
 	<Popover>
 		{#if isVariantKutenFromTag(variant)}
 			<KutenPopoverContent kuten={variant.content} />
 		{:else if isVariantUintFromTag(variant)}
-			<div class="uint">
-				<p>An index into the following dictionary:</p>
-				{#if variant.tag === "Halpern"}
-					<Citation
-						amazon="https://www.amazon.com/Japanese-English-character-dictionary-Jack-Halpern/dp/4767490405/ref=sr_1_4?dchild=1&keywords=new+japanese+english+character+dictionary&qid=1630803914&sr=8-4"
-					>
-						Halpern, J. 1990. <em>
-							New Japanese-English Character Dictionary
-						</em>, Kenkyusha/NTC.
-					</Citation>
-				{:else}
-					<Citation
-						amazon="https://www.amazon.com/Readers-Japanese-English-Character-Dictionary-Revised/dp/B000KWN4BK/ref=sr_1_6?dchild=1&keywords=The+Modern+Reader%27s+Japanese-English+Character+Dictionary&qid=1630803980&sr=8-6"
-					>
-						Nelson, A.N. 1974. <em>
-							The Modern Reader's Japanese-English Character Dictionary
-						</em>, (second revised edition), Tuttle.
-					</Citation>
-				{/if}
-			</div>
+			<p>An index into the following dictionary:</p>
+			{#if variant.tag === "Halpern"}
+				<Citation
+					amazon="https://www.amazon.com/Japanese-English-character-dictionary-Jack-Halpern/dp/4767490405/ref=sr_1_4?dchild=1&keywords=new+japanese+english+character+dictionary&qid=1630803914&sr=8-4"
+				>
+					Halpern, J. 1990. <em>
+						New Japanese-English Character Dictionary
+					</em>, Kenkyusha/NTC.
+				</Citation>
+			{:else}
+				<Citation
+					amazon="https://www.amazon.com/Readers-Japanese-English-Character-Dictionary-Revised/dp/B000KWN4BK/ref=sr_1_6?dchild=1&keywords=The+Modern+Reader%27s+Japanese-English+Character+Dictionary&qid=1630803980&sr=8-6"
+				>
+					Nelson, A.N. 1974. <em>
+						The Modern Reader's Japanese-English Character Dictionary
+					</em>, (second revised edition), Tuttle.
+				</Citation>
+			{/if}
 		{:else if isVariantUnicodeFromTag(variant)}
 			<UnicodePopoverContent codepoint={variant.content} />
 		{:else if isVariantDeRooFromTag(variant)}
 			<DeRooPopoverContent deRoo={variant.content} />
 		{:else if isVariantShDescFromTag(variant)}
-			ShDesc
+			<SpahnHadamitzkyPopoverContent shDesc={variant.content} />
 		{:else if isVariantOneillFromTag(variant)}
 			Oneill
 		{/if}
 	</Popover>
 </span>
-
-<style lang="scss">
-	.root {
-		grid-template-columns: max-content max-content 1fr;
-	}
-
-	.uint {
-		grid-auto-rows: max-content;
-	}
-</style>

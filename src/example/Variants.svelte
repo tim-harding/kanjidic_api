@@ -8,7 +8,7 @@
 </script>
 
 <KanjiDropdown>
-	<span slot="summary" class="summary">
+	<span slot="summary" class="text-line">
 		Variants&nbsp;
 		<Popover>
 			Either a cross-reference code to another kanji, usually regarded as a
@@ -16,7 +16,7 @@
 		</Popover>
 	</span>
 	<div slot="content">
-		<ul>
+		<ul class="list">
 			{#each variants as variant}
 				<li>
 					<Variant {variant} />
@@ -27,7 +27,7 @@
 </KanjiDropdown>
 
 <style>
-	.summary {
-		grid-template-columns: max-content 1fr;
+	.list {
+		gap: 0.25rem;
 	}
 </style>

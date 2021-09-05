@@ -1,18 +1,14 @@
 <details open={true} class="details">
-	<summary class="summary">
-		<div class="disclosure-triangle">
-			<span class="material-icons-outlined open-disclosure"
-				>arrow_right</span
-			>
-			<span class="material-icons-outlined close-disclosure"
-				>arrow_drop_down</span
-			>
-		</div>
-		<span>
-			<slot name="summary">
-				Summary
-			</slot>
-		</span>
+	<summary class="summary text-line">
+		<span class="material-icons-outlined open-disclosure"
+			>arrow_right</span
+		>
+		<span class="material-icons-outlined close-disclosure"
+			>arrow_drop_down</span
+		>
+		<slot name="summary">
+			Summary
+		</slot>
 	</summary>
 	<div class="content-container">
 		<slot name="content">
@@ -23,34 +19,24 @@
 
 <style>
 	.summary {
-		grid-template-columns: 1.4rem 1fr;
 		cursor: pointer;
 		margin-bottom: 0.25rem;
 	}
-
-	.disclosure-triangle {
-		grid-template-areas: "center";
-	}
-
-	.open-disclosure,
-	.close-disclosure {
-		grid-area: center;
+	
+	.close-disclosure, .open-disclosure {
+		transform: translateY(0.125rem);
 	}
 
 	.close-disclosure {
-		visibility: hidden;
+		display: none;
 	}
 
 	.details[open] .close-disclosure {
-		visibility: initial;
+		display: initial;
 	}
 
 	.details[open] .open-disclosure {
-		visibility: hidden;
-	}
-	
-	.summary {
-		align-items: center;
+		display: none;
 	}
 
 	.content-container {

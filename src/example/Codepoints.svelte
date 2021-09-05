@@ -8,9 +8,15 @@
 
 <KanjiDropdown>
 	<span slot="summary"> Codepoints </span>
-	<ul slot="content" class="details-body">
+	<ul slot="content" class="list">
 		{#each codepoints as codepoint}
 			<Codepoint {codepoint} />
 		{/each}
 	</ul>
 </KanjiDropdown>
+
+<style>
+	.list {
+		gap: 0.25rem;
+	}
+</style>

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Link from "./Link.svelte";
+	import Url from "./Url.svelte";
 
 	export let amazon: string | undefined = undefined;
 </script>
@@ -10,7 +10,7 @@
 	</p>
 	{#if amazon !== undefined}
 		<p>
-			<Link href={amazon}>Amazon</Link>
+			<Url href={amazon}>Amazon product page</Url>
 		</p>
 	{/if}
 </div>

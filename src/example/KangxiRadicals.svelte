@@ -3,24 +3,24 @@
 	import KangxiRadical from "./KangxiRadical.svelte";
 	import Popover from "./Popover.svelte";
 	import KanjiDropdown from "./KanjiDropdown.svelte";
-	import Link from "./Link.svelte";
+	import Url from "./Url.svelte";
 
 	export let radicals: KangxiRadicalType[];
 </script>
 
 <KanjiDropdown>
-	<slot slot="summary">
-		Radicals
+	<span slot="summary" class="text-line">
+		Radicals&nbsp;
 		<Popover>
 			<p>
-				<Link href="https://en.wikipedia.org/wiki/Kangxi_radical"
-					>Kangxi radicals info</Link
+				<Url href="https://en.wikipedia.org/wiki/Kangxi_radical"
+					>Kangxi radicals info</Url
 				>
 			</p>
 			<p>A classification of the kanji based on the Kangxi Zidian.</p>
 		</Popover>
-	</slot>
-	<ul slot="content" class="details-body">
+	</span>
+	<ul slot="content">
 		{#each radicals as radical}
 			<KangxiRadical {radical} />
 		{/each}

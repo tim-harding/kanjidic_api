@@ -1,4 +1,4 @@
-*:not(svg *) {
+* {
   all: unset;
   box-sizing: border-box;
   color: inherit;
@@ -53,11 +53,16 @@ input {
   display: block;
 }
 
+// Sensible default
+p {
+  display: block;
+}
+
 em {
   font-style: italic;
 }
 
-strong {
+strong, dd {
   font-weight: 700;
 }
 
@@ -125,4 +130,23 @@ strong {
 
 .noto {
   font-family: "Noto Sans JP", sans-serif;
+}
+
+.text {
+  display: block;
+}
+
+.text-line {
+  display: inline-grid;
+  grid-auto-columns: max-content;
+  grid-auto-flow: column;
+  align-items: flex-end;
+}
+
+.passthrough {
+  display: contents;
+}
+
+dt::after {
+  // content: ":";
 }

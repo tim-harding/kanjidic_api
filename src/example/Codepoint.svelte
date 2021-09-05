@@ -20,13 +20,13 @@
 	const key = KEYS[codepoint.tag];
 </script>
 
-<p class="root">
-	<span>
-		{key}:&nbsp;
-	</span>
-	<strong>
-		{serialized}&nbsp;
-	</strong>
+<div class="text-line">
+	<dl class="passthrough">
+		<dt>{key}</dt>
+		:&nbsp;
+		<dd>{serialized}</dd>
+	</dl>
+	&nbsp;
 	<Popover>
 		{#if codepoint.tag === "Unicode"}
 			<UnicodePopoverContent codepoint={codepoint.content} />
@@ -34,13 +34,9 @@
 			<KutenPopoverContent kuten={codepoint.content} />
 		{/if}
 	</Popover>
-</p>
+</div>
 
 <style lang="scss">
-	.root {
-		display: block;
-	}
-
 	.kuten-details {
 		gap: 0.25rem;
 	}

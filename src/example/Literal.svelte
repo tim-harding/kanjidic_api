@@ -2,9 +2,9 @@
 	export let literal: string;
 </script>
 
-	<strong class="noto root">
-		{literal}
-	</strong>
+<strong class="noto root">
+	{literal}
+</strong>
 
 <style lang="scss">
 	.root {

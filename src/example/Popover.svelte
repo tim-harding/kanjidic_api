@@ -40,13 +40,9 @@
 		grid-template-columns: max-content 1fr;
 		display: inline-grid;
 	}
-
+	
 	.icon {
-		transform: translateY(0.175rem);
-	}
-
-	.serialized {
-		font-weight: 700;
+		transform: translateY(-1px);
 	}
 
 	.summary {
@@ -97,5 +93,8 @@
 		border-width: 1px;
 		border-style: solid;
 		box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.1);
+		grid-auto-rows: max-content;
+		gap: 0.25rem;
+		max-width: 25vw;
 	}
 </style>

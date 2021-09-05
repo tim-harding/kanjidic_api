@@ -17,28 +17,26 @@
 </script>
 
 {#if grade}
-	<p class="root">
-		Grade:&nbsp;
-		<strong>
-			{grade.tag}&nbsp;
-			{#if grade.tag === "Kyouiku"}
-				grade&nbsp;{grade.content}&nbsp;
-			{/if}
-		</strong>
+	<div class="text-line root">
+		<dl class="passthrough">
+			<dt>Grade</dt>
+			:&nbsp;
+			<dd>
+				{grade.tag}
+				{#if grade.tag === "Kyouiku"}
+					grade&nbsp;{grade.content}
+				{/if}
+			</dd>
+		</dl>
+		&nbsp;
 		<Popover>
-			<p>
-				{info}
-			</p>
+			{info}
 		</Popover>
-	</p>
+	</div>
 {/if}
 
 <style>
 	.root {
-		display: block;
-		grid-template-columns: max-content 1fr;
-		align-items: flex-end;
 		margin-left: 1.4rem;
-		gap: 0.5rem;
 	}
 </style>
