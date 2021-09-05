@@ -6,8 +6,9 @@
 	import Radicals from "./KangxiRadicals.svelte";
 	import StrokeCounts from "./StrokeCounts.svelte";
 	import Variants from "./Variants.svelte";
-import Frequency from "./Frequency.svelte";
-import RadicalNames from "./RadicalNames.svelte";
+	import Frequency from "./Frequency.svelte";
+	import RadicalNames from "./RadicalNames.svelte";
+	import Jlpt from "./Jlpt.svelte";
 
 	export let character: Character;
 </script>
@@ -30,10 +31,13 @@ import RadicalNames from "./RadicalNames.svelte";
 		<Variants variants={character.variants} />
 	{/if}
 	{#if character.frequency !== undefined}
-		<Frequency frequency={character.frequency}></Frequency>	
+		<Frequency frequency={character.frequency} />
 	{/if}
 	{#if character.radicalNames !== undefined}
-		<RadicalNames names={character.radicalNames}></RadicalNames>
+		<RadicalNames names={character.radicalNames} />
+	{/if}
+	{#if character.jlpt !== undefined}
+		<Jlpt jlpt={character.jlpt} />
 	{/if}
 </div>
 
