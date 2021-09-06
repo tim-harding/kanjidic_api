@@ -12,6 +12,7 @@
 	import References from "./References.svelte";
 	import QueryCodes from "./QueryCodes.svelte";
 	import Readings from "./Readings.svelte";
+	import Translations from "./Translations.svelte";
 
 	export let character: Character;
 </script>
@@ -50,6 +51,9 @@
 	{/if}
 	{#if character.readings !== undefined}
 		<Readings readings={character.readings} />
+	{/if}
+	{#if character.translations !== undefined}
+		<Translations translations={character.translations} />
 	{/if}
 </div>
 

@@ -1,11 +1,14 @@
+import { isLanguage } from "./language"
+import type { Language } from "./language"
 import { all, isArrayOf, isObject, isString } from "./shared"
 
-export type Translations = Record<string, Translation>
+export type Translations = Record<Language, Translation>
 
-type Translation = Array<string>
+export type Translation = Array<string>
 
 export function isTranslations(value: unknown): value is Translations {
 	return isObject(value) &&
+		all(Object.keys(value), isLanguage) &&
 		all(Object.values(value), isTranslation)
 }
 
