@@ -9,7 +9,8 @@
 	import Popover from "./Popover.svelte";
 	import DeRooPopoverContent from "./DeRooPopoverContent.svelte";
 	import SpahnHadamitzkyPopoverContent from "./SpahnHadamitzkyPopoverContent.svelte";
-import SkipPopoverContent from "./SkipPopoverContent.svelte";
+	import SkipPopoverContent from "./SkipPopoverContent.svelte";
+	import FourCornerPopoverContent from "./FourCornerPopoverContent.svelte";
 
 	export let code: QueryCodeType;
 
@@ -49,11 +50,11 @@ import SkipPopoverContent from "./SkipPopoverContent.svelte";
 		{#if code.tag === "DeRoo"}
 			<DeRooPopoverContent deRoo={code.content} />
 		{:else if code.tag === "FourCorner"}
-			FourCorner
+			<FourCornerPopoverContent fourCorner={code.content} />
 		{:else if code.tag === "Misclassification"}
-			<SkipPopoverContent skip={code.content.skip}></SkipPopoverContent>
+			<SkipPopoverContent skip={code.content.skip} />
 		{:else if code.tag === "Skip"}
-			<SkipPopoverContent skip={code.content}></SkipPopoverContent>
+			<SkipPopoverContent skip={code.content} />
 		{:else if code.tag === "SpahnHadamitzky"}
 			<SpahnHadamitzkyPopoverContent shDesc={code.content} />
 		{/if}

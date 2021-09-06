@@ -27,7 +27,7 @@ export function isStroke(value: unknown): value is Stroke {
  * @param stroke The stroke
  * @returns The string for the shape
  */
-export function shape(stroke: Stroke): string {
+export function serializeStroke(stroke: Stroke): string {
 	return MAPPING[stroke as number] as string
 }
 
