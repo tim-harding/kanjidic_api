@@ -19,6 +19,7 @@
   let error: Error | undefined = undefined;
   let validNext: Record<string, boolean> = {};
   let groups: Group[] = [];
+  let isValidNextUpdateOngoing = false
 
   async function initialize() {
     const response = await queryAllRadicals(ENDPOINT);
@@ -39,8 +40,16 @@
     }));
     isInitialized = true;
   }
+  
+  // Start new request when a response comes back.
+  // Or else only apply response if no more recent
+  // request has been handled.  
 
   async function updateValidNext() {
+    if (isValidNextUpdateOngoing) {
+      return
+    }
+    isValidNextUpdateOngoing = true
     const queryRadicals = groups.flatMap((group) =>
       group.radicals
         .filter((radical) => radical.checked)
@@ -62,6 +71,7 @@
     for (const radical of decomposition.validNext) {
       validNext[radical] = true;
     }
+    isValidNextUpdateOngoing = false
   }
 
   initialize();
@@ -69,6 +79,10 @@
   $: {
     groups; // Get that reactivity
     updateValidNext();
+  }
+  
+  $: {
+    console.log(validNext)
   }
 </script>
 
@@ -86,7 +100,7 @@
       <ol class="list">
         {#each groups as group}
           <li class="item">
-            <RadicalGroup bind:group />
+            <RadicalGroup bind:group validNext={validNext} />
           </li>
         {/each}
       </ol>
