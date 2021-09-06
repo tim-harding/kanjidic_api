@@ -11,6 +11,7 @@
 	import Jlpt from "./Jlpt.svelte";
 	import References from "./References.svelte";
 	import QueryCodes from "./QueryCodes.svelte";
+	import Readings from "./Readings.svelte";
 
 	export let character: Character;
 </script>
@@ -46,6 +47,9 @@
 	{/if}
 	{#if character.queryCodes !== undefined}
 		<QueryCodes codes={character.queryCodes} />
+	{/if}
+	{#if character.readings !== undefined}
+		<Readings readings={character.readings} />
 	{/if}
 </div>
 

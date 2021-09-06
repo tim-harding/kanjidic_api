@@ -32,6 +32,13 @@ export type ReadingStringTag = KoreanRomanizedTag |
 	KoreanHangulTag |
 	VietnamTag |
 	OnyomiTag
+	
+const READING_STRING_TAGS: Record<ReadingStringTag, boolean> = {
+	"KoreanRomanized": true,
+	"KoreanHangul": true,
+	"Vietnam": true,
+	"Onyomi": true,
+}
 
 export type ReadingTag = PinYinTag | KunyomiTag | ReadingStringTag
 
@@ -90,6 +97,10 @@ export type Reading = Reading_PinYin |
 export function isReading(value: unknown): value is Reading {
 	return isSum(value) &&
 		isTypeFromTagged(value, CHECKERS)
+}
+
+export function isReadingStringFromTag(reading: Reading): reading is Reading_String {
+	return reading.tag in READING_STRING_TAGS
 }
 
 const CHECKERS: Record<ReadingTag, Checker<Sum, Reading>> = {
