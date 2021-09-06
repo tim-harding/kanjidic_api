@@ -74,11 +74,12 @@
     background-color: var(--snow-storm-0);
     padding: 0.25rem;
     padding-left: 0.5rem;
-    padding-right: 0.5rem;
+    padding-right: 1.75rem;
     border-radius: 0.25rem;
     border-width: 1px;
     border-style: solid;
     border-color: var(--gray-300);
+    background: url(./assets/expand_more.svg) 96% / 15% no-repeat #eee;
   }
 
   .kanji {
