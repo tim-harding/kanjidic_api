@@ -1,34 +1,90 @@
 <script lang="ts">
+  import type { KanjiAccess, Uint } from "../lib";
+  import { queryDecomposition } from "../lib/decomposition_access";
+
   import { queryAllRadicals } from "../lib/radical_all_access";
   import RadicalGroup from "./RadicalGroup.svelte";
   import { ENDPOINT } from "./shared";
 
-  const radicalGroups = queryAllRadicals(ENDPOINT).then((groups) => {
-    if (groups instanceof Error) {
-      throw groups;
-    }
-    return groups.map((group) => ({
-      strokes: group.strokes,
-      radicals: group.literals.map((literal) => ({
-        literal,
-        id: `radical-${literal}`,
-        checked: false,
-      })),
-    }));
-  });
+  interface Group {
+    strokes: Uint;
+    radicals: {
+      literal: string;
+      id: string;
+      checked: boolean;
+    }[];
+  }
 
-  // Todo
-  function handleSubmit() {}
+  let isInitialized = false;
+  let error: Error | undefined = undefined;
+  let validNext: Record<string, boolean> = {};
+  let groups: Group[] = [];
+
+  async function initialize() {
+    const response = await queryAllRadicals(ENDPOINT);
+    if (response instanceof Error) {
+      error = response;
+      return;
+    }
+    groups = response.map((group) => ({
+      strokes: group.strokes,
+      radicals: group.literals.map((literal) => {
+        validNext[literal] = true;
+        return {
+          literal,
+          id: `radical-${literal}`,
+          checked: false,
+        };
+      }),
+    }));
+    isInitialized = true;
+  }
+
+  async function updateValidNext() {
+    const queryRadicals = groups.flatMap((group) =>
+      group.radicals
+        .filter((radical) => radical.checked)
+        .map((radical) => radical.literal)
+    );
+    const access: KanjiAccess = {
+      endpointBase: ENDPOINT,
+      desiredFields: {
+        fields: [],
+        languages: [],
+      },
+    };
+    const decomposition = await queryDecomposition(access, queryRadicals);
+    if (decomposition instanceof Error) {
+      error = decomposition;
+      return;
+    }
+    validNext = {};
+    for (const radical of decomposition.validNext) {
+      validNext[radical] = true;
+    }
+  }
+
+  initialize();
+
+  $: {
+    groups; // Get that reactivity
+    updateValidNext();
+  }
 </script>
 
-{#await radicalGroups}
-  <div>Loading radicals &#8230;</div>
-{:then radicalGroups}
-  <form on:submit|preventDefault={handleSubmit} class="form">
+{#if error !== undefined}
+  <div class="error">
+    <p>Could not load the list of radicals:</p>
+    <p>{error}</p>
+  </div>
+{:else if !isInitialized}
+  <div>Loading radicals&#8230;</div>
+{:else}
+  <form on:submit|preventDefault={() => {}} class="form">
     <fieldset class="fieldset">
       <legend>Select radicals to find a matching kanji.</legend>
       <ol class="list">
-        {#each radicalGroups as group}
+        {#each groups as group}
           <li class="item">
             <RadicalGroup bind:group />
           </li>
@@ -36,12 +92,7 @@
       </ol>
     </fieldset>
   </form>
-{:catch error}
-  <div class="error">
-    <p>Could not load the list of radicals:</p>
-    <p>{error}</p>
-  </div>
-{/await}
+{/if}
 
 <style lang="scss">
   .error {

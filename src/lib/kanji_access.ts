@@ -1,8 +1,3 @@
-import { isCharacter } from "./character"
-import type { Character } from "./character"
-import { hasArrayProperty, hasOptionalArrayProperty, isObject, isString, query } from "./shared"
-
-// Todo: Expand to information about radicals as well
 // Todo: Search by translations
 
 export type CharacterField = "codepoints" |
@@ -33,9 +28,9 @@ export interface KanjiAccess {
 	}
 }
 
-type KanjiRoute = "literals" | "decomposition"
+export type KanjiRoute = "literals" | "decomposition"
 
-function urlFromKanjiAccess(access: KanjiAccess, route: KanjiRoute): URL {
+export function urlFromKanjiAccess(access: KanjiAccess, route: KanjiRoute): URL {
 	const {
 		endpointBase,
 		desiredFields: {
@@ -66,24 +61,4 @@ function urlFromKanjiAccess(access: KanjiAccess, route: KanjiRoute): URL {
 		}
 	}
 	return url
-}
-
-export interface LiteralsResponse {
-	errors?: Array<string>,
-	kanji: Array<Character>,
-}
-
-function isLiteralsResponse(value: unknown): value is LiteralsResponse {
-	return isObject(value) &&
-		hasOptionalArrayProperty(value, "errors", isString) &&
-		hasArrayProperty(value, "kanji", isCharacter)
-}
-
-export async function queryLiterals(access: KanjiAccess, literals: Array<string>): Promise<LiteralsResponse | Error> {
-	const url = urlFromKanjiAccess(access, "literals")
-	for (const literal of literals) {
-		url.searchParams.append("literal", literal)
-	}
-	const json = await query(url, isLiteralsResponse)
-	return json
 }
