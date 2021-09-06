@@ -13,6 +13,7 @@
 	import QueryCodes from "./QueryCodes.svelte";
 	import Readings from "./Readings.svelte";
 	import Translations from "./Translations.svelte";
+	import Nanori from "./Nanori.svelte";
 
 	export let character: Character;
 </script>
@@ -54,6 +55,9 @@
 	{/if}
 	{#if character.translations !== undefined}
 		<Translations translations={character.translations} />
+	{/if}
+	{#if character.nanori !== undefined}
+		<Nanori nanori={character.nanori} />
 	{/if}
 </div>
 
