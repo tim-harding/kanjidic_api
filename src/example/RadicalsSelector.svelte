@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { KanjiAccess, Uint } from "../lib";
+  import type { Character, KanjiAccess, Uint } from "../lib";
   import { queryDecomposition } from "../lib/decomposition_access";
 
   import { queryAllRadicals } from "../lib/radical_all_access";
@@ -18,6 +18,7 @@
   let isInitialized = false;
   let error: Error | undefined = undefined;
   let validNext: Record<string, boolean> = {};
+  let kanjis: Character[] = [];
   let groups: Group[] = [];
   let isValidNextUpdateOngoing = false
 
@@ -71,6 +72,7 @@
     for (const radical of decomposition.validNext) {
       validNext[radical] = true;
     }
+    kanjis = decomposition.kanji
     isValidNextUpdateOngoing = false
   }
 
@@ -106,6 +108,11 @@
       </ol>
     </fieldset>
   </form>
+  <ul>
+    {#each kanjis as kanji}
+      {kanji.literal}
+    {/each}
+  </ul>
 {/if}
 
 <style lang="scss">
