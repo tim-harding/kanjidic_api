@@ -25,7 +25,7 @@ export const enum SolidSubpattern {
 	Other,
 }
 
-export function getSolidSubpatternName(pattern: SolidSubpattern): string {
+export function serializeSolidSubpattern(pattern: SolidSubpattern): string {
 	return SOLID_SUBPATTERN_NAMES[pattern as number] as string
 }
 

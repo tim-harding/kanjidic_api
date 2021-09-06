@@ -189,6 +189,19 @@
         },
       },
       {
+        tag: "Misclassification",
+        content: {
+          skip: {
+            tag: "Solid",
+            content: {
+              totalStrokeCount: 4,
+              solidSubpattern: 2,
+            },
+          },
+          kind: "Position",
+        },
+      },
+      {
         tag: "SpahnHadamitzky",
         content: {
           radicalStrokes: 0,

@@ -12,11 +12,15 @@
 		Query&nbsp;codes&nbsp;
 		<Popover />
 	</span>
-	<ul slot="content">
+	<dl slot="content" class="list">
 		{#each codes as code}
-			<li>
-				<QueryCode {code} />
-			</li>
+			<QueryCode {code} />
 		{/each}
-	</ul>
+	</dl>
 </KanjiDropdown>
+
+<style>
+	.list {
+		gap: 0.25rem;
+	}
+</style>

@@ -1,13 +1,15 @@
 <script lang="ts">
-	import {
-		serializeQueryCode,
-	} from "../lib";
+	import { serializeQueryCode } from "../lib";
 	import type {
 		Misclassification,
 		MisclassificationKind,
 		QueryCode as QueryCodeType,
 		QueryCodeTag,
 	} from "../lib";
+	import Popover from "./Popover.svelte";
+	import DeRooPopoverContent from "./DeRooPopoverContent.svelte";
+	import SpahnHadamitzkyPopoverContent from "./SpahnHadamitzkyPopoverContent.svelte";
+import SkipPopoverContent from "./SkipPopoverContent.svelte";
 
 	export let code: QueryCodeType;
 
@@ -34,7 +36,7 @@
 	const key = KEY_MAKERS[code.tag](code);
 </script>
 
-<dl class="text-line">
+<div class="text-line">
 	<dt>
 		{key}
 	</dt>
@@ -42,4 +44,18 @@
 	<dd>
 		{serializeQueryCode(code)}
 	</dd>
-</dl>
+	&nbsp;
+	<Popover>
+		{#if code.tag === "DeRoo"}
+			<DeRooPopoverContent deRoo={code.content} />
+		{:else if code.tag === "FourCorner"}
+			FourCorner
+		{:else if code.tag === "Misclassification"}
+			<SkipPopoverContent skip={code.content.skip}></SkipPopoverContent>
+		{:else if code.tag === "Skip"}
+			<SkipPopoverContent skip={code.content}></SkipPopoverContent>
+		{:else if code.tag === "SpahnHadamitzky"}
+			<SpahnHadamitzkyPopoverContent shDesc={code.content} />
+		{/if}
+	</Popover>
+</div>
