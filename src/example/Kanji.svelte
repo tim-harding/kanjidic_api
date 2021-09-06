@@ -14,6 +14,7 @@
 	import Readings from "./Readings.svelte";
 	import Translations from "./Translations.svelte";
 	import Nanori from "./Nanori.svelte";
+	import Decomposition from "./Decomposition.svelte";
 
 	export let character: Character;
 </script>
@@ -58,6 +59,9 @@
 	{/if}
 	{#if character.nanori !== undefined}
 		<Nanori nanori={character.nanori} />
+	{/if}
+	{#if character.decomposition !== undefined}
+		<Decomposition decomposition={character.decomposition} />
 	{/if}
 </div>
 
