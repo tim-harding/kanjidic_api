@@ -1,305 +1,84 @@
 <script lang="ts">
-  import type { Character } from "../lib";
-
-  import Kanji from "./Kanji.svelte";
   import RadicalsSelector from "./RadicalsSelector.svelte";
-
-  // Todo: pick something that tests all possible paths
-  const testKanji: Character = {
-    literal: "亜",
-    codepoints: [
-      {
-        tag: "Unicode",
-        content: 20124,
-      },
-      {
-        tag: "Jis208",
-        content: {
-          plane: 1,
-          ku: 16,
-          ten: 1,
-        },
-      },
-    ],
-    radicals: [
-      {
-        kind: "Classical",
-        radical: 7,
-      },
-      {
-        kind: "Nelson",
-        radical: 1,
-      },
-    ],
-    grade: {
-      tag: "Jouyou",
-    },
-    strokeCounts: {
-      accepted: 7,
-      miscounts: [9, 11],
-    },
-    variants: [
-      {
-        tag: "Jis208",
-        content: {
-          plane: 1,
-          ku: 48,
-          ten: 19,
-        },
-      },
-      {
-        tag: "Halpern",
-        content: 1960,
-      },
-      {
-        tag: "DeRoo",
-        content: {
-          top: 37,
-          bottom: 44,
-        },
-      },
-      {
-        tag: "SpahnHadamitzky",
-        content: {
-          radicalStrokes: 3,
-          radical: "d",
-          otherStrokes: 8,
-          sequence: 15,
-        },
-      },
-      {
-        tag: "ONeill",
-        content: {
-          number: 2078,
-          suffix: "A",
-        },
-      },
-      {
-        tag: "Unicode",
-        content: 21531,
-      },
-    ],
-    frequency: 1509,
-    jlpt: 1,
-    radicalNames: ["しんよう", "じゅうまた"],
-    references: [
-      {
-        tag: "NelsonClassic",
-        content: 43,
-      },
-      {
-        tag: "NelsonNew",
-        content: 81,
-      },
-      {
-        tag: "Njecd",
-        content: 3540,
-      },
-      {
-        tag: "Kkd",
-        content: 4354,
-      },
-      {
-        tag: "Kkld",
-        content: 2204,
-      },
-      {
-        tag: "Kkld2ed",
-        content: 2966,
-      },
-      {
-        tag: "Heisig",
-        content: 1809,
-      },
-      {
-        tag: "Heisig6",
-        content: 1950,
-      },
-      {
-        tag: "Gakken",
-        content: 1331,
-      },
-      {
-        tag: "OneillNames",
-        content: {
-          number: 525,
-        },
-      },
-      {
-        tag: "OneillKk",
-        content: 1788,
-      },
-      {
-        tag: "Moro",
-        content: {
-          volume: 1,
-          page: 525,
-          index: 272,
-        },
-      },
-      {
-        tag: "BusyPeople",
-        content: {
-          volume: 2,
-          chapter: 4,
-        },
-      },
-      {
-        tag: "Henshall",
-        content: 997,
-      },
-      {
-        tag: "ShKk",
-        content: 1616,
-      },
-      {
-        tag: "ShKk2",
-        content: 1724,
-      },
-      {
-        tag: "Jfcards",
-        content: 1032,
-      },
-      {
-        tag: "TuttleCards",
-        content: 1092,
-      },
-      {
-        tag: "KanjiInContext",
-        content: 1818,
-      },
-      {
-        tag: "KodanshaCompact",
-        content: 35,
-      },
-      {
-        tag: "Maniette",
-        content: 1827,
-      },
-    ],
-    queryCodes: [
-      {
-        tag: "Skip",
-        content: {
-          tag: "Solid",
-          content: {
-            totalStrokeCount: 7,
-            solidSubpattern: 1,
-          },
-        },
-      },
-      {
-        tag: "Misclassification",
-        content: {
-          skip: {
-            tag: "Solid",
-            content: {
-              totalStrokeCount: 4,
-              solidSubpattern: 2,
-            },
-          },
-          kind: "Position",
-        },
-      },
-      {
-        tag: "SpahnHadamitzky",
-        content: {
-          radicalStrokes: 0,
-          radical: "a",
-          otherStrokes: 7,
-          sequence: 14,
-        },
-      },
-      {
-        tag: "FourCorner",
-        content: {
-          topLeft: 1,
-          topRight: 0,
-          bottomLeft: 1,
-          bottomRight: 0,
-          fifthCorner: 6,
-        },
-      },
-      {
-        tag: "DeRoo",
-        content: {
-          top: 32,
-          bottom: 73,
-        },
-      },
-    ],
-    readings: [
-      {
-        tag: "PinYin",
-        content: {
-          romanization: "ya",
-          tone: 4,
-        },
-      },
-      {
-        tag: "KoreanRomanized",
-        content: "a",
-      },
-      {
-        tag: "KoreanHangul",
-        content: "아",
-      },
-      {
-        tag: "Vietnam",
-        content: "A",
-      },
-      {
-        tag: "Vietnam",
-        content: "Á",
-      },
-      {
-        tag: "Onyomi",
-        content: "ア",
-      },
-      {
-        tag: "Kunyomi",
-        content: {
-          reading: "つ",
-          okurigana: "ぐ",
-          kind: "Normal",
-        },
-      },
-    ],
-    translations: {
-      fr: ["Asie", "suivant", "sub-", "sous-"],
-      es: ["pref. para indicar", "venir después de", "Asia"],
-      pt: ["Ásia", "próxima", "o que vem depois", "-ous"],
-      en: ["Asia", "rank next", "come after", "-ous"],
-    },
-    nanori: ["や", "つぎ", "つぐ"],
-    decomposition: ["｜", "一", "口"],
-  };
 </script>
 
-<main class="root">
-  <div class="selector">
+<div class="root">
+  <header class="header">
+    <h1 class="title">Kanjidic Example</h1>
+    <div class="search-method-container">
+      <label for="search-method"> Search method: </label>
+      <select id="search-method" class="search-method">
+        <option value="decomposition"> Decomposition </option>
+      </select>
+    </div>
+  </header>
+  <main class="main">
     <RadicalsSelector />
-  </div>
-  <div class="kanji">
-    <Kanji character={testKanji} />
-  </div>
-</main>
+  </main>
+  <footer class="footer">
+    Put some information here about licensing. 
+  </footer>
+</div>
 
 <style lang="scss">
   .root {
-    justify-self: center;
-    grid-template-rows: 1fr min-content;
-    margin: 2rem;
+    grid-template-rows: max-content max-content 1fr;
     gap: 2rem;
+    min-height: 100vh;
+  }
+  
+  .main {
+    grid-template-columns: max-content;
+    justify-content: center;
   }
 
-  .selector,
-  .kanji {
+  .header {
     background-color: var(--snow-storm-1);
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+    border-bottom-color: var(--snow-storm-2);
+    width: 100%;
+    grid-template-columns: max-content 1fr;
+    padding: 1rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    align-items: center;
+  }
+  
+  .footer {
+    background-color: var(--snow-storm-1);
+    border-top-width: 2px;
+    border-top-style: solid;
+    border-top-color: var(--snow-storm-2);
+    width: 100%;
+    padding: 1rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    align-self: flex-end;
+  }
+
+  .title {
+    font-weight: 700;
+    font-size: 1.5rem;
+  }
+
+  .search-method-container {
+    align-items: center;
+    align-self: center;
+    justify-self: flex-end;
+    grid-template-columns: max-content max-content;
+    gap: 0.5rem;
+  }
+
+  .search-method {
+    background-color: var(--snow-storm-0);
+    padding: 0.25rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
     border-radius: 0.25rem;
-    border-color: var(--snow-storm-2);
+    border-width: 1px;
     border-style: solid;
-    border-width: 2px;
+    border-color: var(--gray-300);
   }
 
   .kanji {

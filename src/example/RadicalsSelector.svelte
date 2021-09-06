@@ -4,6 +4,7 @@
 
   import { queryAllRadicals } from "../lib/radical_all_access";
   import RadicalGroup from "./RadicalGroup.svelte";
+  import SectioningBox from "./SectioningBox.svelte";
   import { ENDPOINT } from "./shared";
 
   interface Group {
@@ -20,7 +21,7 @@
   let validNext: Record<string, boolean> = {};
   let kanjis: Character[] = [];
   let groups: Group[] = [];
-  let isValidNextUpdateOngoing = false
+  let isValidNextUpdateOngoing = false;
 
   async function initialize() {
     const response = await queryAllRadicals(ENDPOINT);
@@ -41,16 +42,16 @@
     }));
     isInitialized = true;
   }
-  
+
   // Start new request when a response comes back.
   // Or else only apply response if no more recent
-  // request has been handled.  
+  // request has been handled.
 
   async function updateValidNext() {
     if (isValidNextUpdateOngoing) {
-      return
+      return;
     }
-    isValidNextUpdateOngoing = true
+    isValidNextUpdateOngoing = true;
     const queryRadicals = groups.flatMap((group) =>
       group.radicals
         .filter((radical) => radical.checked)
@@ -72,8 +73,8 @@
     for (const radical of decomposition.validNext) {
       validNext[radical] = true;
     }
-    kanjis = decomposition.kanji
-    isValidNextUpdateOngoing = false
+    kanjis = decomposition.kanji;
+    isValidNextUpdateOngoing = false;
   }
 
   initialize();
@@ -82,38 +83,40 @@
     groups; // Get that reactivity
     updateValidNext();
   }
-  
+
   $: {
-    console.log(validNext)
+    console.log(validNext);
   }
 </script>
 
-{#if error !== undefined}
-  <div class="error">
-    <p>Could not load the list of radicals:</p>
-    <p>{error}</p>
-  </div>
-{:else if !isInitialized}
-  <div>Loading radicals&#8230;</div>
-{:else}
-  <form on:submit|preventDefault={() => {}} class="form">
-    <fieldset class="fieldset">
-      <legend>Select radicals to find a matching kanji.</legend>
-      <ol class="list">
-        {#each groups as group}
-          <li class="item">
-            <RadicalGroup bind:group validNext={validNext} />
-          </li>
-        {/each}
-      </ol>
-    </fieldset>
-  </form>
-  <ul>
-    {#each kanjis as kanji}
-      {kanji.literal}
-    {/each}
-  </ul>
-{/if}
+<SectioningBox>
+  {#if error !== undefined}
+    <div class="error">
+      <p>Could not load the list of radicals:</p>
+      <p>{error}</p>
+    </div>
+  {:else if !isInitialized}
+    <div>Loading radicals&#8230;</div>
+  {:else}
+    <form on:submit|preventDefault={() => {}} class="form">
+      <fieldset class="fieldset">
+        <legend>Select radicals to find a matching kanji.</legend>
+        <ol class="list">
+          {#each groups as group}
+            <li class="item">
+              <RadicalGroup bind:group {validNext} />
+            </li>
+          {/each}
+        </ol>
+      </fieldset>
+    </form>
+    <ul>
+      {#each kanjis as kanji}
+        {kanji.literal}
+      {/each}
+    </ul>
+  {/if}
+</SectioningBox>
 
 <style lang="scss">
   .error {

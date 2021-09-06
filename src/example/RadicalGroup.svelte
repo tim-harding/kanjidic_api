@@ -24,7 +24,7 @@
         id={radical.id}
         value={radical.literal}
         bind:checked={radical.checked}
-        disabled={!(radical.literal in validNext)}
+        disabled={!(radical.literal in validNext) && ! radical.checked}
       />
       <label class="radical-checkbox noto" for={radical.id}>
         {radical.literal}
