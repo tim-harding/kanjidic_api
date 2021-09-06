@@ -59,7 +59,7 @@
 	{/if}
 	in
 	<em>
-		<Url href={`amzn.com/${info.amazon}`}>
+		<Url href={`https://amzn.com/${info.amazon}`}>
 			{info.title}
 		</Url>
 	</em>
