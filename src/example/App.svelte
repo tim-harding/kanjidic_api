@@ -1,5 +1,5 @@
 <script lang="ts">
-  import RadicalsSelector from "./RadicalsSelector.svelte";
+import RadicalsSelector from "./RadicalsSelector.svelte";
 </script>
 
 <div class="root">

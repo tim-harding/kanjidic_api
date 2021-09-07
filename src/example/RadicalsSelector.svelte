@@ -1,8 +1,9 @@
 <script lang="ts">
   import type { Character, KanjiAccess, Uint } from "../lib";
-  import { queryDecomposition } from "../lib/decomposition_access";
+  import { queryDecompositionChecked } from "../lib/decomposition_access";
 
   import { queryAllRadicals } from "../lib/radical_all_access";
+  import Kanji from "./Kanji.svelte";
   import RadicalGroup from "./RadicalGroup.svelte";
   import SectioningBox from "./SectioningBox.svelte";
   import { ENDPOINT } from "./shared";
@@ -60,11 +61,14 @@
     const access: KanjiAccess = {
       endpointBase: ENDPOINT,
       desiredFields: {
-        fields: [],
-        languages: [],
+        fields: "all",
+        languages: "all",
       },
     };
-    const decomposition = await queryDecomposition(access, queryRadicals);
+    const decomposition = await queryDecompositionChecked(
+      access,
+      queryRadicals
+    );
     if (decomposition instanceof Error) {
       error = decomposition;
       return;
@@ -83,42 +87,51 @@
     groups; // Get that reactivity
     updateValidNext();
   }
-
-  $: {
-    console.log(validNext);
-  }
 </script>
 
-<SectioningBox>
-  {#if error !== undefined}
-    <div class="error">
-      <p>Could not load the list of radicals:</p>
-      <p>{error}</p>
-    </div>
-  {:else if !isInitialized}
-    <div>Loading radicals&#8230;</div>
-  {:else}
-    <form on:submit|preventDefault={() => {}} class="form">
-      <fieldset class="fieldset">
-        <legend>Select radicals to find a matching kanji.</legend>
-        <ol class="list">
-          {#each groups as group}
-            <li class="item">
-              <RadicalGroup bind:group {validNext} />
-            </li>
-          {/each}
-        </ol>
-      </fieldset>
-    </form>
-    <ul>
-      {#each kanjis as kanji}
-        {kanji.literal}
-      {/each}
-    </ul>
+<div class="root">
+  <SectioningBox>
+    {#if error !== undefined}
+      <div class="error">
+        <p>{error}</p>
+      </div>
+    {:else if !isInitialized}
+      <div>Loading radicals&#8230;</div>
+    {:else}
+      <form on:submit|preventDefault={() => {}} class="form">
+        <fieldset class="fieldset">
+          <legend>Select radicals to find a matching kanji.</legend>
+          <ol class="list">
+            {#each groups as group}
+              <li class="item">
+                <RadicalGroup bind:group {validNext} />
+              </li>
+            {/each}
+          </ol>
+        </fieldset>
+      </form>
+    {/if}
+  </SectioningBox>
+
+  {#if kanjis.length > 0}
+    <SectioningBox>
+      <ul class="results">
+        {#each kanjis as kanji}
+          <li class="kanji-list-item">
+            <Kanji character={kanji} />
+          </li>
+        {/each}
+      </ul>
+    </SectioningBox>
   {/if}
-</SectioningBox>
+</div>
 
 <style lang="scss">
+  .root {
+    gap: 0.5rem;
+    grid-template-rows: max-content 1fr;
+  }
+
   .error {
     color: var(--aurora-red);
   }
@@ -126,8 +139,11 @@
   $button-size: 1.75rem;
 
   .list {
-    width: $button-size * 24;
     grid-template-columns: repeat(auto-fill, $button-size);
+  }
+  
+  .list, .results {
+    width: $button-size * 24;
     grid-auto-rows: $button-size;
   }
 
@@ -141,5 +157,24 @@
 
   .item {
     display: contents;
+  }
+
+  .results {
+    grid-auto-rows: max-content;
+    margin-top: 1.4rem;
+    margin-bottom: 1.4rem;
+    gap: 1.4rem;
+  }
+  
+  .kanji-list-item {
+    padding-bottom: 1.4rem;
+    border-bottom-style: solid;
+    border-bottom-width: 2px;
+    border-bottom-color: var(--gray-300);
+    
+    &:last-child {
+      border-bottom-style: none;
+      padding-bottom: 0rem;
+    }
   }
 </style>

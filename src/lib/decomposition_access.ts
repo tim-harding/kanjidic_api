@@ -17,11 +17,23 @@ function isDecompositionResponse(value: unknown): value is DecompositionResponse
 		hasArrayProperty(value, "validNext", isString)
 }
 
-export async function queryDecomposition(access: KanjiAccess, radicals: Array<string>): Promise<DecompositionResponse | Error> {
+export async function queryDecompositionChecked(access: KanjiAccess, radicals: Array<string>): Promise<DecompositionResponse | Error> {
+	return await queryDecomposition(access, radicals, isDecompositionResponse)
+}
+
+export async function queryDecompositionUnchecked(access: KanjiAccess, radicals: Array<string>): Promise<DecompositionResponse | Error> {
+	return await queryDecomposition(access, radicals, noopChecker)
+}
+
+function noopChecker(json: unknown): json is DecompositionResponse {
+	return true
+}
+
+async function queryDecomposition(access: KanjiAccess, radicals: Array<string>, checker: { (json: unknown): json is DecompositionResponse }): Promise<DecompositionResponse | Error> {
 	const url = urlFromKanjiAccess(access, "decomposition")
 	for (const radical of radicals) {
 		url.searchParams.append("radical", radical)
 	}
-	const json = await query(url, isDecompositionResponse)
+	const json = await query(url, checker)
 	return json
 }
