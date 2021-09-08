@@ -4,7 +4,6 @@
 
 <style>
 	.root {
-		width: 100%;
 		background-color: var(--snow-storm-1);
 		border-radius: 0.25rem;
 		border-color: var(--snow-storm-2);

@@ -106,31 +106,25 @@
     {/if}
   </SectioningBox>
 
-  <div class="results">
-    <ResultsList {kanjis} />
-  </div>
+  <ResultsList {kanjis} />
 </div>
 
 <style lang="scss">
+  $button-size: 1.75rem;
+
   .root {
     gap: 0.5rem;
     grid-template-rows: max-content 1fr;
+    width: $button-size * 24;
+    grid-auto-rows: $button-size;
   }
 
   .error {
     color: var(--aurora-red);
   }
 
-  $button-size: 1.75rem;
-
   .list {
     grid-template-columns: repeat(auto-fill, $button-size);
-  }
-
-  .list,
-  .results {
-    width: $button-size * 24;
-    grid-auto-rows: $button-size;
   }
 
   .form {
