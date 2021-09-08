@@ -25,35 +25,20 @@
 		<span class="material-icons-outlined md-36">expand_more</span>
 	</summary>
 	<div class="content">
-		{#if character.codepoints !== undefined}
-			<Codepoints codepoints={character.codepoints} />
-		{/if}
-		{#if character.radicals !== undefined}
-			<Radicals radicals={character.radicals} />
-		{/if}
-		{#if character.grade !== undefined}
-			<Grade grade={character.grade} />
+		{#if character.decomposition !== undefined}
+			<Decomposition decomposition={character.decomposition} />
 		{/if}
 		{#if character.strokeCounts !== undefined}
 			<StrokeCounts strokeCounts={character.strokeCounts} />
 		{/if}
-		{#if character.variants !== undefined}
-			<Variants variants={character.variants} />
-		{/if}
 		{#if character.frequency !== undefined}
 			<Frequency frequency={character.frequency} />
-		{/if}
-		{#if character.radicalNames !== undefined}
-			<RadicalNames names={character.radicalNames} />
 		{/if}
 		{#if character.jlpt !== undefined}
 			<Jlpt jlpt={character.jlpt} />
 		{/if}
-		{#if character.references !== undefined}
-			<References references={character.references} />
-		{/if}
-		{#if character.queryCodes !== undefined}
-			<QueryCodes codes={character.queryCodes} />
+		{#if character.grade !== undefined}
+			<Grade grade={character.grade} />
 		{/if}
 		{#if character.readings !== undefined}
 			<Readings readings={character.readings} />
@@ -61,11 +46,26 @@
 		{#if character.translations !== undefined}
 			<Translations translations={character.translations} />
 		{/if}
+		{#if character.codepoints !== undefined}
+			<Codepoints codepoints={character.codepoints} />
+		{/if}
+		{#if character.queryCodes !== undefined}
+			<QueryCodes codes={character.queryCodes} />
+		{/if}
+		{#if character.radicals !== undefined}
+			<Radicals radicals={character.radicals} />
+		{/if}
+		{#if character.variants !== undefined}
+			<Variants variants={character.variants} />
+		{/if}
+		{#if character.radicalNames !== undefined}
+			<RadicalNames names={character.radicalNames} />
+		{/if}
 		{#if character.nanori !== undefined}
 			<Nanori nanori={character.nanori} />
 		{/if}
-		{#if character.decomposition !== undefined}
-			<Decomposition decomposition={character.decomposition} />
+		{#if character.references !== undefined}
+			<References references={character.references} />
 		{/if}
 	</div>
 </details>
