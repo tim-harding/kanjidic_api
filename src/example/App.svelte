@@ -29,7 +29,9 @@
       <TranslationSearch />
     {/if}
   </main>
-  <footer class="footer">Put some information here about licensing.</footer>
+  <footer class="footer">
+    Put some information here about licensing.
+  </footer>
 </div>
 
 <style lang="scss">
