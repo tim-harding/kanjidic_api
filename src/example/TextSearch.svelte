@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Character } from "../lib";
-import { queryLiteralsChecked } from "../lib/literals_access";
+	import { queryLiteralsChecked } from "../lib/literals_access";
 	import { queryTranslationChecked } from "../lib/translation_access";
 
 	import Popover from "./Popover.svelte";
@@ -31,14 +31,15 @@ import { queryLiteralsChecked } from "../lib/literals_access";
 	}
 
 	async function doQuery() {
-		term = term.trim()
+		term = term.trim();
 		if (term.length === 0) {
+			results = []
 			return;
 		}
 		const [translations, literals] = await Promise.all([
 			queryTranslationChecked(kanjiAccess, term),
-			queryLiteralsChecked(kanjiAccess, term)
-		])
+			queryLiteralsChecked(kanjiAccess, term),
+		]);
 		if (translations instanceof Error) {
 			error = translations.message;
 			return;
@@ -48,10 +49,7 @@ import { queryLiteralsChecked } from "../lib/literals_access";
 			return;
 		}
 		// We're just ignoring errors on the literals response
-		results = [
-			...translations.kanji,
-			...literals.kanji,
-		]
+		results = [...translations.kanji, ...literals.kanji];
 	}
 
 	let term: string = "";
@@ -64,31 +62,39 @@ import { queryLiteralsChecked } from "../lib/literals_access";
 </script>
 
 <div class="root">
-<SectioningBox>
-	<form on:submit|preventDefault={() => {}} class="form">
-		<label for="search-term" class="search-term-label text-line"> Word: </label>
-		<input
-			type="text"
-			name="search-term"
-			id="search-term"
-			class="search-term"
-			bind:value={term}
-		/>
-		<Popover>
-			A word in another language to find a kanji for. At this time, translations
-			are available in English, French, Spanish, and Portuguese.
-		</Popover>
-	</form>
-</SectioningBox>
-{#if error !== undefined}
-	<div class="error">
-		{error}
-	</div>
-{/if}
-<ResultsList kanjis={results} />
+	<SectioningBox>
+		<form on:submit|preventDefault={() => {}} class="form">
+			<Popover>
+				<label for="search-term" class="search-term-label">
+					Enter one of the following:
+					<ul class="passthrough">
+						<li class="label-item">
+							A word in another language to find a kanji for. Translations are
+							available in English, French, Spanish, and Portuguese at this
+							time.
+						</li>
+						<li class="label-item">A kanji or several kanji you want more details for.</li>
+					</ul>
+				</label>
+			</Popover>
+			<input
+				type="text"
+				name="search-term"
+				id="search-term"
+				class="search-term"
+				bind:value={term}
+			/>
+		</form>
+	</SectioningBox>
+	{#if error !== undefined}
+		<div class="error">
+			{error}
+		</div>
+	{/if}
+	<ResultsList kanjis={results} />
 </div>
 
-<style>
+<style lang="scss">
 	.root {
 		grid-auto-rows: min-content;
 		gap: 0.5rem;
@@ -105,12 +111,8 @@ import { queryLiteralsChecked } from "../lib/literals_access";
 		padding: 0.5rem;
 	}
 
-	.search-term-label {
-		font-size: 1.25rem;
-	}
-
 	.form {
-		grid-template-columns: min-content 1fr min-content;
+		grid-template-columns: max-content 1fr;
 		padding: 1rem;
 		align-items: center;
 		gap: 0.5rem;
@@ -120,5 +122,21 @@ import { queryLiteralsChecked } from "../lib/literals_access";
 
 	.error {
 		color: var(--aurora-red);
+	}
+
+	.search-term-label {
+		grid-auto-rows: max-content;
+		gap: 0.5rem;
+	}
+	
+	.label-item {
+		margin-left: 0.75rem;
+		grid-template-columns: max-content 1fr;
+
+		&::before {
+			content: "– ";
+			white-space: pre;
+			font-weight: 700;
+		}
 	}
 </style>
