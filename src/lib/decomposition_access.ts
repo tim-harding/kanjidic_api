@@ -17,11 +17,11 @@ function isDecompositionResponse(value: unknown): value is DecompositionResponse
 		hasArrayProperty(value, "validNext", isString)
 }
 
-export async function queryDecompositionChecked(access: KanjiAccess, radicals: Array<string>): Promise<DecompositionResponse | Error> {
+export async function queryDecompositionChecked(access: KanjiAccess, radicals: string): Promise<DecompositionResponse | Error> {
 	return await queryDecomposition(access, radicals, isDecompositionResponse)
 }
 
-export async function queryDecompositionUnchecked(access: KanjiAccess, radicals: Array<string>): Promise<DecompositionResponse | Error> {
+export async function queryDecompositionUnchecked(access: KanjiAccess, radicals: string): Promise<DecompositionResponse | Error> {
 	return await queryDecomposition(access, radicals, noopChecker)
 }
 
@@ -29,8 +29,11 @@ function noopChecker(json: unknown): json is DecompositionResponse {
 	return true
 }
 
-async function queryDecomposition(access: KanjiAccess, radicals: Array<string>, checker: { (json: unknown): json is DecompositionResponse }): Promise<DecompositionResponse | Error> {
-	const url = urlFromKanjiAccess(access, "decomposition")
+async function queryDecomposition(access: KanjiAccess, radicals: string, checker: { (json: unknown): json is DecompositionResponse }): Promise<DecompositionResponse | Error> {
+	if (radicals.length === 0) {
+		return new Error("No radicals in query is invalid")
+	}
+	const url = urlFromKanjiAccess(access, `decomposition/${radicals}`)
 	for (const radical of radicals) {
 		url.searchParams.append("radical", radical)
 	}

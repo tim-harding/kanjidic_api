@@ -2,7 +2,7 @@
   import type { RadicalGroup } from "./radical_group";
 
   export let group: RadicalGroup;
-  export let validNext: Record<string, boolean>
+  export let validNext: Record<string, boolean>;
 </script>
 
 <ul class="root">
@@ -20,7 +20,7 @@
         id={radical.id}
         value={radical.literal}
         bind:checked={radical.checked}
-        disabled={!(radical.literal in validNext) && ! radical.checked}
+        disabled={!(radical.literal in validNext) && !radical.checked}
       />
       <label class="radical-checkbox noto" for={radical.id}>
         {radical.literal}
@@ -55,8 +55,9 @@
     justify-self: center;
     align-self: center;
   }
-  
-  .strokes, .radical {
+
+  .strokes,
+  .radical {
     width: 100%;
     height: 100%;
   }
@@ -77,7 +78,7 @@
   input:checked + .radical-checkbox {
     background-color: var(--gray-300);
   }
-  
+
   input:disabled + .radical-checkbox {
     opacity: 25%;
   }

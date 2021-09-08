@@ -21,7 +21,7 @@ export async function queryLiteralsUnchecked(access: KanjiAccess, literals: stri
 	return await queryLiterals(access, literals, noopChecker)
 }
 
-function noopChecker(json: unknown): json is LiteralsResponse {
+function noopChecker(_: unknown): _ is LiteralsResponse {
 	return true
 }
 

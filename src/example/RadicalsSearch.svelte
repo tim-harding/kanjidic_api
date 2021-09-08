@@ -10,11 +10,13 @@
 
   interface Group {
     strokes: Uint;
-    radicals: {
-      literal: string;
-      id: string;
-      checked: boolean;
-    }[];
+    radicals: RadicalInfo[];
+  }
+
+  interface RadicalInfo {
+    literal: string;
+    id: string;
+    checked: boolean;
   }
 
   let isInitialized = false;
@@ -24,7 +26,9 @@
   let groups: Group[] = [];
 
   let isValidNextUpdateOngoing = false;
-  let needsValidNextUpdate = false
+  let needsValidNextUpdate = false;
+
+  // Not all selections respond to reset. Investigate.
 
   async function initialize() {
     const response = await queryAllRadicals(ENDPOINT);
@@ -52,25 +56,37 @@
 
   async function updateValidNext() {
     if (isValidNextUpdateOngoing) {
-      needsValidNextUpdate = true
+      needsValidNextUpdate = true;
       return;
     }
     isValidNextUpdateOngoing = true;
-    
-    await doQuery()
+
+    await doQuery();
 
     isValidNextUpdateOngoing = false;
     if (needsValidNextUpdate) {
-      updateValidNext()
+      updateValidNext();
     }
   }
-  
+
   async function doQuery() {
-    const queryRadicals = groups.flatMap((group) =>
-      group.radicals
-        .filter((radical) => radical.checked)
-        .map((radical) => radical.literal)
-    );
+    const queryRadicals = groups
+      .flatMap((group) =>
+        group.radicals
+          .filter((radical) => radical.checked)
+          .map((radical) => radical.literal)
+      )
+      .join("");
+    if (queryRadicals.length === 0) {
+      validNext = {};
+      for (const group of groups) {
+        for (const radical of group.radicals) {
+          validNext[radical.literal] = true;
+        }
+      }
+      kanjis = [];
+      return;
+    }
     const decomposition = await queryDecompositionChecked(
       kanjiAccess,
       queryRadicals
@@ -87,18 +103,33 @@
   }
 
   initialize();
-  
+
   function reset() {
-    for (const group of groups) {
-      for (const radical of group.radicals) {
-        radical.checked = false
+    for (const groupIndex in groups) {
+      const group = groups[groupIndex] as Group;
+      for (const radicalIndex in group.radicals) {
+        // Have to do it this way for reactivity
+        (
+          (groups[groupIndex] as Group).radicals[radicalIndex] as RadicalInfo
+        ).checked = false;
       }
     }
   }
 
+  let previous_selection: string | undefined = undefined;
+
   $: {
-    groups; // Get that reactivity
-    updateValidNext();
+    const selection = groups
+      .map((group) => {
+        return group.radicals
+          .filter((radical) => radical.checked)
+          .map((radical) => radical.literal);
+      })
+      .join("");
+    if (selection !== previous_selection) {
+      previous_selection = selection;
+      updateValidNext();
+    }
   }
 </script>
 
@@ -137,7 +168,7 @@
 
 <style lang="scss">
   $button-size: 1.65rem;
-  
+
   .reset {
     border-radius: 0.25rem;
     cursor: pointer;
@@ -145,7 +176,7 @@
     &:hover {
       background-color: var(--snow-storm-2);
     }
-  
+
     &:active {
       background-color: var(--gray-300);
     }
