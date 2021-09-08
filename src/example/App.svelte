@@ -1,6 +1,7 @@
 <script lang="ts">
   import RadicalsSelector from "./RadicalsSearch.svelte";
   import TranslationSearch from "./TextSearch.svelte";
+  import Url from "./Url.svelte";
 
   type SearchMethod = "radicals" | "text";
 
@@ -30,7 +31,16 @@
     {/if}
   </main>
   <footer class="footer">
-    Put some information here about licensing.
+    The data distributed on this site and by the Kanjidic REST API are subject to
+    the Electronic Dictionary Research and Development Group <Url
+      href="http://www.edrdg.org/edrdg/licence.html">license statement</Url
+    >. It is sourced from the <Url
+      href="http://www.edrdg.org/wiki/index.php/KANJIDIC_Project">Kanjidic</Url
+    > and <Url href="http://www.edrdg.org/krad/kradinf.html">Radkfile</Url> projects.
+    It may be copied, distributed, and transmitted under the <Url
+      href="https://creativecommons.org/licenses/by-sa/3.0/legalcode"
+      >Creative Commons Attribution-ShareAlike 3.0 licence</Url
+    >.
   </footer>
 </div>
 
@@ -75,6 +85,7 @@
     padding-left: 2rem;
     padding-right: 2rem;
     align-self: flex-end;
+    display: block;
   }
 
   .title {
