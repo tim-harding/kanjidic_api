@@ -1,29 +1,29 @@
 <script lang="ts">
   import RadicalsSelector from "./RadicalsSelector.svelte";
-  import TranslationSearch from "./TranslationSearch.svelte";
+  import TranslationSearch from "./TextSearch.svelte";
 
-  type SearchMethod = "decomposition" | "text";
+  type SearchMethod = "radicals" | "text";
 
-  let searchMethod: SearchMethod = "decomposition";
+  let searchMethod: SearchMethod = "radicals";
 </script>
 
 <div class="root">
   <header class="header">
     <h1 class="title">Kanjidic Example</h1>
     <div class="search-method-container">
-      <label for="search-method"> Search method: </label>
+      <label for="search-method"> Search </label>
       <select
         id="search-method"
         class="search-method"
         bind:value={searchMethod}
       >
-        <option value="decomposition"> Decomposition </option>
+        <option value="radicals"> Radicals </option>
         <option value="text"> Text </option>
       </select>
     </div>
   </header>
   <main class="main">
-    {#if searchMethod === "decomposition"}
+    {#if searchMethod === "radicals"}
       <RadicalsSelector />
     {:else}
       <TranslationSearch />
@@ -40,8 +40,9 @@
   }
 
   .main {
-    grid-template-columns: max-content;
-    justify-content: center;
+    justify-items: center;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
   }
 
   .header {
@@ -52,9 +53,14 @@
     width: 100%;
     grid-template-columns: max-content 1fr;
     padding: 1rem;
-    padding-left: 2rem;
-    padding-right: 2rem;
     align-items: center;
+  }
+
+  @media (min-width: 440px) {
+    .header {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
   }
 
   .footer {

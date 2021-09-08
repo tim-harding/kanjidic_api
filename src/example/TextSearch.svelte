@@ -92,8 +92,10 @@ import { queryLiteralsChecked } from "../lib/literals_access";
 	.root {
 		grid-auto-rows: min-content;
 		gap: 0.5rem;
-		width: 30rem;
-		max-width: 100%;
+		/* width: 30rem; */
+		/* max-width: 100%; */
+		width: 100%;
+		max-width: 30rem;
 	}
 
 	.search-term {

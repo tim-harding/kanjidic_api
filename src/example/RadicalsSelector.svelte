@@ -115,8 +115,8 @@
   .root {
     gap: 0.5rem;
     grid-template-rows: max-content 1fr;
-    width: $button-size * 24;
-    grid-auto-rows: $button-size;
+    width: 100%;
+    max-width: $button-size * 24 - 1rem;
   }
 
   .error {
@@ -124,15 +124,21 @@
   }
 
   .list {
-    grid-template-columns: repeat(auto-fill, $button-size);
+    grid-template-columns: repeat(auto-fit, $button-size);
+    // width: 100%;
   }
 
   .form {
     margin: 1rem;
+    // grid-template-columns: max-content;
+    // width: 100%;
   }
 
   .fieldset {
-    grid-template-rows: 0.75rem 1fr;
+    grid-template-rows: 1rem 1fr;
+    justify-content: center;
+    // grid-template-columns: max-content;
+    // width: 100%;
   }
 
   .item {

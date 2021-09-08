@@ -22,7 +22,7 @@
 <details class="root">
 	<summary class="summary">
 		<Literal literal={character.literal} />
-		<span class="material-icons-outlined md-36">expand_more</span>
+		<span class="material-icons-outlined md-36 expand-icon">expand_more</span>
 	</summary>
 	<div class="content">
 		{#if character.decomposition !== undefined}
@@ -87,5 +87,10 @@
 		align-items: center;
 		gap: 1rem;
 		cursor: pointer;
+	}
+	
+	.expand-icon {
+		justify-self: flex-end;
+		margin-right: 2rem;
 	}
 </style>
