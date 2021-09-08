@@ -1,4 +1,4 @@
-<details open={true} class="details">
+<details open={false} class="details">
 	<summary class="summary text-line">
 		<span class="material-icons-outlined open-disclosure"
 			>arrow_right</span
