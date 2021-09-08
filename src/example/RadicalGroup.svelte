@@ -3,10 +3,6 @@
 
   export let group: RadicalGroup;
   export let validNext: Record<string, boolean>
-  
-  $: {
-    // console.log(validNext)
-  }
 </script>
 
 <ul class="root">
@@ -15,7 +11,7 @@
     {group.strokes}
     <span class="hidden">strokes</span>
   </li>
-  {#each group.radicals as radical}
+  {#each group.radicals as radical (radical.literal)}
     <li class="radical">
       <input
         class="hidden"
@@ -51,15 +47,18 @@
 
   .strokes {
     font-weight: 700;
-    cursor: none;
+    cursor: initial;
     border-style: solid;
     border-radius: 0.25rem;
     border-width: 1px;
     border-color: var(--gray-400);
-    width: 1.5rem;
-    height: 1.5rem;
     justify-self: center;
     align-self: center;
+  }
+  
+  .strokes, .radical {
+    width: 100%;
+    height: 100%;
   }
 
   .radical-checkbox {

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import RadicalsSelector from "./RadicalsSelector.svelte";
+  import RadicalsSelector from "./RadicalsSearch.svelte";
   import TranslationSearch from "./TextSearch.svelte";
 
   type SearchMethod = "radicals" | "text";

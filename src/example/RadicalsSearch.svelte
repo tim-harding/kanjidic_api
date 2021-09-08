@@ -22,7 +22,9 @@
   let validNext: Record<string, boolean> = {};
   let kanjis: Character[] = [];
   let groups: Group[] = [];
+
   let isValidNextUpdateOngoing = false;
+  let needsValidNextUpdate = false
 
   async function initialize() {
     const response = await queryAllRadicals(ENDPOINT);
@@ -50,9 +52,20 @@
 
   async function updateValidNext() {
     if (isValidNextUpdateOngoing) {
+      needsValidNextUpdate = true
       return;
     }
     isValidNextUpdateOngoing = true;
+    
+    await doQuery()
+
+    isValidNextUpdateOngoing = false;
+    if (needsValidNextUpdate) {
+      updateValidNext()
+    }
+  }
+  
+  async function doQuery() {
     const queryRadicals = groups.flatMap((group) =>
       group.radicals
         .filter((radical) => radical.checked)
@@ -71,10 +84,17 @@
       validNext[radical] = true;
     }
     kanjis = decomposition.kanji;
-    isValidNextUpdateOngoing = false;
   }
 
   initialize();
+  
+  function reset() {
+    for (const group of groups) {
+      for (const radical of group.radicals) {
+        radical.checked = false
+      }
+    }
+  }
 
   $: {
     groups; // Get that reactivity
@@ -95,7 +115,13 @@
         <fieldset class="fieldset">
           <legend>Select radicals to find a matching kanji.</legend>
           <ol class="list">
-            {#each groups as group}
+            <li>
+              <button on:click={reset} class="reset">
+                <span class="hidden">Reset selection</span>
+                <span class="material-icons-outlined">replay</span>
+              </button>
+            </li>
+            {#each groups as group (group.strokes)}
               <li class="item">
                 <RadicalGroup bind:group {validNext} />
               </li>
@@ -110,7 +136,20 @@
 </div>
 
 <style lang="scss">
-  $button-size: 1.75rem;
+  $button-size: 1.65rem;
+  
+  .reset {
+    border-radius: 0.25rem;
+    cursor: pointer;
+
+    &:hover {
+      background-color: var(--snow-storm-2);
+    }
+  
+    &:active {
+      background-color: var(--gray-300);
+    }
+  }
 
   .root {
     gap: 0.5rem;
@@ -125,20 +164,17 @@
 
   .list {
     grid-template-columns: repeat(auto-fit, $button-size);
-    // width: 100%;
+    grid-auto-rows: $button-size;
+    gap: 1px;
   }
 
   .form {
     margin: 1rem;
-    // grid-template-columns: max-content;
-    // width: 100%;
   }
 
   .fieldset {
     grid-template-rows: 1rem 1fr;
     justify-content: center;
-    // grid-template-columns: max-content;
-    // width: 100%;
   }
 
   .item {
