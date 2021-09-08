@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { Character } from "../lib";
+import { queryLiteralsChecked } from "../lib/literals_access";
 	import { queryTranslationChecked } from "../lib/translation_access";
 
 	import Popover from "./Popover.svelte";
@@ -34,12 +35,23 @@
 		if (term.length === 0) {
 			return;
 		}
-		const response = await queryTranslationChecked(kanjiAccess, term);
-		if (response instanceof Error) {
-			error = response.message;
+		const [translations, literals] = await Promise.all([
+			queryTranslationChecked(kanjiAccess, term),
+			queryLiteralsChecked(kanjiAccess, term)
+		])
+		if (translations instanceof Error) {
+			error = translations.message;
 			return;
 		}
-		results = response.kanji;
+		if (literals instanceof Error) {
+			error = literals.message;
+			return;
+		}
+		// We're just ignoring errors on the literals response
+		results = [
+			...translations.kanji,
+			...literals.kanji,
+		]
 	}
 
 	let term: string = "";

@@ -1,9 +1,8 @@
 <script lang="ts">
-  import LiteralSearch from "./LiteralSearch.svelte";
   import RadicalsSelector from "./RadicalsSelector.svelte";
   import TranslationSearch from "./TranslationSearch.svelte";
 
-  type SearchMethod = "decomposition" | "literal" | "translation";
+  type SearchMethod = "decomposition" | "text";
 
   let searchMethod: SearchMethod = "decomposition";
 </script>
@@ -19,16 +18,13 @@
         bind:value={searchMethod}
       >
         <option value="decomposition"> Decomposition </option>
-        <option value="translation"> Translation </option>
-        <option value="literal"> Kanji </option>
+        <option value="text"> Text </option>
       </select>
     </div>
   </header>
   <main class="main">
     {#if searchMethod === "decomposition"}
       <RadicalsSelector />
-    {:else if searchMethod === "literal"}
-      <LiteralSearch />
     {:else}
       <TranslationSearch />
     {/if}

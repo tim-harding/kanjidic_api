@@ -13,11 +13,20 @@ function isLiteralsResponse(value: unknown): value is LiteralsResponse {
 		hasArrayProperty(value, "kanji", isCharacter)
 }
 
-export async function queryLiterals(access: KanjiAccess, literals: Array<string>): Promise<LiteralsResponse | Error> {
-	const url = urlFromKanjiAccess(access, "literals")
-	for (const literal of literals) {
-		url.searchParams.append("literal", literal)
-	}
-	const json = await query(url, isLiteralsResponse)
+export async function queryLiteralsChecked(access: KanjiAccess, literals: string): Promise<LiteralsResponse | Error> {
+	return await queryLiterals(access, literals, isLiteralsResponse)
+}
+
+export async function queryLiteralsUnchecked(access: KanjiAccess, literals: string): Promise<LiteralsResponse | Error> {
+	return await queryLiterals(access, literals, noopChecker)
+}
+
+function noopChecker(json: unknown): json is LiteralsResponse {
+	return true
+}
+
+async function queryLiterals(access: KanjiAccess, literals: string, checker: { (json: unknown): json is LiteralsResponse }): Promise<LiteralsResponse | Error> {
+	const url = urlFromKanjiAccess(access, `literals/${literals}`)
+	const json = await query(url, checker)
 	return json
 }
