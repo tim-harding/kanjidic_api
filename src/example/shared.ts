@@ -1,4 +1,14 @@
+import type { KanjiAccess } from "../lib";
+
 export const ENDPOINT = "http://localhost:8000"
+
+export const kanjiAccess: KanjiAccess = {
+	endpointBase: ENDPOINT,
+	desiredFields: {
+		fields: "all",
+		languages: "all",
+	},
+};
 
 let nextId: number = 0
 

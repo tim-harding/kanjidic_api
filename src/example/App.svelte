@@ -1,5 +1,11 @@
 <script lang="ts">
-import RadicalsSelector from "./RadicalsSelector.svelte";
+  import LiteralSearch from "./LiteralSearch.svelte";
+  import RadicalsSelector from "./RadicalsSelector.svelte";
+  import TranslationSearch from "./TranslationSearch.svelte";
+
+  type SearchMethod = "decomposition" | "literal" | "translation";
+
+  let searchMethod: SearchMethod = "decomposition";
 </script>
 
 <div class="root">
@@ -7,17 +13,27 @@ import RadicalsSelector from "./RadicalsSelector.svelte";
     <h1 class="title">Kanjidic Example</h1>
     <div class="search-method-container">
       <label for="search-method"> Search method: </label>
-      <select id="search-method" class="search-method">
+      <select
+        id="search-method"
+        class="search-method"
+        bind:value={searchMethod}
+      >
         <option value="decomposition"> Decomposition </option>
+        <option value="translation"> Translation </option>
+        <option value="literal"> Kanji </option>
       </select>
     </div>
   </header>
   <main class="main">
-    <RadicalsSelector />
+    {#if searchMethod === "decomposition"}
+      <RadicalsSelector />
+    {:else if searchMethod === "literal"}
+      <LiteralSearch />
+    {:else}
+      <TranslationSearch />
+    {/if}
   </main>
-  <footer class="footer">
-    Put some information here about licensing. 
-  </footer>
+  <footer class="footer">Put some information here about licensing.</footer>
 </div>
 
 <style lang="scss">
@@ -26,7 +42,7 @@ import RadicalsSelector from "./RadicalsSelector.svelte";
     gap: 2rem;
     min-height: 100vh;
   }
-  
+
   .main {
     grid-template-columns: max-content;
     justify-content: center;
@@ -44,7 +60,7 @@ import RadicalsSelector from "./RadicalsSelector.svelte";
     padding-right: 2rem;
     align-items: center;
   }
-  
+
   .footer {
     background-color: var(--snow-storm-1);
     border-top-width: 2px;

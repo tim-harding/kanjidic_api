@@ -28,9 +28,7 @@ export interface KanjiAccess {
 	}
 }
 
-export type KanjiRoute = "literals" | "decomposition"
-
-export function urlFromKanjiAccess(access: KanjiAccess, route: KanjiRoute): URL {
+export function urlFromKanjiAccess(access: KanjiAccess, route: string): URL {
 	const {
 		endpointBase,
 		desiredFields: {

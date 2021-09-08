@@ -1,12 +1,12 @@
 <script lang="ts">
-  import type { Character, KanjiAccess, Uint } from "../lib";
+  import type { Character, Uint } from "../lib";
   import { queryDecompositionChecked } from "../lib/decomposition_access";
 
   import { queryAllRadicals } from "../lib/radical_all_access";
-  import Kanji from "./Kanji.svelte";
   import RadicalGroup from "./RadicalGroup.svelte";
+  import ResultsList from "./ResultsList.svelte";
   import SectioningBox from "./SectioningBox.svelte";
-  import { ENDPOINT } from "./shared";
+  import { ENDPOINT, kanjiAccess } from "./shared";
 
   interface Group {
     strokes: Uint;
@@ -58,15 +58,8 @@
         .filter((radical) => radical.checked)
         .map((radical) => radical.literal)
     );
-    const access: KanjiAccess = {
-      endpointBase: ENDPOINT,
-      desiredFields: {
-        fields: "all",
-        languages: "all",
-      },
-    };
     const decomposition = await queryDecompositionChecked(
-      access,
+      kanjiAccess,
       queryRadicals
     );
     if (decomposition instanceof Error) {
@@ -113,17 +106,9 @@
     {/if}
   </SectioningBox>
 
-  {#if kanjis.length > 0}
-    <SectioningBox>
-      <ul class="results">
-        {#each kanjis as kanji}
-          <li class="kanji-list-item">
-            <Kanji character={kanji} />
-          </li>
-        {/each}
-      </ul>
-    </SectioningBox>
-  {/if}
+  <div class="results">
+    <ResultsList {kanjis} />
+  </div>
 </div>
 
 <style lang="scss">
@@ -141,8 +126,9 @@
   .list {
     grid-template-columns: repeat(auto-fill, $button-size);
   }
-  
-  .list, .results {
+
+  .list,
+  .results {
     width: $button-size * 24;
     grid-auto-rows: $button-size;
   }
@@ -157,24 +143,5 @@
 
   .item {
     display: contents;
-  }
-
-  .results {
-    grid-auto-rows: max-content;
-    margin-top: 1.4rem;
-    margin-bottom: 1.4rem;
-    gap: 1.4rem;
-  }
-  
-  .kanji-list-item {
-    padding-bottom: 1.4rem;
-    border-bottom-style: solid;
-    border-bottom-width: 2px;
-    border-bottom-color: var(--gray-300);
-    
-    &:last-child {
-      border-bottom-style: none;
-      padding-bottom: 0rem;
-    }
   }
 </style>
