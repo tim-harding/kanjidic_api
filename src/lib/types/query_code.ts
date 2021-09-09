@@ -3,7 +3,7 @@ import { FourCorner } from "./four_corner"
 import { Misclassification } from "./misclassification"
 import { isSum, isTypeFromTagged } from "../shared"
 import type { Checker, Sum } from "../shared"
-import { ShDesc } from "./sh_desc"
+import { SpahnHadamitzky } from "./sh_desc"
 import { isSkip, serializeSkip } from "./skip"
 import type { Skip } from "./skip"
 
@@ -31,7 +31,7 @@ export interface QueryCode_Skip {
  */
 export interface QueryCode_SpahnHadamitzky {
 	tag: SpahnHadamitzkyTag
-	content: ShDesc.ShDesc
+	content: SpahnHadamitzky.Descriptor
 }
 
 /**
@@ -83,7 +83,7 @@ function isQueryCodeSkip(value: Sum): value is QueryCode_Skip {
 }
 
 function isQueryCodeShDesc(value: Sum): value is QueryCode_SpahnHadamitzky {
-	return ShDesc.check(value.content)
+	return SpahnHadamitzky.check(value.content)
 }
 
 function isQueryCodeFourCorner(value: Sum): value is QueryCode_FourCorner {
@@ -113,7 +113,7 @@ export function serializeQueryCode(code: QueryCode): string {
 			return serializeSkip(code.content)
 		}
 		case "SpahnHadamitzky": {
-			return ShDesc.serialize(code.content)
+			return SpahnHadamitzky.serialize(code.content)
 		}
 	}
 }

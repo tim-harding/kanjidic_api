@@ -3,7 +3,7 @@ import { Kuten } from "./kuten";
 import { Oneill } from "./oneill";
 import { isSum, isTypeFromTagged } from "../shared";
 import type { Checker, Sum } from "../shared";
-import { ShDesc } from "./sh_desc";
+import { SpahnHadamitzky } from "./sh_desc";
 import { isUint } from "./uint";
 import type { Uint } from "./uint";
 import { isUnicode, serializeUnicode } from "./unicode";
@@ -151,7 +151,7 @@ export interface Variant_ShDesc {
   /**
    * The encoding
    */
-  content: ShDesc.ShDesc;
+  content: SpahnHadamitzky.Descriptor;
 }
 
 /**
@@ -202,7 +202,7 @@ const SERIALIZERS: Record<VariantTag, Serializer> = {
   Halpern: serializeUint,
   Nelson: serializeUint,
   DeRoo: DeRoo.serialize,
-  SpahnHadamitzky: ShDesc.serialize,
+  SpahnHadamitzky: SpahnHadamitzky.serialize,
   ONeill: Oneill.serialize,
 };
 
@@ -239,7 +239,7 @@ function isVariantOneill(value: Sum): value is Variant_Oneill {
 }
 
 function isVariantShDesc(value: Sum): value is Variant_ShDesc {
-  return ShDesc.check(value.content);
+  return SpahnHadamitzky.check(value.content);
 }
 
 function isVariantUint(value: Sum): value is Variant_Uint {

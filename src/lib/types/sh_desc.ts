@@ -3,13 +3,13 @@ import { isShRadical } from "./sh_radical";
 import type { ShRadical } from "./sh_radical";
 import type { Uint } from "./uint";
 
-export namespace ShDesc {
+export namespace SpahnHadamitzky {
   /**
    * Descriptor code for The Kanji Dictionary.
    * The code reference can be found here:
    * http://www.edrdg.org/wiki/index.php/KANJIDIC_Project
    */
-  export interface ShDesc {
+  export interface Descriptor {
     /**
      * The letter for the radical in the identification system.
      */
@@ -32,11 +32,11 @@ export namespace ShDesc {
     sequence: Uint;
   }
 
-  export function serialize(desc: ShDesc): string {
+  export function serialize(desc: Descriptor): string {
     return `${desc.radicalStrokes}${desc.radical}${desc.otherStrokes}.${desc.sequence}`;
   }
 
-  export function check(value: unknown): value is ShDesc {
+  export function check(value: unknown): value is Descriptor {
     return (
       isObject(value) &&
       hasUintProperty(value, "radicalStrokes") &&
