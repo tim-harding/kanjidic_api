@@ -1,6 +1,5 @@
 import { hasProperty, hasStringProperty, isObject } from "../shared";
-import { isSkip, serializeSkip } from "./skip";
-import type { Skip } from "./skip";
+import { Skip } from "./skip";
 
 export namespace Misclassification {
   /**
@@ -10,7 +9,7 @@ export namespace Misclassification {
     /**
      * The skip code of the misclassification
      */
-    skip: Skip;
+    skip: Skip.Skip;
 
     /**
      * The kind of misclassification
@@ -48,14 +47,14 @@ export namespace Misclassification {
     | MisclassificationKind_Ambiguous;
 
   export function serialize(misclassification: Misclassification): string {
-    return serializeSkip(misclassification.skip);
+    return Skip.serialize(misclassification.skip);
   }
 
   export function check(value: unknown): value is Misclassification {
     return (
       isObject(value) &&
       hasProperty(value, "skip") &&
-      isSkip(value.skip) &&
+      Skip.check(value.skip) &&
       hasStringProperty(value, "kind") &&
       isMisclassificationKind(value.kind)
     );

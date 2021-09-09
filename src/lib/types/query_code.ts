@@ -4,8 +4,7 @@ import { Misclassification } from "./misclassification"
 import { isSum, isTypeFromTagged } from "../shared"
 import type { Checker, Sum } from "../shared"
 import { SpahnHadamitzky } from "./sh_desc"
-import { isSkip, serializeSkip } from "./skip"
-import type { Skip } from "./skip"
+import { Skip } from "./skip"
 
 export type SkipTag = "Skip"
 export type SpahnHadamitzkyTag = "SpahnHadamitzky"
@@ -23,7 +22,7 @@ export type QueryCodeTag = SkipTag |
  */
 export interface QueryCode_Skip {
 	tag: SkipTag
-	content: Skip
+	content: Skip.Skip
 }
 
 /**
@@ -79,7 +78,7 @@ const CHECKERS: Record<QueryCodeTag, Checker<Sum, QueryCode>> = {
 }
 
 function isQueryCodeSkip(value: Sum): value is QueryCode_Skip {
-	return isSkip(value.content)
+	return Skip.check(value.content)
 }
 
 function isQueryCodeShDesc(value: Sum): value is QueryCode_SpahnHadamitzky {
@@ -110,7 +109,7 @@ export function serializeQueryCode(code: QueryCode): string {
 			return Misclassification.serialize(code.content)
 		}
 		case "Skip": {
-			return serializeSkip(code.content)
+			return Skip.serialize(code.content)
 		}
 		case "SpahnHadamitzky": {
 			return SpahnHadamitzky.serialize(code.content)

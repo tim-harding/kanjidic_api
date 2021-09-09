@@ -3,7 +3,7 @@
 	import type { Skip } from "../lib/types/skip";
 	import Url from "./Url.svelte";
 
-	export let skip: Skip;
+	export let skip: Skip.Skip;
 </script>
 
 <p>
