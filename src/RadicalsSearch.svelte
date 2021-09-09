@@ -7,7 +7,7 @@
   import RadicalGroup from "./RadicalGroup.svelte";
   import ResultsList from "./ResultsList.svelte";
   import SectioningBox from "./SectioningBox.svelte";
-  import { ENDPOINT, kanjiAccess } from "./shared";
+  import { ENDPOINT_BASE, kanjiEndpoint } from "./shared";
 
   interface Group {
     strokes: Uint;
@@ -30,7 +30,7 @@
   let needsValidNextUpdate = false;
 
   async function initialize() {
-    const response = await AllRadicals.queryChecked(ENDPOINT);
+    const response = await AllRadicals.queryChecked(ENDPOINT_BASE);
     if (response instanceof Error) {
       error = response;
       return;
@@ -83,7 +83,7 @@
       return;
     }
     const decomposition = await Decomposition.queryChecked(
-      kanjiAccess,
+      kanjiEndpoint,
       queryRadicals
     );
     if (decomposition instanceof Error) {

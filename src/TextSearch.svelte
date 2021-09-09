@@ -1,12 +1,12 @@
 <script lang="ts">
   import type { Kanji } from "./lib/types/kanji";
   import { Literals } from "./lib/access/literals";
-  import { queryTranslationChecked } from "./lib/access/translation";
+  import { Translation } from "./lib/access/translation";
 
   import Popover from "./Popover.svelte";
   import ResultsList from "./ResultsList.svelte";
   import SectioningBox from "./SectioningBox.svelte";
-  import { kanjiAccess } from "./shared";
+  import { kanjiEndpoint } from "./shared";
 
   let results: Kanji[] = [];
   let error: string | undefined;
@@ -37,8 +37,8 @@
       return;
     }
     const [translations, literals] = await Promise.all([
-      queryTranslationChecked(kanjiAccess, term),
-      Literals.queryChecked(kanjiAccess, term),
+      Translation.queryChecked(kanjiEndpoint, term),
+      Literals.queryChecked(kanjiEndpoint, term),
     ]);
     if (translations instanceof Error) {
       error = translations.message;

@@ -1,9 +1,9 @@
-import type { KanjiAccess } from "../lib/kanji_access";
+import type { KanjiEndpoint } from "./lib/access/kanji_endpoint";
 
-export const ENDPOINT = "http://localhost:8000"
+export const ENDPOINT_BASE = "http://localhost:8000"
 
-export const kanjiAccess: KanjiAccess = {
-	endpointBase: ENDPOINT,
+export const kanjiEndpoint: KanjiEndpoint.Template = {
+	endpointBase: ENDPOINT_BASE,
 	desiredFields: {
 		fields: "all",
 		languages: "all",

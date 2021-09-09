@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Reference as ReferenceType } from "./lib/reference";
+	import type { Reference as ReferenceType } from "./lib/types/reference";
 	import KanjiDropdown from "./KanjiDropdown.svelte";
 	import Popover from "./Popover.svelte";
 	import Reference from "./Reference.svelte";

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Kanji from "./Kanji.svelte";
-	import type { Kanji as KanjiType } from "./lib/kanji";
+	import type { Kanji as KanjiType } from "./lib/types/kanji";
 
 	// Todo: pick something that tests all possible paths
 	export const testKanji: KanjiType = {

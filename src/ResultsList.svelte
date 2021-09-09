@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Kanji as KanjiType } from "./lib/kanji";
+	import type { Kanji as KanjiType } from "./lib/types/kanji";
 	import Kanji from "./Kanji.svelte";
 	import SectioningBox from "./SectioningBox.svelte";
 

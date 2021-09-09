@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Uint } from "./lib/uint";
+	import type { Uint } from "./lib/types/uint";
 	import Popover from "./Popover.svelte";
 
 	export let jlpt: Uint;

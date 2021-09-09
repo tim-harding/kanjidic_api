@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Grade as GradeType, GradeTag } from "./lib/grade";
+	import type { Grade as GradeType, GradeTag } from "./lib/types/grade";
 	import Popover from "./Popover.svelte";
 
 	export let grade: GradeType;

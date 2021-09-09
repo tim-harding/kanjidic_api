@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Kanji } from "./lib/kanji";
+	import type { Kanji } from "./lib/types/kanji";
 	import Grade from "./Grade.svelte";
 	import Codepoints from "./Codepoints.svelte";
 	import Literal from "./Literal.svelte";

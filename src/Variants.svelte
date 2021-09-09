@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Variant as VariantType } from "./lib/variant";
+	import type { Variant as VariantType } from "./lib/types/variant";
 	import KanjiDropdown from "./KanjiDropdown.svelte";
 	import Popover from "./Popover.svelte";
 	import Variant from "./Variant.svelte";
