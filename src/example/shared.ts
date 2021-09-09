@@ -1,4 +1,4 @@
-import type { KanjiAccess } from "../lib";
+import type { KanjiAccess } from "../lib/kanji_access";
 
 export const ENDPOINT = "http://localhost:8000"
 

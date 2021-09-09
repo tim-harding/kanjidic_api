@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Kanji from "./Kanji.svelte";
-	import { Character } from "../lib/character";
+	import { Character } from "../lib/kanji";
 
 	// Todo: pick something that tests all possible paths
 	export const testKanji: Character = {

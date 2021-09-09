@@ -1,5 +1,5 @@
-import { isCharacter } from "./character"
-import type { Character } from "./character"
+import { isCharacter } from "./kanji"
+import type { Kanji } from "./kanji"
 import { urlFromKanjiAccess } from "./kanji_access"
 import type { KanjiAccess } from "./kanji_access"
 import { hasArrayProperty, hasOptionalArrayProperty, isObject, isString, query } from "./shared"
@@ -7,7 +7,7 @@ import { hasArrayProperty, hasOptionalArrayProperty, isObject, isString, query }
 export interface DecompositionResponse {
 	errors?: string[],
 	validNext: string[],
-	kanji: Character[],
+	kanji: Kanji[],
 }
 
 function isDecompositionResponse(value: unknown): value is DecompositionResponse {
@@ -25,7 +25,7 @@ export async function queryDecompositionUnchecked(access: KanjiAccess, radicals:
 	return await queryDecomposition(access, radicals, noopChecker)
 }
 
-function noopChecker(json: unknown): json is DecompositionResponse {
+function noopChecker(_: unknown): _ is DecompositionResponse {
 	return true
 }
 

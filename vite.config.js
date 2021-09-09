@@ -12,7 +12,6 @@ module.exports = defineConfig({
   // https://vitejs.dev/guide/build.html#library-mode
   build: {
     target: "esnext",
-    polyfillDynamicImport: false,
     lib: {
       entry: path.resolve(__dirname, "distTs/lib/index.js"),
       name: "kanjidic_api",

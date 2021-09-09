@@ -1,10 +1,10 @@
-import { Character, isCharacter } from "./character"
+import { Kanji, isCharacter } from "./kanji"
 import { KanjiAccess, urlFromKanjiAccess } from "./kanji_access"
 import { hasArrayProperty, hasOptionalArrayProperty, isObject, isString, query } from "./shared"
 
 export interface LiteralsResponse {
 	errors?: Array<string>,
-	kanji: Array<Character>,
+	kanji: Array<Kanji>,
 }
 
 function isLiteralsResponse(value: unknown): value is LiteralsResponse {

@@ -1,10 +1,10 @@
 import { urlFromKanjiAccess } from "./kanji_access"
 import type { KanjiAccess } from "./kanji_access"
-import { Character, isCharacter } from "./character"
+import { Kanji, isCharacter } from "./kanji"
 import { hasArrayProperty, isObject, query } from "./shared"
 
 export interface TranslationResponse {
-	kanji: Character[],
+	kanji: Kanji[],
 }
 
 function isTranslationResponse(value: unknown): value is TranslationResponse {
@@ -20,7 +20,7 @@ export async function queryTranslationUnchecked(access: KanjiAccess, translation
 	return await queryTranslation(access, translation, noopChecker)
 }
 
-function noopChecker(json: unknown): json is TranslationResponse {
+function noopChecker(_: unknown): _ is TranslationResponse {
 	return true
 }
 

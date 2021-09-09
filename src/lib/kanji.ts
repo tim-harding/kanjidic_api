@@ -22,7 +22,7 @@ import type { Variant } from "./variant";
 /**
  * Information about a kanji.
  */
-export interface Character {
+export interface Kanji {
 	/**
 	 * The character itself.
 	 */
@@ -100,7 +100,7 @@ export interface Character {
 	decomposition?: Array<string>
 }
 
-export function isCharacter(value: unknown): value is Character {
+export function isCharacter(value: unknown): value is Kanji {
 	return isObject(value) &&
 		hasStringProperty(value, "literal") &&
 		hasOptionalArrayProperty(value, "codepoints", isCodepoint) &&
