@@ -3,7 +3,7 @@
 	import type { FourCorner } from "../lib/types/four_corner";
 	import Url from "./Url.svelte";
 
-	export let fourCorner: FourCorner;
+	export let fourCorner: FourCorner.FourCorner;
 </script>
 
 <p>
