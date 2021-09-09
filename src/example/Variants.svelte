@@ -4,7 +4,7 @@
 	import Popover from "./Popover.svelte";
 	import Variant from "./Variant.svelte";
 
-	export let variants: VariantType[];
+	export let variants: VariantType.Variant[];
 </script>
 
 <KanjiDropdown>

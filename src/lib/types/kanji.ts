@@ -17,8 +17,7 @@ import {
 import { StrokeCount } from "./stroke_count";
 import { Translations } from "./translations";
 import type { Uint } from "./uint";
-import { isVariant } from "./variant";
-import type { Variant } from "./variant";
+import { Variant } from "./variant";
 
 export namespace Kanji {
   /**
@@ -53,7 +52,7 @@ export namespace Kanji {
     /**
      * Cross-references to other characters or alternative indexings.
      */
-    variants?: Variant[];
+    variants?: Variant.Variant[];
 
     /**
      * A ranking of how often the character appears in newspapers.
@@ -111,7 +110,7 @@ export namespace Kanji {
       (!hasProperty(value, "grade") || Grade.check(value.grade)) &&
       (!hasProperty(value, "strokeCounts") ||
         StrokeCount.check(value.strokeCounts)) &&
-      hasOptionalArrayProperty(value, "variants", isVariant) &&
+      hasOptionalArrayProperty(value, "variants", Variant.check) &&
       hasOptionalUintProperty(value, "frequency") &&
       hasOptionalArrayProperty(value, "radicalNames", isString) &&
       hasOptionalUintProperty(value, "jlpt") &&
