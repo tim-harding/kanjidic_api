@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Kuten } from "../lib";
+	import type { Kuten } from "../lib/kuten";
 	import Url from "./Url.svelte";
 
 	export let kuten: Kuten;

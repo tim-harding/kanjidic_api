@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { QueryCode as QueryCodeType } from "../lib";
+	import type { QueryCode as QueryCodeType } from "../lib/query_code";
 	import KanjiDropdown from "./KanjiDropdown.svelte";
 	import Popover from "./Popover.svelte";
 	import QueryCode from "./QueryCode.svelte";

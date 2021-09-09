@@ -7,7 +7,7 @@
 	} from "../lib/reference";
 	import type { Reference as ReferenceType } from "../lib/reference";
 	import Url from "./Url.svelte";
-	import { serializeOneill } from "../lib";
+	import { serializeOneill } from "../lib/oneill";
 
 	export let reference: ReferenceType;
 

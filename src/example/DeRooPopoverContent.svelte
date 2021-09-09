@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { DeRoo } from "../lib";
+	import type { DeRoo } from "../lib/de_roo";
 
 	import Url from "./Url.svelte";
 

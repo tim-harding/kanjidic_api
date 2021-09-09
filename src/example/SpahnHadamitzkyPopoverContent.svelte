@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { ShDesc } from "../lib";
+	import type { ShDesc } from "../lib/sh_desc";
 	import Url from "./Url.svelte";
 
 	export let shDesc: ShDesc;

@@ -18,13 +18,4 @@ module.exports = defineConfig({
       fileName: (format) => `kanjidic_api.${format}.js`,
     },
   },
-  plugins: [
-    svelte({
-      preprocess: [
-        sveltePreprocess({
-          typescript: true,
-        }),
-      ],
-    }),
-  ],
 })

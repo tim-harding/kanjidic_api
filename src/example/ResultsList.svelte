@@ -1,9 +1,9 @@
 <script lang="ts">
-	import type { Character } from "../lib";
+	import type { Kanji as KanjiType } from "../lib/kanji";
 	import Kanji from "./Kanji.svelte";
 	import SectioningBox from "./SectioningBox.svelte";
 
-	export let kanjis: Character[];
+	export let kanjis: KanjiType[];
 </script>
 
 {#if kanjis.length > 0}
@@ -11,7 +11,7 @@
 		<ul class="results">
 			{#each kanjis as kanji}
 				<li class="kanji-list-item">
-					<Kanji character={kanji} />
+					<Kanji kanji={kanji} />
 				</li>
 			{/each}
 		</ul>

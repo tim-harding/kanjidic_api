@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { kangxiName, kangxiSymbol } from "../lib";
+	import { kangxiName, kangxiSymbol } from "../lib/kangxi";
 	import type { KangxiRadical as KangxiRadicalType } from "../lib/kangxi_radical";
 	import Popover from "./Popover.svelte";
 	import Citation from "./Citation.svelte";

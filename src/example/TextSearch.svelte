@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Character } from "../lib";
+	import type { Kanji } from "../lib/kanji";
 	import { queryLiteralsChecked } from "../lib/literals_access";
 	import { queryTranslationChecked } from "../lib/translation_access";
 
@@ -8,7 +8,7 @@
 	import SectioningBox from "./SectioningBox.svelte";
 	import { kanjiAccess } from "./shared";
 
-	let results: Character[] = [];
+	let results: Kanji[] = [];
 	let error: string | undefined;
 
 	let updatePending = false;

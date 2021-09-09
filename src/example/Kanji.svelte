@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Character } from "../lib";
+	import type { Kanji } from "../lib/kanji";
 	import Grade from "./Grade.svelte";
 	import Codepoints from "./Codepoints.svelte";
 	import Literal from "./Literal.svelte";
@@ -16,56 +16,56 @@
 	import Nanori from "./Nanori.svelte";
 	import Decomposition from "./Decomposition.svelte";
 
-	export let character: Character;
+	export let kanji: Kanji;
 </script>
 
 <details class="root">
 	<summary class="summary">
-		<Literal literal={character.literal} />
+		<Literal literal={kanji.literal} />
 		<span class="material-icons-outlined md-36 expand-icon">expand_more</span>
 	</summary>
 	<div class="content">
-		{#if character.decomposition !== undefined}
-			<Decomposition decomposition={character.decomposition} />
+		{#if kanji.decomposition !== undefined}
+			<Decomposition decomposition={kanji.decomposition} />
 		{/if}
-		{#if character.strokeCounts !== undefined}
-			<StrokeCounts strokeCounts={character.strokeCounts} />
+		{#if kanji.strokeCounts !== undefined}
+			<StrokeCounts strokeCounts={kanji.strokeCounts} />
 		{/if}
-		{#if character.frequency !== undefined}
-			<Frequency frequency={character.frequency} />
+		{#if kanji.frequency !== undefined}
+			<Frequency frequency={kanji.frequency} />
 		{/if}
-		{#if character.jlpt !== undefined}
-			<Jlpt jlpt={character.jlpt} />
+		{#if kanji.jlpt !== undefined}
+			<Jlpt jlpt={kanji.jlpt} />
 		{/if}
-		{#if character.grade !== undefined}
-			<Grade grade={character.grade} />
+		{#if kanji.grade !== undefined}
+			<Grade grade={kanji.grade} />
 		{/if}
-		{#if character.readings !== undefined}
-			<Readings readings={character.readings} />
+		{#if kanji.readings !== undefined}
+			<Readings readings={kanji.readings} />
 		{/if}
-		{#if character.translations !== undefined}
-			<Translations translations={character.translations} />
+		{#if kanji.translations !== undefined}
+			<Translations translations={kanji.translations} />
 		{/if}
-		{#if character.codepoints !== undefined}
-			<Codepoints codepoints={character.codepoints} />
+		{#if kanji.codepoints !== undefined}
+			<Codepoints codepoints={kanji.codepoints} />
 		{/if}
-		{#if character.queryCodes !== undefined}
-			<QueryCodes codes={character.queryCodes} />
+		{#if kanji.queryCodes !== undefined}
+			<QueryCodes codes={kanji.queryCodes} />
 		{/if}
-		{#if character.radicals !== undefined}
-			<Radicals radicals={character.radicals} />
+		{#if kanji.radicals !== undefined}
+			<Radicals radicals={kanji.radicals} />
 		{/if}
-		{#if character.variants !== undefined}
-			<Variants variants={character.variants} />
+		{#if kanji.variants !== undefined}
+			<Variants variants={kanji.variants} />
 		{/if}
-		{#if character.radicalNames !== undefined}
-			<RadicalNames names={character.radicalNames} />
+		{#if kanji.radicalNames !== undefined}
+			<RadicalNames names={kanji.radicalNames} />
 		{/if}
-		{#if character.nanori !== undefined}
-			<Nanori nanori={character.nanori} />
+		{#if kanji.nanori !== undefined}
+			<Nanori nanori={kanji.nanori} />
 		{/if}
-		{#if character.references !== undefined}
-			<References references={character.references} />
+		{#if kanji.references !== undefined}
+			<References references={kanji.references} />
 		{/if}
 	</div>
 </details>

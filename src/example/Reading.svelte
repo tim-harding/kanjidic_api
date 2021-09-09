@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { serializeTone } from "../lib";
+	import { serializeTone } from "../lib/tone";
 
 	import type { Reading as ReadingType, ReadingTag } from "../lib/reading";
 	import { isReadingStringFromTag } from "../lib/reading";

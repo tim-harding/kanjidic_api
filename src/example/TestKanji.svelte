@@ -1,9 +1,9 @@
 <script lang="ts">
 	import Kanji from "./Kanji.svelte";
-	import { Character } from "../lib/kanji";
+	import type { Kanji as KanjiType } from "../lib/kanji";
 
 	// Todo: pick something that tests all possible paths
-	export const testKanji: Character = {
+	export const testKanji: KanjiType = {
 		literal: "亜",
 		codepoints: [
 			{
@@ -274,4 +274,4 @@
 	};
 </script>
 
-<Kanji character={testKanji} />
+<Kanji kanji={testKanji} />

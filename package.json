@@ -2,9 +2,9 @@
   "name": "kanjidic_api",
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite",
-    "build": "rm -R distTs && tsc && vite build",
-    "test": "jest",
+    "dev": "vite -c vite.lib.config.js",
+    "buildLib": "tsc && vite build -c vite.lib.config.js",
+    "buildExample": "vite build -c vite.example.config.js",
     "check": "svelte-check --tsconfig ./tsconfig.json",
     "tsc": "tsc --version && tsc --noEmit"
   },

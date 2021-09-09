@@ -1,5 +1,6 @@
 <script lang="ts">
-  import type { Character, Uint } from "../lib";
+  import type { Uint } from "../lib/uint";
+  import type { Kanji } from "../lib/kanji";
   import { queryDecompositionChecked } from "../lib/decomposition_access";
 
   import { queryAllRadicals } from "../lib/radical_all_access";
@@ -22,7 +23,7 @@
   let isInitialized = false;
   let error: Error | undefined = undefined;
   let validNext: Record<string, boolean> = {};
-  let kanjis: Character[] = [];
+  let kanjis: Kanji[] = [];
   let groups: Group[] = [];
 
   let isValidNextUpdateOngoing = false;
