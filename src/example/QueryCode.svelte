@@ -6,7 +6,6 @@
 	} from "../lib/types/query_code";
 	import type {
 		Misclassification,
-		MisclassificationKind,
 	} from "../lib/types/misclassification";
 	import Popover from "./Popover.svelte";
 	import DeRooPopoverContent from "./DeRooPopoverContent.svelte";
@@ -16,7 +15,7 @@
 
 	export let code: QueryCodeType;
 
-	const MISCLASSIFICATION_NAMES: Record<MisclassificationKind, string> = {
+	const MISCLASSIFICATION_NAMES: Record<Misclassification.MisclassificationKind, string> = {
 		Ambiguous: "ambiguous",
 		Position: "position",
 		StrokeAndPosition: "stroke and position",
@@ -29,7 +28,7 @@
 		Skip: (_) => "Skip",
 		SpahnHadamitzky: (_) => "Spahn Hadamitzky",
 		Misclassification: (code) => {
-			const misclassification = code.content as Misclassification;
+			const misclassification = code.content as Misclassification.Misclassification;
 			return `Misclassification of ${
 				MISCLASSIFICATION_NAMES[misclassification.kind]
 			}`;
