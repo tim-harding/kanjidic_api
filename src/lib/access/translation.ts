@@ -3,41 +3,43 @@ import { isCharacter } from "../types/kanji";
 import type { Kanji } from "../types/kanji";
 import { hasArrayProperty, isObject, query } from "../shared";
 
-export interface TranslationResponse {
-  kanji: Kanji[];
-}
+export namespace Translation {
+  export interface Response {
+    kanji: Kanji[];
+  }
 
-function isTranslationResponse(value: unknown): value is TranslationResponse {
-  return isObject(value) && hasArrayProperty(value, "kanji", isCharacter);
-}
+  export async function queryChecked(
+    template: KanjiEndpoint.Template,
+    translation: string
+  ): Promise<Response | Error> {
+    return await queryWithChecker(template, translation, isResponse);
+  }
 
-export async function queryTranslationChecked(
-  template: KanjiEndpoint.Template,
-  translation: string
-): Promise<TranslationResponse | Error> {
-  return await queryTranslation(template, translation, isTranslationResponse);
-}
+  export async function queryUnchecked(
+    template: KanjiEndpoint.Template,
+    translation: string
+  ): Promise<Response | Error> {
+    return await queryWithChecker(template, translation, noopChecker);
+  }
 
-export async function queryTranslationUnchecked(
-  template: KanjiEndpoint.Template,
-  translation: string
-): Promise<TranslationResponse | Error> {
-  return await queryTranslation(template, translation, noopChecker);
-}
+  function isResponse(value: unknown): value is Response {
+    return isObject(value) && hasArrayProperty(value, "kanji", isCharacter);
+  }
 
-function noopChecker(_: unknown): _ is TranslationResponse {
-  return true;
-}
+  function noopChecker(_: unknown): _ is Response {
+    return true;
+  }
 
-async function queryTranslation(
-  template: KanjiEndpoint.Template,
-  translation: string,
-  checker: { (json: unknown): json is TranslationResponse }
-): Promise<TranslationResponse | Error> {
-  const url = KanjiEndpoint.urlFromTemplate(
-    template,
-    `translation/${translation}`
-  );
-  const json = await query(url, checker);
-  return json;
+  async function queryWithChecker(
+    template: KanjiEndpoint.Template,
+    translation: string,
+    checker: { (json: unknown): json is Response }
+  ): Promise<Response | Error> {
+    const url = KanjiEndpoint.urlFromTemplate(
+      template,
+      `translation/${translation}`
+    );
+    const json = await query(url, checker);
+    return json;
+  }
 }
