@@ -1,19 +1,16 @@
-const path = require("path")
-const { defineConfig } = require("vite")
-const { svelte } = require("@sveltejs/vite-plugin-svelte")
-const { sveltePreprocess } = require("svelte-preprocess/dist/autoProcess")
+import { defineConfig } from "vite"
 
 // Note to self: I set things up such that Typescript is transpiled with TSC for production
 // rather than esbuild. This is because esbuild doesn't handle const enums properly
 // and the output is artifically large. 
 
-module.exports = defineConfig({
+export default defineConfig({
   // Information on why this is set up the way it is:
   // https://vitejs.dev/guide/build.html#library-mode
   build: {
     target: "esnext",
     lib: {
-      entry: path.resolve(__dirname, "distTs/lib/index.js"),
+      entry: "./dist_ts/index.js",
       name: "kanjidic_api",
       fileName: (format) => `kanjidic_api.${format}.js`,
     },

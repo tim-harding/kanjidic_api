@@ -1,10 +1,11 @@
 {
-  "name": "svelte-vite-template",
+  "name": "kanjidic_api",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "buildExample": "vite build",
+    "buildLib": "tsc && vite build -c vite.lib.config.js",
     "serve": "vite preview",
     "check": "svelte-check --tsconfig ./tsconfig.json"
   },

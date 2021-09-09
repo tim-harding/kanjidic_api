@@ -23,7 +23,11 @@
     "exactOptionalPropertyTypes": true,
     
     "allowJs": true,
-    "checkJs": true
+    "checkJs": true,
+    
+    // For building the lib
+    "outDir": "dist_ts"
   },
-  "include": ["src/**/*.d.ts", "src/**/*.ts", "src/**/*.js", "src/**/*.svelte"]
+  // Only affects building the lib, not the example page
+  "include": ["src/lib/**/*.ts"]
 }
