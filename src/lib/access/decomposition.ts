@@ -1,7 +1,6 @@
 import { isCharacter } from "../types/kanji";
 import type { Kanji } from "../types/kanji";
-import { urlFromKanjiAccess } from "./kanji";
-import type { KanjiAccess } from "./kanji";
+import { KanjiEndpoint } from "./kanji_endpoint";
 import {
   hasArrayProperty,
   hasOptionalArrayProperty,
@@ -18,22 +17,20 @@ export namespace Decomposition {
   }
 
   export async function queryChecked(
-    access: KanjiAccess,
+    template: KanjiEndpoint.Template,
     radicals: string
   ): Promise<Response | Error> {
-    return await queryWithChecker(access, radicals, isResponse);
+    return await queryWithChecker(template, radicals, isResponse);
   }
 
   export async function queryUnchecked(
-    access: KanjiAccess,
+    template: KanjiEndpoint.Template,
     radicals: string
   ): Promise<Response | Error> {
-    return await queryWithChecker(access, radicals, noopChecker);
+    return await queryWithChecker(template, radicals, noopChecker);
   }
 
-  function isResponse(
-    value: unknown
-  ): value is Response {
+  function isResponse(value: unknown): value is Response {
     return (
       isObject(value) &&
       hasOptionalArrayProperty(value, "errors", isString) &&
@@ -47,14 +44,17 @@ export namespace Decomposition {
   }
 
   async function queryWithChecker(
-    access: KanjiAccess,
+    template: KanjiEndpoint.Template,
     radicals: string,
     checker: { (json: unknown): json is Response }
   ): Promise<Response | Error> {
     if (radicals.length === 0) {
       return new Error("No radicals in query is invalid");
     }
-    const url = urlFromKanjiAccess(access, `decomposition/${radicals}`);
+    const url = KanjiEndpoint.urlFromTemplate(
+      template,
+      `decomposition/${radicals}`
+    );
     for (const radical of radicals) {
       url.searchParams.append("radical", radical);
     }
