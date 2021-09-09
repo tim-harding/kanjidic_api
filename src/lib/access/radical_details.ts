@@ -1,47 +1,80 @@
-import { hasArrayProperty, hasOptionalArrayProperty, isObject, isString, query, hasOptionalUintProperty, hasStringProperty, } from "../shared"
+import {
+  hasArrayProperty,
+  hasOptionalArrayProperty,
+  isObject,
+  isString,
+  query,
+  hasOptionalUintProperty,
+  hasStringProperty,
+} from "../shared";
 import type { Uint } from "../types/uint";
 
-export interface Radical {
-	literal: string,
-	strokes?: Uint,
-	kanji?: string[],
-}
+export namespace RadicalDetails {
+  export interface Radical {
+    literal: string;
+    strokes?: Uint;
+    kanji?: string[];
+  }
 
-export function isRadical(value: unknown): value is Radical {
-	return isObject(value) &&
-		hasStringProperty(value, "literal") &&
-		hasOptionalUintProperty(value, "strokes") &&
-		hasOptionalArrayProperty(value, "kanji", isString)
-}
+  export type DesiredField = "strokes" | "kanji";
 
-export type DesiredField = "strokes" | "kanji"
+  export interface Template {
+    endpointBase: string;
+    desiredFields: DesiredField[];
+  }
 
-export interface RadicalAccess {
-	endpointBase: string
-	desiredFields: DesiredField[]
-}
+  export interface Response {
+    errors?: string[];
+    radicals: Radical[];
+  }
 
-function radicalAccessToUrl(access: RadicalAccess): URL {
-	const url = new URL(`/radicals/literals`, access.endpointBase)
-	for (const field of access.desiredFields) {
-		url.searchParams.append("field", field)
+  export async function queryChecked(
+    template: Template
+  ): Promise<Response | Error> {
+		return await queryWithChecker(template, noopChecker)
+  }
+
+  export async function queryUnchecked(
+    template: Template
+  ): Promise<Response | Error> {
+		return await queryWithChecker(template, isResponse)
+  }
+	
+	function noopChecker(_: unknown): _ is Response {
+		return true
 	}
-	return url
-}
 
-export interface RadicalResponse {
-	errors?: string[],
-	radicals: Radical[],
-}
+  async function queryWithChecker(
+    template: Template,
+    checker: { (json: unknown): json is Response }
+  ): Promise<Response | Error> {
+    const url = urlFromTemplate(template);
+    const json = await query(url, checker);
+    return json;
+  }
 
-function isRadicalResponse(value: unknown): value is RadicalResponse {
-	return isObject(value) &&
-		hasOptionalArrayProperty(value, "errors", isString) &&
-		hasArrayProperty(value, "radicals", isRadical)
-}
+  function urlFromTemplate(template: Template): URL {
+    const url = new URL(`/radicals/literals`, template.endpointBase);
+    for (const field of template.desiredFields) {
+      url.searchParams.append("field", field);
+    }
+    return url;
+  }
 
-export async function queryRadicals(access: RadicalAccess): Promise<RadicalResponse | Error> {
-	const url = radicalAccessToUrl(access)
-	const json = await query(url, isRadicalResponse)
-	return json
+  function isResponse(value: unknown): value is Response {
+    return (
+      isObject(value) &&
+      hasOptionalArrayProperty(value, "errors", isString) &&
+      hasArrayProperty(value, "radicals", isRadical)
+    );
+  }
+
+  function isRadical(value: unknown): value is Radical {
+    return (
+      isObject(value) &&
+      hasStringProperty(value, "literal") &&
+      hasOptionalUintProperty(value, "strokes") &&
+      hasOptionalArrayProperty(value, "kanji", isString)
+    );
+  }
 }
