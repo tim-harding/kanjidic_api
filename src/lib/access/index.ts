@@ -1,0 +1,6 @@
+export * as decomposition from "./decomposition_access"
+export * as kanji from "./kanji_access"
+export * as literals from "./literals_access"
+export * as radical from "./radical_access"
+export * as radicalAll from "./radical_all_access"
+export * as translation from "./translation_access"
