@@ -1,10 +1,10 @@
 <script lang="ts">
-	import type { Grade as GradeType, GradeTag } from "../lib/types/grade";
+	import type { Grade as GradeType} from "../lib/types/grade";
 	import Popover from "./Popover.svelte";
 
-	export let grade: GradeType;
+	export let grade: GradeType.Grade;
 
-	const INFOS: Record<GradeTag, string> = {
+	const INFOS: Record<GradeType.GradeTag, string> = {
 		Kyouiku: "A Kyouiku kanji learned in grades 1-6.",
 		Jinmeiyou:
 			"A Jinmeiyou kanji for use in names that is approved for use in family name registers and other official documents.",
