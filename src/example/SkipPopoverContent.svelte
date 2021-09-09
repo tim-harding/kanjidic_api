@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { SolidSubpattern } from "src/lib/types/solid_subpattern";
+	import { SolidSubpattern } from "../lib/types/solid_subpattern";
 	import type { Skip } from "../lib/types/skip";
 	import Url from "./Url.svelte";
 
