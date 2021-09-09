@@ -1,5 +1,4 @@
-import { isKunyomi } from "./kunyomi";
-import type { Kunyomi } from "./kunyomi";
+import { Kunyomi } from "./kunyomi";
 import { isPinYin } from "./pinyin";
 import type { PinYin } from "./pinyin";
 import { isString, isSum, isTypeFromTagged } from "../shared";
@@ -69,7 +68,7 @@ export interface Reading_Kunyomi {
 	/**
 	 * The reading.
 	 */
-	content: Kunyomi
+	content: Kunyomi.Kunyomi
 }
 
 /**
@@ -117,7 +116,7 @@ function isReadingString(value: Sum): value is Reading_String {
 }
 
 function isReadingKunyomi(value: Sum): value is Reading_Kunyomi {
-	return isKunyomi(value.content)
+	return Kunyomi.check(value.content)
 }
 
 function isReadingPinYin(value: Sum): value is Reading_PinYin {
