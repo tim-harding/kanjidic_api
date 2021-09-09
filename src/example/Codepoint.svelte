@@ -1,20 +1,19 @@
 <script lang="ts">
-	import { serializeCodepoint } from "../lib/types/codepoint";
-	import type { CodepointTag, Codepoint  } from "../lib/types/codepoint";
+	import { Codepoint } from "../lib/types/codepoint";
 	import Popover from "./Popover.svelte";
 	import KutenPopoverContent from "./KutenPopoverContent.svelte";
 	import UnicodePopoverContent from "./UnicodePopoverContent.svelte";
 
-	export let codepoint: Codepoint;
+	export let codepoint: Codepoint.Codepoint;
 
-	const KEYS: Record<CodepointTag, string> = {
+	const KEYS: Record<Codepoint.CodepointTag, string> = {
 		Jis208: "JIS X 0208-1997",
 		Jis212: "JIS X 0212-1990",
 		Jis213: "JIS X 0213-2000",
 		Unicode: "Unicode",
 	};
 
-	$: serialized = serializeCodepoint(codepoint);
+	$: serialized = Codepoint.serialize(codepoint);
 
 	const key = KEYS[codepoint.tag];
 </script>

@@ -4,7 +4,7 @@
 	import Codepoint from "./Codepoint.svelte";
 	import Popover from "./Popover.svelte";
 
-	export let codepoints: CodepointType[];
+	export let codepoints: CodepointType.Codepoint[];
 </script>
 
 <KanjiDropdown>
