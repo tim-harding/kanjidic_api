@@ -34,9 +34,3 @@
 		{/if}
 	</Popover>
 </div>
-
-<style lang="scss">
-	.kuten-details {
-		gap: 0.25rem;
-	}
-</style>

@@ -112,8 +112,4 @@
     border-color: var(--gray-300);
     background: url(./assets/expand_more.svg) 96% / 15% no-repeat #eee;
   }
-
-  .kanji {
-    max-width: 40rem;
-  }
 </style>
