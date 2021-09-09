@@ -1,6 +1,5 @@
 <script lang="ts">
-	import { serializeTone } from "../lib/types/tone";
-
+	import { Tone } from "../lib/types/tone";
 	import type { Reading as ReadingType, ReadingTag } from "../lib/types/reading";
 	import { isReadingStringFromTag } from "../lib/types/reading";
 	import Popover from "./Popover.svelte";
@@ -63,7 +62,7 @@
 				<dt>Tone</dt>
 				:&nbsp;
 				<dd>
-					{serializeTone(reading.content.tone)}
+					{Tone.serialize(reading.content.tone)}
 				</dd>
 			</dl>
 		</Popover>

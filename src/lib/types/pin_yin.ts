@@ -1,5 +1,5 @@
 import { hasProperty, hasStringProperty, isObject } from "../shared";
-import { isTone, Tone } from "./tone";
+import { Tone } from "./tone";
 
 export namespace PinYin {
   /**
@@ -14,7 +14,7 @@ export namespace PinYin {
     /**
      * The Mandarin tone of the reading.
      */
-    tone: Tone;
+    tone: Tone.Tone;
   }
 
   export function check(value: unknown): value is PinYin {
@@ -22,7 +22,7 @@ export namespace PinYin {
       isObject(value) &&
       hasStringProperty(value, "romanization") &&
       hasProperty(value, "tone") &&
-      isTone(value.tone)
+      Tone.check(value.tone)
     );
   }
 }
