@@ -1,12 +1,12 @@
 <script lang="ts">
-	import { kangxiName, kangxiSymbol } from "../lib/types/kangxi";
 	import type { KangxiRadical as KangxiRadicalType } from "../lib/types/kangxi_radical";
+	import { Kangxi } from "../lib/types/kangxi"
 	import Popover from "./Popover.svelte";
 	import Citation from "./Citation.svelte";
 
 	export let radical: KangxiRadicalType.KangxiRadical;
 
-	const symbol = kangxiSymbol(radical.radical);
+	const symbol = Kangxi.check(radical.radical);
 </script>
 
 <div class="text-line">
@@ -36,7 +36,7 @@
 				<dt>Radical name</dt>
 				:&nbsp;
 				<dd>
-					{kangxiName(radical.radical)}
+					{Kangxi.name(radical.radical)}
 				</dd>
 			</div>
 		</dl>

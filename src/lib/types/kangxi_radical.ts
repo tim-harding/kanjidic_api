@@ -1,4 +1,4 @@
-import { isKangxi, Kangxi } from "./kangxi";
+import { Kangxi } from "./kangxi";
 import { hasProperty, hasStringProperty, isObject } from "../shared";
 
 export namespace KangxiRadical {
@@ -16,7 +16,7 @@ export namespace KangxiRadical {
     /**
      * The kangxi code for the radical
      */
-    radical: Kangxi;
+    radical: Kangxi.Kangxi;
   }
 
   export function check(value: unknown): value is KangxiRadical {
@@ -25,7 +25,7 @@ export namespace KangxiRadical {
       hasStringProperty(value, "kind") &&
       isRadicalTag(value.kind) &&
       hasProperty(value, "radical") &&
-      isKangxi(value.radical)
+      Kangxi.check(value.radical)
     );
   }
 
