@@ -1,42 +1,64 @@
-import { isCharacter } from "../types/kanji"
-import type { Kanji } from "../types/kanji"
-import { urlFromKanjiAccess } from "./kanji"
-import type { KanjiAccess } from "./kanji"
-import { hasArrayProperty, hasOptionalArrayProperty, isObject, isString, query } from "../shared"
+import { isCharacter } from "../types/kanji";
+import type { Kanji } from "../types/kanji";
+import { urlFromKanjiAccess } from "./kanji";
+import type { KanjiAccess } from "./kanji";
+import {
+  hasArrayProperty,
+  hasOptionalArrayProperty,
+  isObject,
+  isString,
+  query,
+} from "../shared";
 
-export interface DecompositionResponse {
-	errors?: string[],
-	validNext: string[],
-	kanji: Kanji[],
-}
+export namespace Decomposition {
+  export interface Response {
+    errors?: string[];
+    validNext: string[];
+    kanji: Kanji[];
+  }
 
-function isDecompositionResponse(value: unknown): value is DecompositionResponse {
-	return isObject(value) &&
-		hasOptionalArrayProperty(value, "errors", isString) &&
-		hasArrayProperty(value, "kanji", isCharacter) &&
-		hasArrayProperty(value, "validNext", isString)
-}
+  export async function queryChecked(
+    access: KanjiAccess,
+    radicals: string
+  ): Promise<Response | Error> {
+    return await queryWithChecker(access, radicals, isResponse);
+  }
 
-export async function queryDecompositionChecked(access: KanjiAccess, radicals: string): Promise<DecompositionResponse | Error> {
-	return await queryDecomposition(access, radicals, isDecompositionResponse)
-}
+  export async function queryUnchecked(
+    access: KanjiAccess,
+    radicals: string
+  ): Promise<Response | Error> {
+    return await queryWithChecker(access, radicals, noopChecker);
+  }
 
-export async function queryDecompositionUnchecked(access: KanjiAccess, radicals: string): Promise<DecompositionResponse | Error> {
-	return await queryDecomposition(access, radicals, noopChecker)
-}
+  function isResponse(
+    value: unknown
+  ): value is Response {
+    return (
+      isObject(value) &&
+      hasOptionalArrayProperty(value, "errors", isString) &&
+      hasArrayProperty(value, "kanji", isCharacter) &&
+      hasArrayProperty(value, "validNext", isString)
+    );
+  }
 
-function noopChecker(_: unknown): _ is DecompositionResponse {
-	return true
-}
+  function noopChecker(_: unknown): _ is Response {
+    return true;
+  }
 
-async function queryDecomposition(access: KanjiAccess, radicals: string, checker: { (json: unknown): json is DecompositionResponse }): Promise<DecompositionResponse | Error> {
-	if (radicals.length === 0) {
-		return new Error("No radicals in query is invalid")
-	}
-	const url = urlFromKanjiAccess(access, `decomposition/${radicals}`)
-	for (const radical of radicals) {
-		url.searchParams.append("radical", radical)
-	}
-	const json = await query(url, checker)
-	return json
+  async function queryWithChecker(
+    access: KanjiAccess,
+    radicals: string,
+    checker: { (json: unknown): json is Response }
+  ): Promise<Response | Error> {
+    if (radicals.length === 0) {
+      return new Error("No radicals in query is invalid");
+    }
+    const url = urlFromKanjiAccess(access, `decomposition/${radicals}`);
+    for (const radical of radicals) {
+      url.searchParams.append("radical", radical);
+    }
+    const json = await query(url, checker);
+    return json;
+  }
 }

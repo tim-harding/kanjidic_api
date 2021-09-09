@@ -14,17 +14,17 @@ export namespace AllRadicals {
     literals: string[];
   }
 
-  export type AllRadicalsResponse = Radical[];
+  export type Response = Radical[];
 
   export async function queryChecked(
     endpointBase: string
-  ): Promise<AllRadicalsResponse | Error> {
-    return await queryWithChecker(endpointBase, isAllRadicalsResponse);
+  ): Promise<Response | Error> {
+    return await queryWithChecker(endpointBase, isResponse);
   }
 
   export async function queryUnchecked(
     endpointBase: string
-  ): Promise<AllRadicalsResponse | Error> {
+  ): Promise<Response | Error> {
     return await queryWithChecker(endpointBase, noopChecker);
   }
 
@@ -36,18 +36,18 @@ export namespace AllRadicals {
     );
   }
 
-  function noopChecker(_: unknown): _ is AllRadicalsResponse {
+  function noopChecker(_: unknown): _ is Response {
     return true;
   }
 
-  function isAllRadicalsResponse(value: unknown): value is AllRadicalsResponse {
+  function isResponse(value: unknown): value is Response {
     return isArrayOf(value, isRadical);
   }
 
   async function queryWithChecker(
     endpointBase: string,
-    checker: { (json: unknown): json is AllRadicalsResponse }
-  ): Promise<AllRadicalsResponse | Error> {
+    checker: { (json: unknown): json is Response }
+  ): Promise<Response | Error> {
     const url = new URL("/radicals/all", endpointBase);
     const json = await query(url, checker);
     return json;
