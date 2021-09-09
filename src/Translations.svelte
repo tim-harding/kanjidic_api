@@ -1,10 +1,10 @@
 <script lang="ts">
-	import { nameForLanguage } from "./lib/language";
-	import type { Language } from "./lib/language";
+	import { nameForLanguage } from "./lib/types/language";
+	import type { Language } from "./lib/types/language";
 	import type {
 		Translation,
 		Translations as TranslationsType,
-	} from "./lib/translations";
+	} from "./lib/types/translations";
 	import KanjiDropdown from "./KanjiDropdown.svelte";
 	import Popover from "./Popover.svelte";
 

@@ -1,7 +1,7 @@
 <script lang="ts">
-	import type { Kanji } from "./lib/kanji";
-	import { queryLiteralsChecked } from "./lib/literals_access";
-	import { queryTranslationChecked } from "./lib/translation_access";
+	import type { Kanji } from "./lib/types/kanji";
+	import { queryLiteralsChecked } from "./lib/access/literals";
+	import { queryTranslationChecked } from "./lib/access/translation";
 
 	import Popover from "./Popover.svelte";
 	import ResultsList from "./ResultsList.svelte";

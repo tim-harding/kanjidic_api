@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { kangxiName, kangxiSymbol } from "./lib/kangxi";
-	import type { KangxiRadical as KangxiRadicalType } from "./lib/kangxi_radical";
+	import { kangxiName, kangxiSymbol } from "./lib/types/kangxi";
+	import type { KangxiRadical as KangxiRadicalType } from "./lib/types/kangxi_radical";
 	import Popover from "./Popover.svelte";
 	import Citation from "./Citation.svelte";
 

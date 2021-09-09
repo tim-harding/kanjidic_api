@@ -1,6 +1,6 @@
 import { ExtremeTop, isExtremeTop } from "./extreme_top"
 import { ExtremeBottom, isExtremeBottom } from "./extreme_bottom"
-import { hasProperty, isObject } from "./shared"
+import { hasProperty, isObject } from "../shared"
 
 /**
  * The classification of a kanji in the De Roo system. See

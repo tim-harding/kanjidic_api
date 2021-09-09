@@ -7,8 +7,8 @@
 		isVariantUintFromTag,
 		isVariantUnicodeFromTag,
 		serializeVariant,
-	} from "./lib/variant";
-	import type { Variant as VariantType, VariantTag } from "./lib/variant";
+	} from "./lib/types/variant";
+	import type { Variant as VariantType, VariantTag } from "./lib/types/variant";
 	import KutenPopoverContent from "./KutenPopoverContent.svelte";
 	import Popover from "./Popover.svelte";
 	import UnicodePopoverContent from "./UnicodePopoverContent.svelte";

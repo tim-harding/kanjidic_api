@@ -1,4 +1,4 @@
-import { hasUintProperty, isObject } from "./shared";
+import { hasUintProperty, isObject } from "../shared";
 import type { Uint } from "./uint";
 
 	/**

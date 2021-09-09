@@ -1,13 +1,13 @@
 <script lang="ts">
-	import { serializeQueryCode } from "./lib/query_code";
+	import { serializeQueryCode } from "./lib/types/query_code";
 	import type {
 		QueryCode as QueryCodeType,
 		QueryCodeTag,
-	} from "./lib/query_code";
+	} from "./lib/types/query_code";
 	import type {
 		Misclassification,
 		MisclassificationKind,
-	} from "./lib/misclassification";
+	} from "./lib/types/misclassification";
 	import Popover from "./Popover.svelte";
 	import DeRooPopoverContent from "./DeRooPopoverContent.svelte";
 	import SpahnHadamitzkyPopoverContent from "./SpahnHadamitzkyPopoverContent.svelte";

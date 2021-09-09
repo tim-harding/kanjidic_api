@@ -1,6 +1,6 @@
 import { isLanguage } from "./language"
 import type { Language } from "./language"
-import { all, isArrayOf, isObject, isString } from "./shared"
+import { all, isArrayOf, isObject, isString } from "../shared"
 
 export type Translations = Partial<Record<Language, Translation>>
 

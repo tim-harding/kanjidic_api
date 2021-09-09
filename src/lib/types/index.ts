@@ -1,5 +1,5 @@
 export * as busyPeople from "./busy_people"
-import * as kanji from "./kanji"
+export * as kanji from "./kanji"
 export * as codepoint from "./codepoint"
 export * as deRoo from "./de_roo"
 export * as extremeBottom from "./extreme_bottom"

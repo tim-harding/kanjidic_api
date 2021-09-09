@@ -1,5 +1,5 @@
 import { hasArrayProperty, hasUintProperty, isArrayOf, isObject, isString, query } from "../shared";
-import type { Uint } from "../uint";
+import type { Uint } from "../types/uint";
 
 export interface RadicalAll {
 	strokes: Uint,

@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { serializeStroke } from "./lib/stroke";
-	import type { FourCorner } from "./lib/four_corner";
+	import { serializeStroke } from "./lib/types/stroke";
+	import type { FourCorner } from "./lib/types/four_corner";
 	import Url from "./Url.svelte";
 
 	export let fourCorner: FourCorner;

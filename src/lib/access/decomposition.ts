@@ -1,7 +1,7 @@
-import { isCharacter } from "../kanji"
-import type { Kanji } from "../kanji"
-import { urlFromKanjiAccess } from "./kanji_access"
-import type { KanjiAccess } from "./kanji_access"
+import { isCharacter } from "../types/kanji"
+import type { Kanji } from "../types/kanji"
+import { urlFromKanjiAccess } from "./kanji"
+import type { KanjiAccess } from "./kanji"
 import { hasArrayProperty, hasOptionalArrayProperty, isObject, isString, query } from "../shared"
 
 export interface DecompositionResponse {

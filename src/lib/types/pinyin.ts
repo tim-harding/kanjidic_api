@@ -1,4 +1,4 @@
-import { hasProperty, hasStringProperty, isObject } from "./shared";
+import { hasProperty, hasStringProperty, isObject } from "../shared";
 import { isTone, Tone } from "./tone";
 
 /**

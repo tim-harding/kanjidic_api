@@ -1,5 +1,5 @@
-import { hasProperty, hasUintProperty, isObject, isSum, isTypeFromTagged } from "./shared";
-import type { Checker, Sum } from "./shared";
+import { hasProperty, hasUintProperty, isObject, isSum, isTypeFromTagged } from "../shared";
+import type { Checker, Sum } from "../shared";
 import { isSolidSubpattern } from "./solid_subpattern";
 import type { SolidSubpattern } from "./solid_subpattern";
 import type { Uint } from "./uint";

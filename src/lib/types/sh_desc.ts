@@ -1,4 +1,4 @@
-import { hasStringProperty, hasUintProperty, isObject } from "./shared";
+import { hasStringProperty, hasUintProperty, isObject } from "../shared";
 import { isShRadical } from "./sh_radical";
 import type { ShRadical} from "./sh_radical";
 import type { Uint } from "./uint"

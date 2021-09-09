@@ -1,4 +1,4 @@
-import { hasOptionalStringProperty, hasOptionalUintProperty, hasUintProperty, isObject } from "./shared";
+import { hasOptionalStringProperty, hasOptionalUintProperty, hasUintProperty, isObject } from "../shared";
 import type { Uint } from "./uint";
 
 export type MoroSuffixKind = 

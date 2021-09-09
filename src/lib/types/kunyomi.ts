@@ -1,4 +1,4 @@
-import { hasOptionalStringProperty, hasStringProperty, isObject } from "./shared";
+import { hasOptionalStringProperty, hasStringProperty, isObject } from "../shared";
 
 export type KunyomiKind = "Normal" | "Prefix" | "Suffix"
 

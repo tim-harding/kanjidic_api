@@ -1,4 +1,4 @@
-import { isNumber } from "./shared";
+import { isNumber } from "../shared";
 
 export type Unicode = number;
 

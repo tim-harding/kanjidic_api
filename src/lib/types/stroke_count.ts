@@ -1,4 +1,4 @@
-import { hasOptionalArrayProperty, hasUintProperty, isObject } from "./shared";
+import { hasOptionalArrayProperty, hasUintProperty, isObject } from "../shared";
 import { isUint } from "./uint";
 import type { Uint } from "./uint";
 

@@ -1,4 +1,4 @@
-import { hasProperty, isObject } from "./shared"
+import { hasProperty, isObject } from "../shared"
 import { isStroke, Stroke } from "./stroke"
 
 /**

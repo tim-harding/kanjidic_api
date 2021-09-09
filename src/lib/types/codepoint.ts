@@ -1,7 +1,7 @@
 import { isKuten, serializeKuten } from "./kuten";
 import type { Kuten } from "./kuten"
-import { isSum, isTypeFromTagged, } from "./shared";
-import type { Checker, Sum } from "./shared"
+import { isSum, isTypeFromTagged, } from "../shared";
+import type { Checker, Sum } from "../shared"
 import { isUint } from "./uint";
 import { serializeUnicode} from "./unicode";
 import type { Unicode } from "./unicode";

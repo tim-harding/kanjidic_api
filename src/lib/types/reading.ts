@@ -2,8 +2,8 @@ import { isKunyomi } from "./kunyomi";
 import type { Kunyomi } from "./kunyomi";
 import { isPinYin } from "./pinyin";
 import type { PinYin } from "./pinyin";
-import { isString, isSum, isTypeFromTagged } from "./shared";
-import type { Checker, Sum, } from "./shared";
+import { isString, isSum, isTypeFromTagged } from "../shared";
+import type { Checker, Sum, } from "../shared";
 
 export type PinYinTag = "PinYin"
 

@@ -1,4 +1,4 @@
-import { hasProperty, hasStringProperty, isObject } from "./shared"
+import { hasProperty, hasStringProperty, isObject } from "../shared"
 import { isSkip, serializeSkip} from "./skip"
 import type { Skip } from "./skip"
 

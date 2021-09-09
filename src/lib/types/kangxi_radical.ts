@@ -1,5 +1,5 @@
 import { isKangxi, Kangxi } from "./kangxi";
-import { hasProperty, hasStringProperty, isObject } from "./shared";
+import { hasProperty, hasStringProperty, isObject } from "../shared";
 
 export type RadicalTag = "Classical" | "Nelson"
 

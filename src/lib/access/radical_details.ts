@@ -1,5 +1,5 @@
-import { hasArrayProperty, hasOptionalArrayProperty, isObject, isString, query, hasOptionalUintProperty, hasStringProperty, } from "./shared"
-import type { Uint } from "../uint";
+import { hasArrayProperty, hasOptionalArrayProperty, isObject, isString, query, hasOptionalUintProperty, hasStringProperty, } from "../shared"
+import type { Uint } from "../types/uint";
 
 export interface Radical {
 	literal: string,

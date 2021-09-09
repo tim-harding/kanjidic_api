@@ -1,4 +1,4 @@
-import { isString } from "./shared"
+import { isString } from "../shared"
 
 export type Language = "aa" |
 	"ab" |

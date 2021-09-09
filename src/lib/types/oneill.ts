@@ -1,4 +1,4 @@
-import { hasOptionalStringProperty, hasUintProperty, isObject } from "./shared";
+import { hasOptionalStringProperty, hasUintProperty, isObject } from "../shared";
 import type { Uint } from "./uint";
 
 export type OneillSuffix = "A"

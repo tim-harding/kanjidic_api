@@ -10,7 +10,7 @@ import { isReading } from "./reading";
 import type { Reading } from "./reading";
 import { isReference } from "./reference";
 import type { Reference } from "./reference";
-import { hasOptionalArrayProperty, hasOptionalUintProperty, hasProperty, hasStringProperty, isObject, isString } from "./shared";
+import { hasOptionalArrayProperty, hasOptionalUintProperty, hasProperty, hasStringProperty, isObject, isString } from "../shared";
 import { isStrokeCount } from "./stroke_count";
 import type { StrokeCount } from "./stroke_count";
 import { isTranslations } from "./translations";
