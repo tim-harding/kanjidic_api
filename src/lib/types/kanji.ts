@@ -2,8 +2,7 @@ import { Codepoint } from "./codepoint";
 import { Grade } from "./grade";
 import { isQueryCode } from "./query_code";
 import type { QueryCode } from "./query_code";
-import { isKangxiRadical } from "./kangxi_radical";
-import type { KangxiRadical } from "./kangxi_radical";
+import { KangxiRadical } from "./kangxi_radical";
 import { isReading } from "./reading";
 import type { Reading } from "./reading";
 import { isReference } from "./reference";
@@ -41,7 +40,7 @@ export interface Kanji {
   /**
    * Alternate classifications for the character by radical.
    */
-  radicals?: Array<KangxiRadical>;
+  radicals?: Array<KangxiRadical.KangxiRadical>;
 
   /**
    * The kanji grade level.
@@ -110,7 +109,7 @@ export function isCharacter(value: unknown): value is Kanji {
     isObject(value) &&
     hasStringProperty(value, "literal") &&
     hasOptionalArrayProperty(value, "codepoints", Codepoint.check) &&
-    hasOptionalArrayProperty(value, "radicals", isKangxiRadical) &&
+    hasOptionalArrayProperty(value, "radicals", KangxiRadical.check) &&
     (!hasProperty(value, "grade") || Grade.check(value.grade)) &&
     (!hasProperty(value, "strokeCounts") ||
       isStrokeCount(value.strokeCounts)) &&

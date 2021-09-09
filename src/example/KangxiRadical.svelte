@@ -4,13 +4,10 @@
 	import Popover from "./Popover.svelte";
 	import Citation from "./Citation.svelte";
 
-	export let radical: KangxiRadicalType;
+	export let radical: KangxiRadicalType.KangxiRadical;
 
 	const symbol = kangxiSymbol(radical.radical);
 </script>
-
-<!-- Sources info -->
-<!-- https://dl.acm.org/doi/pdf/10.5555/1610042.1610044 -->
 
 <div class="text-line">
 	<dl class="passthrough">

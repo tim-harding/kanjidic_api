@@ -1,36 +1,40 @@
 import { isKangxi, Kangxi } from "./kangxi";
 import { hasProperty, hasStringProperty, isObject } from "../shared";
 
-export type RadicalTag = "Classical" | "Nelson"
+export namespace KangxiRadical {
+  export type RadicalTag = "Classical" | "Nelson";
 
-/**
- * A kanji classification based on its radical.
- */
-export interface KangxiRadical {
-	/**
-	 * The kind of radical classification
-	 */
-	kind: RadicalTag
-	
-	/**
-	 * The kangxi code for the radical
-	 */
-	radical: Kangxi
-}
+  /**
+   * A kanji classification based on its radical.
+   */
+  export interface KangxiRadical {
+    /**
+     * The kind of radical classification
+     */
+    kind: RadicalTag;
 
-export function isKangxiRadical(value: unknown): value is KangxiRadical {
-	return isObject(value) &&
-		hasStringProperty(value, "kind") &&
-		isRadicalTag(value.kind) &&
-		hasProperty(value, "radical") &&
-		isKangxi(value.radical)
-}
+    /**
+     * The kangxi code for the radical
+     */
+    radical: Kangxi;
+  }
 
-function isRadicalTag(str: string): str is RadicalTag {
-	return str in RADICAL_TAGS
-}
+  export function check(value: unknown): value is KangxiRadical {
+    return (
+      isObject(value) &&
+      hasStringProperty(value, "kind") &&
+      isRadicalTag(value.kind) &&
+      hasProperty(value, "radical") &&
+      isKangxi(value.radical)
+    );
+  }
 
-const RADICAL_TAGS: Record<RadicalTag, boolean> = {
-	"Classical": true,
-	"Nelson": true,
+  function isRadicalTag(str: string): str is RadicalTag {
+    return str in RADICAL_TAGS;
+  }
+
+  const RADICAL_TAGS: Record<RadicalTag, boolean> = {
+    Classical: true,
+    Nelson: true,
+  };
 }

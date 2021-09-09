@@ -5,7 +5,7 @@
 	import KanjiDropdown from "./KanjiDropdown.svelte";
 	import Url from "./Url.svelte";
 
-	export let radicals: KangxiRadicalType[];
+	export let radicals: KangxiRadicalType.KangxiRadical[];
 </script>
 
 <KanjiDropdown>
