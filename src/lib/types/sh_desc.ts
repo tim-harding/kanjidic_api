@@ -1,6 +1,5 @@
 import { hasStringProperty, hasUintProperty, isObject } from "../shared";
-import { isShRadical } from "./sh_radical";
-import type { ShRadical } from "./sh_radical";
+import { ShRadical } from "./sh_radical";
 import type { Uint } from "./uint";
 
 export namespace SpahnHadamitzky {
@@ -13,7 +12,7 @@ export namespace SpahnHadamitzky {
     /**
      * The letter for the radical in the identification system.
      */
-    radical: ShRadical;
+    radical: ShRadical.ShRadical;
 
     /**
      * Number of strokes in the identifying radical.
@@ -43,7 +42,7 @@ export namespace SpahnHadamitzky {
       hasUintProperty(value, "otherStrokes") &&
       hasUintProperty(value, "sequence") &&
       hasStringProperty(value, "radical") &&
-      isShRadical(value.radical)
+      ShRadical.check(value.radical)
     );
   }
 }
