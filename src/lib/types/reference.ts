@@ -1,7 +1,6 @@
 import { BusyPeople } from "./busy_people"
 import { Moro } from "./moro"
-import { isOneill } from "./oneill"
-import type { Oneill } from "./oneill"
+import { Oneill } from "./oneill"
 import { isSum, isTypeFromTagged } from "../shared"
 import type { Checker, Sum } from "../shared"
 import { isUint } from "./uint"
@@ -49,7 +48,7 @@ export interface Reference_OneillNames {
 	/**
 	 * The reference
 	 */
-	content: Oneill
+	content: Oneill.Oneill
 }
 
 export type OneillNamesTag = "OneillNames"
@@ -294,7 +293,7 @@ function isReferenceMoro(value: Sum): value is Reference_Moro {
 }
 
 function isReferenceOneill(value: Sum): value is Reference_OneillNames {
-	return isOneill(value.content)
+	return Oneill.check(value.content)
 }
 
 function isReferenceBusyPeople(value: Sum): value is Reference_BusyPeople {

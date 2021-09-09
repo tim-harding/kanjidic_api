@@ -1,7 +1,6 @@
 import { DeRoo, } from "./de_roo";
 import { Kuten } from "./kuten";
-import { isOneill, serializeOneill } from "./oneill";
-import type { Oneill } from "./oneill";
+import { Oneill } from "./oneill";
 import { isSum, isTypeFromTagged } from "../shared";
 import type { Checker, Sum } from "../shared";
 import { serializeShDesc, isShDesc } from "./sh_desc";
@@ -157,7 +156,7 @@ export interface Variant_Oneill {
 	/**
 	 * The encoding
 	 */
-	content: Oneill
+	content: Oneill.Oneill
 }
 
 /**
@@ -193,7 +192,7 @@ const SERIALIZERS: Record<VariantTag, Serializer> = {
 	"Nelson": serializeUint,
 	"DeRoo": DeRoo.serialize,
 	"SpahnHadamitzky": serializeShDesc,
-	"ONeill": serializeOneill,
+	"ONeill": Oneill.serialize,
 }
 
 function serializeUint(uint: Uint): string {
@@ -226,7 +225,7 @@ function isVariantDeRoo(value: Sum): value is Variant_DeRoo {
 }
 
 function isVariantOneill(value: Sum): value is Variant_Oneill {
-	return isOneill(value.content)
+	return Oneill.check(value.content)
 }
 
 function isVariantShDesc(value: Sum): value is Variant_ShDesc {

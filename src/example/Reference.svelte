@@ -7,7 +7,7 @@
 	} from "../lib/types/reference";
 	import type { Reference as ReferenceType } from "../lib/types/reference";
 	import Url from "./Url.svelte";
-	import { serializeOneill } from "../lib/types/oneill";
+	import { Oneill } from "../lib/types/oneill";
 
 	export let reference: ReferenceType;
 
@@ -54,7 +54,7 @@
 	{:else}
 		Index
 		<strong>
-			{serializeOneill(reference.content)}
+			{Oneill.serialize(reference.content)}
 		</strong>
 	{/if}
 	in
