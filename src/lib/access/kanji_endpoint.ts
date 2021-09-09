@@ -21,7 +21,7 @@ export namespace KanjiEndpoint {
     endpointBase: string;
     desiredFields: {
       fields: "all" | CharacterField[];
-      languages: "all" | Language[];
+      languages: "all" | Language.Language[];
     };
   }
 

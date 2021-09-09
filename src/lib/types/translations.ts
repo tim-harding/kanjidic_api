@@ -1,14 +1,13 @@
-import { isLanguage } from "./language"
-import type { Language } from "./language"
+import { Language } from "./language"
 import { all, isArrayOf, isObject, isString } from "../shared"
 
-export type Translations = Partial<Record<Language, Translation>>
+export type Translations = Partial<Record<Language.Language, Translation>>
 
 export type Translation = Array<string>
 
 export function isTranslations(value: unknown): value is Translations {
 	return isObject(value) &&
-		all(Object.keys(value), isLanguage) &&
+		all(Object.keys(value), Language.check) &&
 		all(Object.values(value), isTranslation)
 }
 

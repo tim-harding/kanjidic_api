@@ -1,6 +1,5 @@
 <script lang="ts">
-	import { nameForLanguage } from "../lib/types/language";
-	import type { Language } from "../lib/types/language";
+	import { Language } from "../lib/types/language";
 	import type {
 		Translation,
 		Translations as TranslationsType,
@@ -10,8 +9,8 @@
 
 	export let translations: TranslationsType;
 
-	function translationsKeyValues(): [Language, Translation][] {
-		return Object.entries(translations) as [Language, Translation][];
+	function translationsKeyValues(): [Language.Language, Translation][] {
+		return Object.entries(translations) as [Language.Language, Translation][];
 	}
 </script>
 
@@ -25,7 +24,7 @@
 			<div class="language">
 				<div class="text-line">
 					<dt>
-						{nameForLanguage(language)}
+						{Language.name(language)}
 					</dt>
 					:&nbsp
 				</div>
