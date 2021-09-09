@@ -4,7 +4,7 @@
 	import Popover from "./Popover.svelte";
 	import Reference from "./Reference.svelte";
 
-	export let references: ReferenceType[];
+	export let references: ReferenceType.Reference[];
 </script>
 
 <KanjiDropdown>

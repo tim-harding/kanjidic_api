@@ -5,8 +5,7 @@ import type { QueryCode } from "./query_code";
 import { KangxiRadical } from "./kangxi_radical";
 import { isReading } from "./reading";
 import type { Reading } from "./reading";
-import { isReference } from "./reference";
-import type { Reference } from "./reference";
+import { Reference } from "./reference";
 import {
   hasOptionalArrayProperty,
   hasOptionalUintProperty,
@@ -36,12 +35,12 @@ export namespace Kanji {
     /**
      * Alternate encodings for the character.
      */
-    codepoints?: Array<Codepoint.Codepoint>;
+    codepoints?: Codepoint.Codepoint[];
 
     /**
      * Alternate classifications for the character by radical.
      */
-    radicals?: Array<KangxiRadical.KangxiRadical>;
+    radicals?: KangxiRadical.KangxiRadical[];
 
     /**
      * The kanji grade level.
@@ -56,7 +55,7 @@ export namespace Kanji {
     /**
      * Cross-references to other characters or alternative indexings.
      */
-    variants?: Array<Variant>;
+    variants?: Variant[];
 
     /**
      * A ranking of how often the character appears in newspapers.
@@ -66,7 +65,7 @@ export namespace Kanji {
     /**
      * The kanji's name as a radical if it is one.
      */
-    radicalNames?: Array<string>;
+    radicalNames?: string[];
 
     /**
      * Old JLPT level of the kanji. Based on pre-2010 test levels
@@ -77,17 +76,17 @@ export namespace Kanji {
     /**
      * Indexes into dictionaries and other instructional books.
      */
-    references?: Array<Reference>;
+    references?: Reference.Reference[];
 
     /**
      * Codes used to identify the kanji.
      */
-    queryCodes?: Array<QueryCode>;
+    queryCodes?: QueryCode[];
 
     /**
      * Different ways the kanji can be read.
      */
-    readings?: Array<Reading>;
+    readings?: Reading[];
 
     /**
      * Translations of the kanji into different languages.
@@ -97,12 +96,12 @@ export namespace Kanji {
     /**
      * Japanese readings associated with names.
      */
-    nanori?: Array<string>;
+    nanori?: string[];
 
     /**
      * The constituent radicals in the kanji.
      */
-    decomposition?: Array<string>;
+    decomposition?: string[];
   }
 
   export function check(value: unknown): value is Kanji {
@@ -118,7 +117,7 @@ export namespace Kanji {
       hasOptionalUintProperty(value, "frequency") &&
       hasOptionalArrayProperty(value, "radicalNames", isString) &&
       hasOptionalUintProperty(value, "jlpt") &&
-      hasOptionalArrayProperty(value, "references", isReference) &&
+      hasOptionalArrayProperty(value, "references", Reference.check) &&
       hasOptionalArrayProperty(value, "queryCodes", isQueryCode) &&
       hasOptionalArrayProperty(value, "readings", isReading) &&
       (!hasProperty(value, "translations") ||
