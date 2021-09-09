@@ -6,8 +6,7 @@ import {
   isTypeFromTagged,
 } from "../shared";
 import type { Checker, Sum } from "../shared";
-import { isSolidSubpattern } from "./solid_subpattern";
-import type { SolidSubpattern } from "./solid_subpattern";
+import { SolidSubpattern } from "./solid_subpattern";
 import type { Uint } from "./uint";
 
 export namespace Skip {
@@ -93,7 +92,7 @@ export namespace Skip {
       /**
        * The subpattern that defines the kanji.
        */
-      solidSubpattern: SolidSubpattern;
+      solidSubpattern: SolidSubpattern.SolidSubpattern;
     };
   }
 
@@ -157,7 +156,7 @@ export namespace Skip {
       isObject(content) &&
       hasUintProperty(content, "totalStrokeCount") &&
       hasProperty(content, "solidSubpattern") &&
-      isSolidSubpattern(content.solidSubpattern)
+      SolidSubpattern.check(content.solidSubpattern)
     );
   }
 

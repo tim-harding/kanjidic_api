@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { serializeSolidSubpattern } from "../lib/types/solid_subpattern";
+	import { SolidSubpattern } from "src/lib/types/solid_subpattern";
 	import type { Skip } from "../lib/types/skip";
 	import Url from "./Url.svelte";
 
@@ -81,7 +81,7 @@
 			<dt>Solid subpattern</dt>
 			:&nbsp;
 			<dd>
-				{serializeSolidSubpattern(skip.content.solidSubpattern)}
+				{SolidSubpattern.serialize(skip.content.solidSubpattern)}
 			</dd>
 		</div>
 	{/if}
