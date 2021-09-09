@@ -1,25 +1,55 @@
-import { hasArrayProperty, hasUintProperty, isArrayOf, isObject, isString, query } from "../shared";
+import {
+  hasArrayProperty,
+  hasUintProperty,
+  isArrayOf,
+  isObject,
+  isString,
+  query,
+} from "../shared";
 import type { Uint } from "../types/uint";
 
-export interface RadicalAll {
-	strokes: Uint,
-	literals: string[],
-}
+export namespace AllRadicals {
+  export interface Radical {
+    strokes: Uint;
+    literals: string[];
+  }
 
-export function isRadicalAll(value: unknown): value is RadicalAll {
-	return isObject(value) &&
-		hasUintProperty(value, "strokes") &&
-		hasArrayProperty(value, "literals", isString)
-}
+  export type AllRadicalsResponse = Radical[];
 
-export type AllRadicalsResponse = RadicalAll[]
+  export async function queryChecked(
+    endpointBase: string
+  ): Promise<AllRadicalsResponse | Error> {
+    return await queryWithChecker(endpointBase, isAllRadicalsResponse);
+  }
 
-function isRadicalAllResponse(value: unknown): value is AllRadicalsResponse {
-	return isArrayOf(value, isRadicalAll)
-}
+  export async function queryUnchecked(
+    endpointBase: string
+  ): Promise<AllRadicalsResponse | Error> {
+    return await queryWithChecker(endpointBase, noopChecker);
+  }
 
-export async function queryAllRadicals(endpointBase: string): Promise<AllRadicalsResponse | Error> {
-	const url = new URL("/radicals/all", endpointBase)
-	const json = await query(url, isRadicalAllResponse)
-	return json	
+  function isRadical(value: unknown): value is Radical {
+    return (
+      isObject(value) &&
+      hasUintProperty(value, "strokes") &&
+      hasArrayProperty(value, "literals", isString)
+    );
+  }
+
+  function noopChecker(_: unknown): _ is AllRadicalsResponse {
+    return true;
+  }
+
+  function isAllRadicalsResponse(value: unknown): value is AllRadicalsResponse {
+    return isArrayOf(value, isRadical);
+  }
+
+  async function queryWithChecker(
+    endpointBase: string,
+    checker: { (json: unknown): json is AllRadicalsResponse }
+  ): Promise<AllRadicalsResponse | Error> {
+    const url = new URL("/radicals/all", endpointBase);
+    const json = await query(url, checker);
+    return json;
+  }
 }

@@ -3,7 +3,7 @@
   import type { Kanji } from "./lib/types/kanji";
   import { queryDecompositionChecked } from "./lib/access/decomposition";
 
-  import { queryAllRadicals } from "./lib/access/all_radicals";
+  import { AllRadicals } from "./lib/access/all_radicals";
   import RadicalGroup from "./RadicalGroup.svelte";
   import ResultsList from "./ResultsList.svelte";
   import SectioningBox from "./SectioningBox.svelte";
@@ -29,10 +29,8 @@
   let isValidNextUpdateOngoing = false;
   let needsValidNextUpdate = false;
 
-  // Not all selections respond to reset. Investigate.
-
   async function initialize() {
-    const response = await queryAllRadicals(ENDPOINT);
+    const response = await AllRadicals.queryChecked(ENDPOINT);
     if (response instanceof Error) {
       error = response;
       return;
@@ -50,10 +48,6 @@
     }));
     isInitialized = true;
   }
-
-  // Start new request when a response comes back.
-  // Or else only apply response if no more recent
-  // request has been handled.
 
   async function updateValidNext() {
     if (isValidNextUpdateOngoing) {
