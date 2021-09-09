@@ -1,5 +1,5 @@
 import { hasProperty, isObject } from "../shared";
-import { isStroke, Stroke } from "./stroke";
+import { Stroke } from "./stroke";
 
 export namespace FourCorner {
   /**
@@ -11,29 +11,29 @@ export namespace FourCorner {
     /**
      * The stroke at the top left corner.
      */
-    topLeft: Stroke;
+    topLeft: Stroke.Stroke;
 
     /**
      * The stroke at the top right corner.
      */
-    topRight: Stroke;
+    topRight: Stroke.Stroke;
 
     /**
      * The stroke at the bottom left corner.
      */
-    bottomLeft: Stroke;
+    bottomLeft: Stroke.Stroke;
 
     /**
      * The stroke at the bottom right corner.
      */
-    bottomRight: Stroke;
+    bottomRight: Stroke.Stroke;
 
     /**
      * Where necessary to differentiate between other
      * characters with the same strokes, this extra stroke
      * is found above the bottom right stroke.
      */
-    fifthCorner?: Stroke;
+    fifthCorner?: Stroke.Stroke;
   }
 
   /**
@@ -58,14 +58,14 @@ export namespace FourCorner {
       hasStrokeProperty(value, "topRight") &&
       hasStrokeProperty(value, "bottomLeft") &&
       hasStrokeProperty(value, "bottomRight") &&
-      (!hasProperty(value, "fifthCorner") || isStroke(value.fifthCorner))
+      (!hasProperty(value, "fifthCorner") || Stroke.check(value.fifthCorner))
     );
   }
 
   function hasStrokeProperty<K extends string, T extends object>(
     value: T,
     key: K
-  ): value is T & Record<K, Stroke> {
-    return hasProperty(value, key) && isStroke(value[key]);
+  ): value is T & Record<K, Stroke.Stroke> {
+    return hasProperty(value, key) && Stroke.check(value[key]);
   }
 }
