@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { serializeSolidSubpattern } from "./lib/types/solid_subpattern";
-	import type { Skip } from "./lib/types/skip";
+	import { serializeSolidSubpattern } from "../lib/types/solid_subpattern";
+	import type { Skip } from "../lib/types/skip";
 	import Url from "./Url.svelte";
 
 	export let skip: Skip;

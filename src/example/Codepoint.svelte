@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { serializeCodepoint } from "./lib/types/codepoint";
-	import type { CodepointTag, Codepoint  } from "./lib/types/codepoint";
+	import { serializeCodepoint } from "../lib/types/codepoint";
+	import type { CodepointTag, Codepoint  } from "../lib/types/codepoint";
 	import Popover from "./Popover.svelte";
 	import KutenPopoverContent from "./KutenPopoverContent.svelte";
 	import UnicodePopoverContent from "./UnicodePopoverContent.svelte";

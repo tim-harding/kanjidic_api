@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { serializeUnicode } from "./lib/types/unicode";
-	import type { Unicode } from "./lib/types/unicode";
+	import { serializeUnicode } from "../lib/types/unicode";
+	import type { Unicode } from "../lib/types/unicode";
 	import Url from "./Url.svelte";
 
 	export let codepoint: Unicode;

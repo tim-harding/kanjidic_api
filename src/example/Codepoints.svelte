@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Codepoint as CodepointType } from "./lib/types/codepoint";
+	import type { Codepoint as CodepointType } from "../lib/types/codepoint";
 	import KanjiDropdown from "./KanjiDropdown.svelte";
 	import Codepoint from "./Codepoint.svelte";
 	import Popover from "./Popover.svelte";

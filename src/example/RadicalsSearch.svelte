@@ -1,9 +1,8 @@
 <script lang="ts">
-  import type { Uint } from "./lib/types/uint";
-  import type { Kanji } from "./lib/types/kanji";
-  import { Decomposition } from "./lib/access/decomposition";
-
-  import { AllRadicals } from "./lib/access/all_radicals";
+  import type { Uint } from "../lib/types/uint";
+  import type { Kanji } from "../lib/types/kanji";
+  import { Decomposition } from "../lib/access/decomposition";
+  import { AllRadicals } from "../lib/access/all_radicals";
   import RadicalGroup from "./RadicalGroup.svelte";
   import ResultsList from "./ResultsList.svelte";
   import SectioningBox from "./SectioningBox.svelte";

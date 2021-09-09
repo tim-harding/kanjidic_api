@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { KangxiRadical as KangxiRadicalType } from "./lib/types/kangxi_radical";
+	import type { KangxiRadical as KangxiRadicalType } from "../lib/types/kangxi_radical";
 	import KangxiRadical from "./KangxiRadical.svelte";
 	import Popover from "./Popover.svelte";
 	import KanjiDropdown from "./KanjiDropdown.svelte";

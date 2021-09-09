@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { serializeTone } from "./lib/types/tone";
+	import { serializeTone } from "../lib/types/tone";
 
-	import type { Reading as ReadingType, ReadingTag } from "./lib/types/reading";
-	import { isReadingStringFromTag } from "./lib/types/reading";
+	import type { Reading as ReadingType, ReadingTag } from "../lib/types/reading";
+	import { isReadingStringFromTag } from "../lib/types/reading";
 	import Popover from "./Popover.svelte";
 
 	export let reading: ReadingType;

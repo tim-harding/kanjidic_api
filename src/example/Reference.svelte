@@ -4,10 +4,10 @@
 		isReferenceBusyPeopleByTag,
 		isReferenceMoroByTag,
 		isReferenceUintByTag,
-	} from "./lib/types/reference";
-	import type { Reference as ReferenceType } from "./lib/types/reference";
+	} from "../lib/types/reference";
+	import type { Reference as ReferenceType } from "../lib/types/reference";
 	import Url from "./Url.svelte";
-	import { serializeOneill } from "./lib/types/oneill";
+	import { serializeOneill } from "../lib/types/oneill";
 
 	export let reference: ReferenceType;
 
