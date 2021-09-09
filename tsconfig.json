@@ -6,7 +6,7 @@
     "module": "esnext",
     "resolveJsonModule": true,
     "baseUrl": ".",
-    
+
     "strict": true,
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
@@ -21,13 +21,12 @@
     "noImplicitReturns": true,
     "useUnknownInCatchVariables": true,
     "exactOptionalPropertyTypes": true,
-    
+
     "allowJs": true,
     "checkJs": true,
     
-    // For building the lib
     "outDir": "dist_ts"
   },
-  // Only affects building the lib, not the example page
+  // For lib build
   "include": ["src/lib/**/*.ts"]
 }
