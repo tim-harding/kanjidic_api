@@ -1,6 +1,5 @@
 import { DeRoo, } from "./de_roo";
-import { isKuten, serializeKuten } from "./kuten";
-import type { Kuten } from "./kuten";
+import { Kuten } from "./kuten";
 import { isOneill, serializeOneill } from "./oneill";
 import type { Oneill } from "./oneill";
 import { isSum, isTypeFromTagged } from "../shared";
@@ -59,7 +58,7 @@ export interface Variant_Kuten {
 	/**
 	 * The encoding
 	 */
-	content: Kuten
+	content: Kuten.Kuten
 }
 
 export function isVariantKutenFromTag(variant: Variant): variant is Variant_Kuten {
@@ -186,9 +185,9 @@ export function serializeVariant(variant: Variant): string {
 type Serializer = { (content: any): string }
 
 const SERIALIZERS: Record<VariantTag, Serializer> = {
-	"Jis208": serializeKuten,
-	"Jis212": serializeKuten,
-	"Jis213": serializeKuten,
+	"Jis208": Kuten.serialize,
+	"Jis212": Kuten.serialize,
+	"Jis213": Kuten.serialize,
 	"Unicode": serializeUnicode,
 	"Halpern": serializeUint,
 	"Nelson": serializeUint,
@@ -219,7 +218,7 @@ const CHECKERS: Record<VariantTag, Checker<Sum, Variant>> = {
 }
 
 function isVariantKuten(value: Sum): value is Variant_Kuten {
-	return isKuten(value.content)
+	return Kuten.check(value.content)
 }
 
 function isVariantDeRoo(value: Sum): value is Variant_DeRoo {

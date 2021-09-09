@@ -1,5 +1,4 @@
-import { isKuten, serializeKuten } from "./kuten";
-import type { Kuten } from "./kuten";
+import { Kuten } from "./kuten";
 import { isSum, isTypeFromTagged } from "../shared";
 import type { Checker, Sum } from "../shared";
 import { isUint } from "./uint";
@@ -46,7 +45,7 @@ export namespace Codepoint {
     /**
      * The encoding.
      */
-    content: Kuten;
+    content: Kuten.Kuten;
   }
 
   /**
@@ -86,7 +85,7 @@ export namespace Codepoint {
   };
 
   function checkCodepointJis(value: Sum): value is Codepoint_Jis {
-    return isKuten(value.content);
+    return Kuten.check(value.content);
   }
 
   function checkCodepointUnicode(value: Sum): value is Codepoint_Unicode {
@@ -94,9 +93,9 @@ export namespace Codepoint {
   }
 
   const SERIALIZERS: Record<CodepointTag, { (value: any): string }> = {
-    Jis208: serializeKuten,
-    Jis212: serializeKuten,
-    Jis213: serializeKuten,
+    Jis208: Kuten.serialize,
+    Jis212: Kuten.serialize,
+    Jis213: Kuten.serialize,
     Unicode: serializeUnicode,
   };
 }

@@ -2,7 +2,7 @@
 	import type { Kuten } from "../lib/types/kuten";
 	import Url from "./Url.svelte";
 
-	export let kuten: Kuten;
+	export let kuten: Kuten.Kuten;
 </script>
 
 <p>
