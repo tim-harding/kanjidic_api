@@ -15,8 +15,7 @@ import {
   isString,
 } from "../shared";
 import { StrokeCount } from "./stroke_count";
-import { isTranslations } from "./translations";
-import type { Translations } from "./translations";
+import { Translations } from "./translations";
 import type { Uint } from "./uint";
 import { isVariant } from "./variant";
 import type { Variant } from "./variant";
@@ -90,7 +89,7 @@ export namespace Kanji {
     /**
      * Translations of the kanji into different languages.
      */
-    translations?: Translations;
+    translations?: Translations.Translations;
 
     /**
      * Japanese readings associated with names.
@@ -120,7 +119,7 @@ export namespace Kanji {
       hasOptionalArrayProperty(value, "queryCodes", isQueryCode) &&
       hasOptionalArrayProperty(value, "readings", isReading) &&
       (!hasProperty(value, "translations") ||
-        isTranslations(value.translations)) &&
+        Translations.check(value.translations)) &&
       hasOptionalArrayProperty(value, "nanori", isString) &&
       hasOptionalArrayProperty(value, "decomposition", isString)
     );
