@@ -6,8 +6,7 @@ import type { Checker, Sum } from "../shared";
 import { SpahnHadamitzky } from "./sh_desc";
 import { isUint } from "./uint";
 import type { Uint } from "./uint";
-import { isUnicode, serializeUnicode } from "./unicode";
-import type { Unicode } from "./unicode";
+import { Unicode } from "./unicode";
 
 export type KutenTag = "Jis208" | "Jis212" | "Jis213";
 export type UintTag = "Halpern" | "Nelson";
@@ -121,7 +120,7 @@ export interface Variant_Unicode {
   /**
    * The encoding
    */
-  content: Unicode;
+  content: Unicode.Unicode;
 }
 
 /**
@@ -198,7 +197,7 @@ const SERIALIZERS: Record<VariantTag, Serializer> = {
   Jis208: Kuten.serialize,
   Jis212: Kuten.serialize,
   Jis213: Kuten.serialize,
-  Unicode: serializeUnicode,
+  Unicode: Unicode.serialize,
   Halpern: serializeUint,
   Nelson: serializeUint,
   DeRoo: DeRoo.serialize,
@@ -247,5 +246,5 @@ function isVariantUint(value: Sum): value is Variant_Uint {
 }
 
 function isVariantUnicode(value: Sum): value is Variant_Unicode {
-  return isUnicode(value.content);
+  return Unicode.check(value.content);
 }

@@ -2,8 +2,7 @@ import { Kuten } from "./kuten";
 import { isSum, isTypeFromTagged } from "../shared";
 import type { Checker, Sum } from "../shared";
 import { isUint } from "./uint";
-import { serializeUnicode } from "./unicode";
-import type { Unicode } from "./unicode";
+import { Unicode } from "./unicode";
 
 export namespace Codepoint {
   /**
@@ -60,7 +59,7 @@ export namespace Codepoint {
     /**
      * The codepoint.
      */
-    content: Unicode;
+    content: Unicode.Unicode;
   }
 
   /**
@@ -96,6 +95,6 @@ export namespace Codepoint {
     Jis208: Kuten.serialize,
     Jis212: Kuten.serialize,
     Jis213: Kuten.serialize,
-    Unicode: serializeUnicode,
+    Unicode: Unicode.serialize,
   };
 }
