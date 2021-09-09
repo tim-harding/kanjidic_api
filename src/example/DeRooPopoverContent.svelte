@@ -3,7 +3,7 @@
 
 	import Url from "./Url.svelte";
 
-	export let deRoo: DeRoo;
+	export let deRoo: DeRoo.DeRoo;
 </script>
 
 <p>

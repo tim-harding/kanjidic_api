@@ -1,5 +1,4 @@
-import { isDeRoo, serializeDeRoo } from "./de_roo"
-import type { DeRoo } from "./de_roo"
+import { DeRoo } from "./de_roo"
 import { isFourCorner, serializeFourCorner } from "./four_corner"
 import type { FourCorner } from "./four_corner"
 import { isMisclassification, serializeMisclassification } from "./misclassification"
@@ -56,7 +55,7 @@ export interface QueryCode_Misclassification {
 
 export interface QueryCode_DeRoo {
 	tag: DeRooTag,
-	content: DeRoo,
+	content: DeRoo.DeRoo,
 }
 
 /**
@@ -99,13 +98,13 @@ function isQueryCodeMisclassification(value: Sum): value is QueryCode_Misclassif
 }
 
 function isQueryCodeDeRoo(value: Sum): value is QueryCode_DeRoo {
-	return isDeRoo(value.content)
+	return DeRoo.check(value.content)
 }
 
 export function serializeQueryCode(code: QueryCode): string {
 	switch (code.tag) {
 		case "DeRoo": {
-			return serializeDeRoo(code.content)
+			return DeRoo.serialize(code.content)
 		}
 		case "FourCorner": {
 			return serializeFourCorner(code.content)
