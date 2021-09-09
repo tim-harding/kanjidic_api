@@ -1,23 +1,22 @@
 {
-  "name": "kanjidic_api",
+  "name": "svelte-vite-template",
   "version": "0.0.0",
+  "type": "module",
   "scripts": {
-    "dev": "vite -c vite.lib.config.js",
-    "buildLib": "tsc && vite build -c vite.lib.config.js",
-    "buildExample": "vite build -c vite.example.config.js",
-    "check": "svelte-check --tsconfig ./tsconfig.json",
-    "tsc": "tsc --version && tsc --noEmit"
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview",
+    "check": "svelte-check --tsconfig ./tsconfig.json"
   },
   "devDependencies": {
-    "@sveltejs/vite-plugin-svelte": "^1.0.0-next.21",
-    "@tsconfig/svelte": "^2.0.0",
+    "@sveltejs/vite-plugin-svelte": "^1.0.0-next.11",
+    "@tsconfig/svelte": "^2.0.1",
     "sass": "^1.39.0",
-    "svelte": "^3.42.4",
-    "svelte-check": "^2.0.0",
-    "svelte-preprocess": "^4.0.0",
-    "typescript": "^4.4.0",
-    "vite": "^2.4.4",
-    "@rollup/plugin-typescript": "^8.0.0",
-    "tslib": "^2.0.0"
+    "svelte": "^3.37.0",
+    "svelte-check": "^2.1.0",
+    "svelte-preprocess": "^4.7.2",
+    "tslib": "^2.2.0",
+    "typescript": "^4.3.2",
+    "vite": "^2.5.4"
   }
 }

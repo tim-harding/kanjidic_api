@@ -1,6 +1,7 @@
 import { urlFromKanjiAccess } from "./kanji_access"
 import type { KanjiAccess } from "./kanji_access"
-import { Kanji, isCharacter } from "./kanji"
+import { isCharacter } from "./kanji"
+import type { Kanji } from "./kanji"
 import { hasArrayProperty, isObject, query } from "./shared"
 
 export interface TranslationResponse {
