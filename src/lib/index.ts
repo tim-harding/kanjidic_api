@@ -1,2 +1,2 @@
-export * as access from "./access"
-export * as types from "./types"
+export * from "./access"
+export * from "./types"
