@@ -19,7 +19,7 @@ export namespace Literals {
     template: KanjiEndpoint.Template,
     literals: string
   ): Promise<Response | Error> {
-    return await queryWithChecker(template, literals, isResponse);
+    return await queryWithChecker(template, literals, checkResponse);
   }
 
   export async function queryUnchecked(
@@ -29,7 +29,7 @@ export namespace Literals {
     return await queryWithChecker(template, literals, noopChecker);
   }
 
-  function isResponse(value: unknown): value is Response {
+  function checkResponse(value: unknown): value is Response {
     return (
       isObject(value) &&
       hasOptionalArrayProperty(value, "errors", isString) &&

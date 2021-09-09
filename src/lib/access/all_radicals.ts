@@ -19,7 +19,7 @@ export namespace AllRadicals {
   export async function queryChecked(
     endpointBase: string
   ): Promise<Response | Error> {
-    return await queryWithChecker(endpointBase, isResponse);
+    return await queryWithChecker(endpointBase, checkResponse);
   }
 
   export async function queryUnchecked(
@@ -28,7 +28,7 @@ export namespace AllRadicals {
     return await queryWithChecker(endpointBase, noopChecker);
   }
 
-  function isRadical(value: unknown): value is Radical {
+  function checkRadical(value: unknown): value is Radical {
     return (
       isObject(value) &&
       hasUintProperty(value, "strokes") &&
@@ -40,8 +40,8 @@ export namespace AllRadicals {
     return true;
   }
 
-  function isResponse(value: unknown): value is Response {
-    return isArrayOf(value, isRadical);
+  function checkResponse(value: unknown): value is Response {
+    return isArrayOf(value, checkRadical);
   }
 
   async function queryWithChecker(

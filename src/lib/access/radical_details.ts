@@ -37,7 +37,7 @@ export namespace RadicalDetails {
   export async function queryUnchecked(
     template: Template
   ): Promise<Response | Error> {
-		return await queryWithChecker(template, isResponse)
+		return await queryWithChecker(template, checkResponse)
   }
 	
 	function noopChecker(_: unknown): _ is Response {
@@ -61,15 +61,15 @@ export namespace RadicalDetails {
     return url;
   }
 
-  function isResponse(value: unknown): value is Response {
+  function checkResponse(value: unknown): value is Response {
     return (
       isObject(value) &&
       hasOptionalArrayProperty(value, "errors", isString) &&
-      hasArrayProperty(value, "radicals", isRadical)
+      hasArrayProperty(value, "radicals", checkRadical)
     );
   }
 
-  function isRadical(value: unknown): value is Radical {
+  function checkRadical(value: unknown): value is Radical {
     return (
       isObject(value) &&
       hasStringProperty(value, "literal") &&

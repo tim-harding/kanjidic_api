@@ -20,7 +20,7 @@ export namespace Decomposition {
     template: KanjiEndpoint.Template,
     radicals: string
   ): Promise<Response | Error> {
-    return await queryWithChecker(template, radicals, isResponse);
+    return await queryWithChecker(template, radicals, checkResponse);
   }
 
   export async function queryUnchecked(
@@ -30,7 +30,7 @@ export namespace Decomposition {
     return await queryWithChecker(template, radicals, noopChecker);
   }
 
-  function isResponse(value: unknown): value is Response {
+  function checkResponse(value: unknown): value is Response {
     return (
       isObject(value) &&
       hasOptionalArrayProperty(value, "errors", isString) &&

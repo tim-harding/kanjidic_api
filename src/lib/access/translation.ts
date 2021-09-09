@@ -12,7 +12,7 @@ export namespace Translation {
     template: KanjiEndpoint.Template,
     translation: string
   ): Promise<Response | Error> {
-    return await queryWithChecker(template, translation, isResponse);
+    return await queryWithChecker(template, translation, checkResponse);
   }
 
   export async function queryUnchecked(
@@ -22,7 +22,7 @@ export namespace Translation {
     return await queryWithChecker(template, translation, noopChecker);
   }
 
-  function isResponse(value: unknown): value is Response {
+  function checkResponse(value: unknown): value is Response {
     return isObject(value) && hasArrayProperty(value, "kanji", isCharacter);
   }
 
