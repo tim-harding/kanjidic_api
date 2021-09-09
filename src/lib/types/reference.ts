@@ -1,6 +1,5 @@
 import { BusyPeople } from "./busy_people"
-import { isMoro } from "./moro"
-import type { Moro } from "./moro"
+import { Moro } from "./moro"
 import { isOneill } from "./oneill"
 import type { Oneill } from "./oneill"
 import { isSum, isTypeFromTagged } from "../shared"
@@ -35,7 +34,7 @@ export interface Reference_Moro {
 	/**
 	 * The reference
 	 */
-	content: Moro
+	content: Moro.Moro
 }
 
 /**
@@ -291,7 +290,7 @@ function isReferenceUint(value: Sum): value is Reference_Uint {
 }
 
 function isReferenceMoro(value: Sum): value is Reference_Moro {
-	return isMoro(value.content)
+	return Moro.check(value.content)
 }
 
 function isReferenceOneill(value: Sum): value is Reference_OneillNames {
