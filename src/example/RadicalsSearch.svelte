@@ -22,7 +22,7 @@
   let isInitialized = false;
   let error: Error | undefined = undefined;
   let validNext: Record<string, boolean> = {};
-  let kanjis: Kanji[] = [];
+  let kanjis: Kanji.Kanji[] = [];
   let groups: Group[] = [];
 
   let isValidNextUpdateOngoing = false;

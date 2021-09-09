@@ -1,5 +1,4 @@
-import { isCharacter } from "../types/kanji";
-import type { Kanji } from "../types/kanji";
+import { Kanji } from "../types/kanji";
 import { KanjiEndpoint } from "./kanji_endpoint";
 import {
   hasArrayProperty,
@@ -13,7 +12,7 @@ export namespace Decomposition {
   export interface Response {
     errors?: string[];
     validNext: string[];
-    kanji: Kanji[];
+    kanji: Kanji.Kanji[];
   }
 
   export async function queryChecked(
@@ -34,7 +33,7 @@ export namespace Decomposition {
     return (
       isObject(value) &&
       hasOptionalArrayProperty(value, "errors", isString) &&
-      hasArrayProperty(value, "kanji", isCharacter) &&
+      hasArrayProperty(value, "kanji", Kanji.check) &&
       hasArrayProperty(value, "validNext", isString)
     );
   }

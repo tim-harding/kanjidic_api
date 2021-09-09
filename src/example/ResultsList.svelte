@@ -3,7 +3,7 @@
 	import Kanji from "./Kanji.svelte";
 	import SectioningBox from "./SectioningBox.svelte";
 
-	export let kanjis: KanjiType[];
+	export let kanjis: KanjiType.Kanji[];
 </script>
 
 {#if kanjis.length > 0}

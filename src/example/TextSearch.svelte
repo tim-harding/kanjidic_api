@@ -8,7 +8,7 @@
   import SectioningBox from "./SectioningBox.svelte";
   import { kanjiEndpoint } from "./shared";
 
-  let results: Kanji[] = [];
+  let results: Kanji.Kanji[] = [];
   let error: string | undefined;
 
   let updatePending = false;

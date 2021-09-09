@@ -23,106 +23,108 @@ import type { Uint } from "./uint";
 import { isVariant } from "./variant";
 import type { Variant } from "./variant";
 
-/**
- * Information about a kanji.
- */
-export interface Kanji {
+export namespace Kanji {
   /**
-   * The character itself.
+   * Information about a kanji.
    */
-  literal: string;
+  export interface Kanji {
+    /**
+     * The character itself.
+     */
+    literal: string;
 
-  /**
-   * Alternate encodings for the character.
-   */
-  codepoints?: Array<Codepoint.Codepoint>;
+    /**
+     * Alternate encodings for the character.
+     */
+    codepoints?: Array<Codepoint.Codepoint>;
 
-  /**
-   * Alternate classifications for the character by radical.
-   */
-  radicals?: Array<KangxiRadical.KangxiRadical>;
+    /**
+     * Alternate classifications for the character by radical.
+     */
+    radicals?: Array<KangxiRadical.KangxiRadical>;
 
-  /**
-   * The kanji grade level.
-   */
-  grade?: Grade.Grade;
+    /**
+     * The kanji grade level.
+     */
+    grade?: Grade.Grade;
 
-  /**
-   * The stroke count of the character.
-   */
-  strokeCounts?: StrokeCount;
+    /**
+     * The stroke count of the character.
+     */
+    strokeCounts?: StrokeCount;
 
-  /**
-   * Cross-references to other characters or alternative indexings.
-   */
-  variants?: Array<Variant>;
+    /**
+     * Cross-references to other characters or alternative indexings.
+     */
+    variants?: Array<Variant>;
 
-  /**
-   * A ranking of how often the character appears in newspapers.
-   */
-  frequency?: Uint;
+    /**
+     * A ranking of how often the character appears in newspapers.
+     */
+    frequency?: Uint;
 
-  /**
-   * The kanji's name as a radical if it is one.
-   */
-  radicalNames?: Array<string>;
+    /**
+     * The kanji's name as a radical if it is one.
+     */
+    radicalNames?: Array<string>;
 
-  /**
-   * Old JLPT level of the kanji. Based on pre-2010 test levels
-   * that go up to four, not five.
-   */
-  jlpt?: Uint;
+    /**
+     * Old JLPT level of the kanji. Based on pre-2010 test levels
+     * that go up to four, not five.
+     */
+    jlpt?: Uint;
 
-  /**
-   * Indexes into dictionaries and other instructional books.
-   */
-  references?: Array<Reference>;
+    /**
+     * Indexes into dictionaries and other instructional books.
+     */
+    references?: Array<Reference>;
 
-  /**
-   * Codes used to identify the kanji.
-   */
-  queryCodes?: Array<QueryCode>;
+    /**
+     * Codes used to identify the kanji.
+     */
+    queryCodes?: Array<QueryCode>;
 
-  /**
-   * Different ways the kanji can be read.
-   */
-  readings?: Array<Reading>;
+    /**
+     * Different ways the kanji can be read.
+     */
+    readings?: Array<Reading>;
 
-  /**
-   * Translations of the kanji into different languages.
-   */
-  translations?: Translations;
+    /**
+     * Translations of the kanji into different languages.
+     */
+    translations?: Translations;
 
-  /**
-   * Japanese readings associated with names.
-   */
-  nanori?: Array<string>;
+    /**
+     * Japanese readings associated with names.
+     */
+    nanori?: Array<string>;
 
-  /**
-   * The constituent radicals in the kanji.
-   */
-  decomposition?: Array<string>;
-}
+    /**
+     * The constituent radicals in the kanji.
+     */
+    decomposition?: Array<string>;
+  }
 
-export function isCharacter(value: unknown): value is Kanji {
-  return (
-    isObject(value) &&
-    hasStringProperty(value, "literal") &&
-    hasOptionalArrayProperty(value, "codepoints", Codepoint.check) &&
-    hasOptionalArrayProperty(value, "radicals", KangxiRadical.check) &&
-    (!hasProperty(value, "grade") || Grade.check(value.grade)) &&
-    (!hasProperty(value, "strokeCounts") ||
-      isStrokeCount(value.strokeCounts)) &&
-    hasOptionalArrayProperty(value, "variants", isVariant) &&
-    hasOptionalUintProperty(value, "frequency") &&
-    hasOptionalArrayProperty(value, "radicalNames", isString) &&
-    hasOptionalUintProperty(value, "jlpt") &&
-    hasOptionalArrayProperty(value, "references", isReference) &&
-    hasOptionalArrayProperty(value, "queryCodes", isQueryCode) &&
-    hasOptionalArrayProperty(value, "readings", isReading) &&
-    (!hasProperty(value, "translations") ||
-      isTranslations(value.translations)) &&
-    hasOptionalArrayProperty(value, "nanori", isString) &&
-    hasOptionalArrayProperty(value, "decomposition", isString)
-  );
+  export function check(value: unknown): value is Kanji {
+    return (
+      isObject(value) &&
+      hasStringProperty(value, "literal") &&
+      hasOptionalArrayProperty(value, "codepoints", Codepoint.check) &&
+      hasOptionalArrayProperty(value, "radicals", KangxiRadical.check) &&
+      (!hasProperty(value, "grade") || Grade.check(value.grade)) &&
+      (!hasProperty(value, "strokeCounts") ||
+        isStrokeCount(value.strokeCounts)) &&
+      hasOptionalArrayProperty(value, "variants", isVariant) &&
+      hasOptionalUintProperty(value, "frequency") &&
+      hasOptionalArrayProperty(value, "radicalNames", isString) &&
+      hasOptionalUintProperty(value, "jlpt") &&
+      hasOptionalArrayProperty(value, "references", isReference) &&
+      hasOptionalArrayProperty(value, "queryCodes", isQueryCode) &&
+      hasOptionalArrayProperty(value, "readings", isReading) &&
+      (!hasProperty(value, "translations") ||
+        isTranslations(value.translations)) &&
+      hasOptionalArrayProperty(value, "nanori", isString) &&
+      hasOptionalArrayProperty(value, "decomposition", isString)
+    );
+  }
 }

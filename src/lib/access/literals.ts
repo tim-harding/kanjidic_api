@@ -1,5 +1,4 @@
-import { isCharacter } from "../types/kanji";
-import type { Kanji } from "../types/kanji";
+import { Kanji } from "../types/kanji";
 import { KanjiEndpoint } from "./kanji_endpoint";
 import {
   hasArrayProperty,
@@ -11,8 +10,8 @@ import {
 
 export namespace Literals {
   export interface Response {
-    errors?: Array<string>;
-    kanji: Array<Kanji>;
+    errors?: string[];
+    kanji: Kanji.Kanji[];
   }
 
   export async function queryChecked(
@@ -33,7 +32,7 @@ export namespace Literals {
     return (
       isObject(value) &&
       hasOptionalArrayProperty(value, "errors", isString) &&
-      hasArrayProperty(value, "kanji", isCharacter)
+      hasArrayProperty(value, "kanji", Kanji.check)
     );
   }
 

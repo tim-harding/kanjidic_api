@@ -16,7 +16,7 @@
 	import Nanori from "./Nanori.svelte";
 	import Decomposition from "./Decomposition.svelte";
 
-	export let kanji: Kanji;
+	export let kanji: Kanji.Kanji;
 </script>
 
 <details class="root">

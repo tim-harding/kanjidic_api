@@ -3,7 +3,7 @@
 	import type { Kanji as KanjiType } from "../lib/types/kanji";
 
 	// Todo: pick something that tests all possible paths
-	export const testKanji: KanjiType = {
+	export const testKanji: KanjiType.Kanji = {
 		literal: "亜",
 		codepoints: [
 			{

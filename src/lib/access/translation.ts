@@ -1,11 +1,10 @@
 import { KanjiEndpoint } from "./kanji_endpoint";
-import { isCharacter } from "../types/kanji";
-import type { Kanji } from "../types/kanji";
+import { Kanji } from "../types/kanji";
 import { hasArrayProperty, isObject, query } from "../shared";
 
 export namespace Translation {
   export interface Response {
-    kanji: Kanji[];
+    kanji: Kanji.Kanji[];
   }
 
   export async function queryChecked(
@@ -23,7 +22,7 @@ export namespace Translation {
   }
 
   function checkResponse(value: unknown): value is Response {
-    return isObject(value) && hasArrayProperty(value, "kanji", isCharacter);
+    return isObject(value) && hasArrayProperty(value, "kanji", Kanji.check);
   }
 
   function noopChecker(_: unknown): _ is Response {
