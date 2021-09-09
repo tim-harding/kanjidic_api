@@ -2,7 +2,7 @@
 	import type { ShDesc } from "../lib/types/sh_desc";
 	import Url from "./Url.svelte";
 
-	export let shDesc: ShDesc;
+	export let shDesc: ShDesc.ShDesc;
 </script>
 
 <p>
