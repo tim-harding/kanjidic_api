@@ -14,8 +14,7 @@ import {
   isObject,
   isString,
 } from "../shared";
-import { isStrokeCount } from "./stroke_count";
-import type { StrokeCount } from "./stroke_count";
+import { StrokeCount } from "./stroke_count";
 import { isTranslations } from "./translations";
 import type { Translations } from "./translations";
 import type { Uint } from "./uint";
@@ -50,7 +49,7 @@ export namespace Kanji {
     /**
      * The stroke count of the character.
      */
-    strokeCounts?: StrokeCount;
+    strokeCounts?: StrokeCount.StrokeCount;
 
     /**
      * Cross-references to other characters or alternative indexings.
@@ -112,7 +111,7 @@ export namespace Kanji {
       hasOptionalArrayProperty(value, "radicals", KangxiRadical.check) &&
       (!hasProperty(value, "grade") || Grade.check(value.grade)) &&
       (!hasProperty(value, "strokeCounts") ||
-        isStrokeCount(value.strokeCounts)) &&
+        StrokeCount.check(value.strokeCounts)) &&
       hasOptionalArrayProperty(value, "variants", isVariant) &&
       hasOptionalUintProperty(value, "frequency") &&
       hasOptionalArrayProperty(value, "radicalNames", isString) &&

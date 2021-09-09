@@ -2,7 +2,7 @@
 	import type { StrokeCount } from "../lib/types/stroke_count";
 	import Popover from "./Popover.svelte";
 
-	export let strokeCounts: StrokeCount;
+	export let strokeCounts: StrokeCount.StrokeCount;
 </script>
 
 <div class="root text-line">
