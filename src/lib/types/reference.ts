@@ -1,5 +1,4 @@
-import { isBusyPeople } from "./busy_people"
-import type { BusyPeople } from "./busy_people"
+import { BusyPeople } from "./busy_people"
 import { isMoro } from "./moro"
 import type { Moro } from "./moro"
 import { isOneill } from "./oneill"
@@ -21,7 +20,7 @@ export interface Reference_BusyPeople {
 	/**
 	 * The reference
 	 */
-	content: BusyPeople
+	content: BusyPeople.BusyPeople
 }
 
 /**
@@ -300,7 +299,7 @@ function isReferenceOneill(value: Sum): value is Reference_OneillNames {
 }
 
 function isReferenceBusyPeople(value: Sum): value is Reference_BusyPeople {
-	return isBusyPeople(value.content)
+	return BusyPeople.check(value.content)
 }
 
 interface ReferenceInformation {

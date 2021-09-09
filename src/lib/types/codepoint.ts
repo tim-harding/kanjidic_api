@@ -80,11 +80,11 @@ const CHECKERS: Record<CodepointTag, Checker<Sum, Codepoint>> = {
 	"Unicode": isCodepointUnicode,
 }
 
-export function isCodepointJis(value: Sum): value is Codepoint_Jis {
+function isCodepointJis(value: Sum): value is Codepoint_Jis {
 	return isKuten(value.content)
 }
 
-export function isCodepointUnicode(value: Sum): value is Codepoint_Unicode {
+function isCodepointUnicode(value: Sum): value is Codepoint_Unicode {
 	return isUint(value.content)
 }
 
