@@ -1,5 +1,5 @@
 <script lang="ts">
-  import RadicalsSelector from "./RadicalsSearch.svelte";
+  import RadicalsSearch from "./RadicalsSearch.svelte";
   import TranslationSearch from "./TextSearch.svelte";
   import Url from "./Url.svelte";
 
@@ -25,7 +25,7 @@
   </header>
   <main class="main">
     {#if searchMethod === "radicals"}
-      <RadicalsSelector />
+      <RadicalsSearch />
     {:else}
       <TranslationSearch />
     {/if}

@@ -137,21 +137,23 @@
       <div>Loading radicals&#8230;</div>
     {:else}
       <form on:submit|preventDefault={() => {}} class="form">
-        <fieldset class="fieldset">
-          <legend>Select radicals to find a matching kanji.</legend>
-          <ol class="list">
-            <li>
-              <button on:click={reset} class="reset">
-                <span class="hidden">Reset selection</span>
-                <span class="material-icons-outlined">replay</span>
-              </button>
-            </li>
-            {#each groups as group (group.strokes)}
-              <li class="item">
-                <RadicalGroup bind:group {validNext} />
+        <fieldset>
+          <div class="fieldset">
+            <legend>Select radicals to find a matching kanji.</legend>
+            <ol class="list">
+              <li>
+                <button on:click={reset} class="reset">
+                  <span class="hidden">Reset selection</span>
+                  <span class="material-icons-outlined">replay</span>
+                </button>
               </li>
-            {/each}
-          </ol>
+              {#each groups as group (group.strokes)}
+                <li class="item">
+                  <RadicalGroup bind:group {validNext} />
+                </li>
+              {/each}
+            </ol>
+          </div>
         </fieldset>
       </form>
     {/if}
@@ -200,6 +202,7 @@
   .fieldset {
     grid-template-rows: 1rem 1fr;
     justify-content: center;
+    gap: 0.75rem;
   }
 
   .item {

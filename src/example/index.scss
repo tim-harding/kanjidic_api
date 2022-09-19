@@ -62,7 +62,8 @@ em {
   font-style: italic;
 }
 
-strong, dd {
+strong,
+dd {
   font-weight: 700;
 }
 
@@ -145,8 +146,4 @@ strong, dd {
 
 .passthrough {
   display: contents;
-}
-
-dt::after {
-  // content: ":";
 }
