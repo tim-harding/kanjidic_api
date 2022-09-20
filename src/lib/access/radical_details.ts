@@ -31,18 +31,18 @@ export namespace RadicalDetails {
   export async function queryChecked(
     template: Template
   ): Promise<Response | Error> {
-		return await queryWithChecker(template, noopChecker)
+    return await queryWithChecker(template, noopChecker);
   }
 
   export async function queryUnchecked(
     template: Template
   ): Promise<Response | Error> {
-		return await queryWithChecker(template, checkResponse)
+    return await queryWithChecker(template, checkResponse);
   }
-	
-	function noopChecker(_: unknown): _ is Response {
-		return true
-	}
+
+  function noopChecker(_: unknown): _ is Response {
+    return true;
+  }
 
   async function queryWithChecker(
     template: Template,
@@ -54,7 +54,7 @@ export namespace RadicalDetails {
   }
 
   function urlFromTemplate(template: Template): URL {
-    const url = new URL(`/radicals/literals`, template.endpointBase);
+    const url = new URL(`radicals/literals`, template.endpointBase);
     for (const field of template.desiredFields) {
       url.searchParams.append("field", field);
     }

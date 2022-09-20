@@ -1,0 +1,13 @@
+services:
+  kanjidic_example:
+    image: kanjidic_example
+    networks:
+      - shared
+    ports:
+      - "80:80"
+  kanjidic_server:
+    image: kanjidic_server
+    networks:
+      - shared
+networks:
+  shared:

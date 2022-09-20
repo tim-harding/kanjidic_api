@@ -48,7 +48,9 @@ export namespace AllRadicals {
     endpointBase: string,
     checker: { (json: unknown): json is Response }
   ): Promise<Response | Error> {
-    const url = new URL("/radicals/all", endpointBase);
+    const url = new URL("radicals/all", endpointBase);
+    console.log(url);
+
     const json = await query(url, checker);
     return json;
   }

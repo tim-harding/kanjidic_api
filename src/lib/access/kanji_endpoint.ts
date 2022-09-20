@@ -30,7 +30,7 @@ export namespace KanjiEndpoint {
       endpointBase,
       desiredFields: { fields, languages },
     } = template;
-    const url = new URL(`/kanji/${route}`, endpointBase);
+    const url = new URL(`kanji/${route}`, endpointBase);
     switch (fields) {
       case "all": {
         url.searchParams.append("field", "all");
